@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Leedz</title>
+  <link rel="stylesheet" href="css/globals.css" />
+  <link rel="stylesheet" href="css/leedz_layout.css" />
+</head>
+<body class="leedz-sidebar">
+
+  <header class="leedz-header">
+    <img src="../icons/logo_black.png" alt="The Leedz" class="leedz-logo"/>
+    <img src="../icons/hamburger.png" alt="Menu" class="leedz-hamburger"/>
+  </header>
+
+  <main class="leedz-form-section">
+    <button class="leedz-button">Friend Chooser</button>
+
+    <label for="name">Name</label>
+    <input type="text" id="name" placeholder="Enter name or company"/>
+
+    <label for="phone">Phone</label>
+    <input type="tel" id="phone" placeholder="e.g. 323-555-1212"/>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="example@email.com"/>
+
+    <label for="date">Event Date</label>
+    <input type="date" id="date"/>
+
+    <label for="time">Start Time</label>
+    <input type="time" id="time"/>
+
+    <label for="location">Location</label>
+    <input type="text" id="location" placeholder="Street, City, ZIP"/>
+
+    <label for="notes">Event Notes / Requirements</label>
+    <textarea id="notes" placeholder="e.g. Corporate party, bring lighting..."></textarea>
+
+    <button class="leedz-button">Price Chooser</button>
+  </main>
+
+  <footer class="leedz-footer">
+    <div class="grass-overlay"></div>
+    <div class="leedz-footer-content">
+        <ul class="leedz-footer-links">
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </div>
+</footer>
+
+
+  <script src="../js/sidebar.js"></script>
+</body>
+</html>
