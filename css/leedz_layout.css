@@ -88,106 +88,48 @@ html, body {
 /* Footer */
 .leedz-footer {
   position: relative;
-
-  height: 25vh;
+  background: var(--LEEDZ_GREEN);
   width: 100%;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
-.leedz-footer-content {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: var(--LEEDZ_GREEN);
-  padding: 20px 0;
-  z-index: 1;
-}
-
-
-
-.grass-overlay {
-  position: absolute;
-  top: -20px;  /* Adjust this value to position the grass image */
-  left: 0;
-  width: 100%;
-  height: 30px;  /* Adjust based on your grass.png height */
-  background-image: url('../icons/grass.png');
-  background-repeat: repeat-x;
-  background-color: transparent;
-  z-index: 2;
-}
-
-
-.leedz-grass {
-  position: absolute;
-  top: 0;  /* key fix: pin to top */
-  left: 0;
-  width: auto;
-  height: auto;
-  max-width: none;
-  max-height: none;
-  z-index: 1;
-}
-
-
-/* Footer */
-.leedz-footer {
-  position: relative;
-  height: 120px;  /* Reduced from 25vh to fix the gap */
-  width: 100%;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
-.leedz-footer-content {
-  position: absolute;  /* Changed from fixed to absolute */
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: var(--LEEDZ_GREEN);
-  padding: 30px;
-  z-index: 1;
+  overflow: visible;
+  min-height: 100px;
+  padding-top: 0;
 }
 
 .leedz-grass {
   position: absolute;
-  bottom: 100px;  /* Changed from top:0 to align with footer */
+  top: -60px;
   left: 0;
   width: 100%;
   height: auto;
   z-index: 2;
-  background-color: transparent; /* Add this to ensure transparency */
-  object-fit: contain; /* Ensure the image maintains its aspect ratio */
-  display: block; /* Remove any default inline behavior */
+  display: block;
 }
 
-/* Restore the footer links styling */
 .leedz-footer-links {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  list-style: none;
-  padding: 0;
+  position: relative;
+  z-index: 2;
   margin: 0;
-  z-index: 3;
-}
-
-.leedz-footer-links a {
-  text-decoration: none;
-  color: white;
+  padding: 30px 20px 20px 30px;
+  list-style: none;
+  text-align: left;
 }
 
 .leedz-footer-links li {
+  color: white;
   font-size: 18px;
   font-weight: 600;
-  color: white;
-  
-  padding:10px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
 }
 
 .leedz-footer-links li::before {
   content: "•";
   margin-right: 8px;
+  display: inline-block;
+}
+
+.leedz-footer-links a {
+  color: white;
+  text-decoration: none;
 }
