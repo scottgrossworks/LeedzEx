@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The Leedz</title>
   <link rel="stylesheet" href="css/globals.css" />
+
   <link rel="stylesheet" href="css/leedz_layout.css" />
 </head>
 <body class="leedz-sidebar">
 
   <header class="leedz-header">
-    <img src="../icons/logo_black.png" alt="The Leedz" class="leedz-logo"/>
-    <img src="../icons/hamburger.png" alt="Menu" class="leedz-hamburger"/>
+    <img src="icons/logo_black.png" alt="The Leedz" class="leedz-logo"/>
+    <img src="icons/hamburger.png" alt="Menu" class="leedz-hamburger"/>
   </header>
 
   <main class="leedz-form-section">
@@ -21,10 +22,16 @@
     <input type="text" id="name" placeholder="Enter name or company"/>
 
     <label for="phone">Phone</label>
-    <input type="tel" id="phone" placeholder="e.g. 323-555-1212"/>
-
+    <div class="input-wrapper">
+      <input type="tel" id="phone" placeholder="e.g. 323-555-1212"/>
+      <img src="icons/arrows_black.png" alt="arrow" class="input-arrow"/>
+    </div>
+    
     <label for="email">Email</label>
-    <input type="email" id="email" placeholder="example@email.com"/>
+    <div class="input-wrapper">
+      <input type="email" id="email" placeholder="example@email.com"/>
+      <img src="icons/arrows_black.png" alt="arrow" class="input-arrow"/>
+    </div>
 
     <label for="date">Event Date</label>
     <input type="date" id="date"/>
@@ -49,6 +56,6 @@
     </ul>
   </footer>
 
-  <script src="../js/sidebar.js"></script>
+  <script src="js/sidebar.js"></script>
 </body>
 </html>
