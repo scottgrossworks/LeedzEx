@@ -57,6 +57,18 @@ document.querySelectorAll('.input-arrow').forEach(arrow => {
 
 
 
+// Track the active sidebar input (via click or focus)
+
+document.querySelectorAll(".sidebar-input").forEach(input => {
+  input.addEventListener("focus", () => {
+    let activeField = input.id; // e.g., 'email' or 'phone'
+    console.log("[LeedzEx] Active field:", activeField);
+  });
+});
+
+
+
+
 
 
 
@@ -86,7 +98,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
       console.log("[LeedzEx] Extracted Emails:", EMAIL_ARRAY);
       console.log("[LeedzEx] Extracted Phones:", PHONE_ARRAY);
-      console.log("[LeedzEx] Redacted Blob:", blob);
+      // console.log("[LeedzEx] Redacted Blob:", blob);
 
       // Initialize inputs with first values from arrays
       // show or hide arrows accordingly

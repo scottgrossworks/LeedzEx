@@ -164,6 +164,15 @@ label[for="email"] {
   width: 100%;
 }
 
+.sidebar-input {
+  transition: all 0.2s ease;
+}
+
+.sidebar-input:focus {
+  outline: 2px solid var(--LEEDZ_GREEN);
+  background-color: var(--LEEDZ_GRAY);
+}
+
 .input-arrow {
   position: absolute;
   right: 10px;
