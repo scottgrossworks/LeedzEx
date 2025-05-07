@@ -18,7 +18,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     sendResponse(responseData); // end back directly
     return true; // Keep message channel open
+
   } else {
-    console.log("content.js > No match for message type.");
+    console.error("[LeedzEx] content.js > Message received unknown type: ", message.type);
   }
 });

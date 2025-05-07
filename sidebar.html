@@ -7,6 +7,11 @@
   <link rel="stylesheet" href="css/globals.css" />
 
   <link rel="stylesheet" href="css/leedz_layout.css" />
+
+
+    <!-- ...existing code... -->
+    <script type="module" src="js/sidebar.js"></script>
+
 </head>
 <body class="leedz-sidebar">
 
@@ -21,28 +26,28 @@
     <label for="name">Name</label>
     <input type="text" id="name" placeholder="Enter name or company"/>
 
-    <label for="phone">Phone</label>
-    <div class="input-wrapper">
-      <input type="tel" id="phone" placeholder="e.g. 323-555-1212"/>
-      <img src="icons/arrows_black.png" alt="arrow" class="input-arrow"/>
-    </div>
-    
-    <label for="email">Email</label>
-    <div class="input-wrapper">
-      <input type="email" id="email" placeholder="example@email.com"/>
-      <img src="icons/arrows_black.png" alt="arrow" class="input-arrow"/>
-    </div>
-
     <label for="date">Event Date</label>
     <input type="date" id="date"/>
 
     <label for="time">Start Time</label>
     <input type="time" id="time"/>
 
-    <label for="location">Location</label>
+    <label for="location">Location</label> <!-- green -->
     <input type="text" id="location" placeholder="Street, City, ZIP"/>
 
-    <label for="notes">Event Notes / Requirements</label>
+    <label for="phone">Phone</label> <!-- green -->
+    <div class="input-wrapper">
+      <input type="tel" id="phone" placeholder="e.g. 323-555-1212"/>
+      <img src="icons/arrows_black.png" alt="arrow" class="input-arrow"/>
+    </div>
+    
+    <label for="email">Email</label> <!-- green -->
+    <div class="input-wrapper">
+      <input type="email" id="email" placeholder="example@email.com"/>
+      <img src="icons/arrows_black.png" alt="arrow" class="input-arrow"/>
+    </div>
+
+    <label for="notes">Notes / Requirements</label>
     <textarea id="notes" placeholder="e.g. Corporate party, bring lighting..."></textarea>
 
     <button class="leedz-button">Price Chooser</button>
@@ -56,6 +61,5 @@
     </ul>
   </footer>
 
-  <script src="js/sidebar.js"></script>
 </body>
 </html>

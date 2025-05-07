@@ -66,6 +66,13 @@ html, body {
   font-weight: 500;
 }
 
+label[for="location"],
+label[for="phone"],
+label[for="email"] {
+  color: darkgreen;
+  font-weight:600;
+}
+
 .leedz-form-section input,
 .leedz-form-section textarea {
   width: 100%;
