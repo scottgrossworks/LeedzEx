@@ -175,5 +175,5 @@ label[for="email"] {
 }
 
 .input-arrow:hover {
-  opacity: 0.6;
+  opacity: 0.75 !important
 }

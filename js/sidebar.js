@@ -13,13 +13,26 @@ const PHONE_ARRAY = [];
 
 
 
-
+// update form input in sidebar with 1st array value
+//
 function updateInputWithArrayValue(inputId, array, index = 0) {
   const input = document.getElementById(inputId);
   if (array && array.length > 0) {
     input.value = array[index % array.length];
   }
+
+  // Show or hide the arrow based on the array length
+  const arrows = input.parentElement.querySelector('.input-arrow');
+  if (arrows) {
+    arrows.style.opacity = (array.length > 1) ? '0.4' : '0';
+  }  
 }
+
+
+
+
+
+
 
 
 
@@ -47,11 +60,8 @@ document.querySelectorAll('.input-arrow').forEach(arrow => {
 
 
 
-
-
 window.addEventListener("DOMContentLoaded", () => {
-  console.log("[LeedzEx] Sidebar loaded.");
-
+  
   // Ask background script to fetch DOM via content script
   chrome.runtime.sendMessage({ type: "leedz_request_dom" }, (response) => {
     if (chrome.runtime.lastError) {
@@ -71,17 +81,25 @@ window.addEventListener("DOMContentLoaded", () => {
 
       const blob = extractAndRedact(pruned, EMAIL_ARRAY, PHONE_ARRAY);
 
-      //console.log("[LeedzEx] Extracted Emails:", EMAIL_ARRAY);
-      //console.log("[LeedzEx] Extracted Phones:", PHONE_ARRAY);
-      //console.log("[LeedzEx] Redacted Blob:", blob);
+      // FIXME FIXME FIXME
+      // combine title + blob = pruned?
+
+      console.log("[LeedzEx] Extracted Emails:", EMAIL_ARRAY);
+      console.log("[LeedzEx] Extracted Phones:", PHONE_ARRAY);
+      console.log("[LeedzEx] Redacted Blob:", blob);
 
       // Initialize inputs with first values from arrays
+      // show or hide arrows accordingly
       updateInputWithArrayValue('email', EMAIL_ARRAY);
       updateInputWithArrayValue('phone', PHONE_ARRAY);
-      console.log("[LeedzEx] Sidebar updated with extracted data");
 
     } else {
       console.error("[LeedzEx] Unexpected response:", response);
     }
   });
 });
+
+
+
+
+
