@@ -32,23 +32,42 @@
     <label for="time">Start Time</label>
     <input type="time" class="sidebar-input" id="time"/>
 
-    <label for="location">Location</label> <!-- green -->
-    <input type="text" class="sidebar-input" id="location" placeholder="Street, City, ZIP"/>
 
-    <label for="phone">Phone</label> <!-- green -->
+
+    <!-- PAY TO VIEW BY DEFAULT --->
+    <label for="location">Location</label> 
+    <div class="input-wrapper">
+      <input type="text" class="sidebar-input" id="location" placeholder="Street, City, ZIP"/>
+      <img src="icons/arrows_black.png" alt="arrow" class="input-arrow"/>
+      <div id="vis-lc" class="visibility-icon" title="Toggle visibility location"></div>
+
+    </div>
+
+    <label for="phone">Phone</label>
     <div class="input-wrapper">
       <input type="tel" class="sidebar-input" id="phone" placeholder="e.g. 323-555-1212"/>
       <img src="icons/arrows_black.png" alt="arrow" class="input-arrow"/>
+      <div id="vis-ph" class="visibility-icon" title="Toggle visibility phone"></div>
     </div>
     
-    <label for="email">Email</label> <!-- green -->
+    <label for="email">Email</label> 
     <div class="input-wrapper">
       <input type="email" class="sidebar-input" id="email" placeholder="example@email.com"/>
       <img src="icons/arrows_black.png" alt="arrow" class="input-arrow"/>
+      <div id="vis-em" class="visibility-icon" title="Toggle visibility email"></div>
     </div>
 
+    <!-- END PAY TO VIEW --->
+
     <label for="notes">Notes / Requirements</label>
-    <textarea id="notes" class="sidebar-input" placeholder="e.g. Company party, bring lighting..."></textarea>
+    <div class="input-wrapper">
+      <textarea id="notes" class="sidebar-input" placeholder="e.g. Company party, bring lighting..."></textarea>
+      <div id="vis-nt" class="visibility-icon" title="Toggle visibility notes"></div>
+   
+    </div>
+
+
+
 
     <button class="leedz-button">Price Chooser</button>
   </main>

@@ -1,6 +1,10 @@
 import { extractAndRedact, pruneShortLines } from "./parser.js";
 import { processHighlight } from "./highlight.js";
 
+
+const hiddenIconPath = 'icons/hidden.svg';
+const visibleIconPath = 'icons/visible.svg';
+
 // Cache DOM elements and state
 // these fields should be copied into a fresh Leed object when the user
 // posts this leed
@@ -120,4 +124,41 @@ window.addEventListener("DOMContentLoaded", () => {
             });
         }
     });
+
+
+    // visibility icons for pay-to-view fields
+    //
+    const iconDivs = document.querySelectorAll(".visibility-icon");
+
+    iconDivs.forEach(iconDiv => {
+      // Load default hidden icon
+      loadSVGIcon(hiddenIconPath, iconDiv);
+      iconDiv.setAttribute('isHidden', 'true');
+      
+      iconDiv.addEventListener('click', () => {
+        let isHidden = iconDiv.getAttribute('isHidden');
+        setVisIcon( iconDiv, isHidden );
+        // FIXME FIXME FIXME
+        // additional logic here for toggling visibility
+      });
+    });
+
+
+
 });
+
+
+
+function loadSVGIcon(path, container) {
+  fetch(path)
+    .then(res => res.text())
+    .then(svg => {
+      container.innerHTML = svg;
+    });
+}
+
+
+
+export function setVisIcon( iconDiv, isHidden ) {
+  loadSVGIcon( isHidden ? hiddenIconPath : visibleIconPath, iconDiv);
+}
