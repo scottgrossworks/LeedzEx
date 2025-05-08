@@ -28,7 +28,7 @@
     
     background-color: var(--LEEDZ_GRAY);
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.2);  /* QUESTION */
 
     padding:20px;
     border-radius: 10px;

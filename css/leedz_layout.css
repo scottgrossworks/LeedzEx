@@ -52,10 +52,11 @@ html, body {
 
 /* Scrollable content section */
 .leedz-form-section {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px;
+ 
+  overflow-y: scroll;
+  padding: 12px 0px 0px 12px;
   width: 100%;
+
   box-sizing: border-box;
 }
 
@@ -90,9 +91,38 @@ label[for="email"] {
   min-height: 60px;
 }
 
+
+
+.chooser-wrapper {
+  display:block;
+  width:90%;
+  margin-left:auto;
+  margin-right:auto;
+  padding:5px;
+  background-color: var(--LEEDZ_GRAY);
+  border-radius:6px;
+}
+
+#friend-wrapper {
+  margin-top:10px;
+  box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.2);  
+}
+
+#price-wrapper {
+  margin-top:20px;
+  box-shadow: 0px -4px 10px 0px rgba(0,0,0,0.2);  
+} 
+
+
+
 /* Buttons */
 .leedz-button {
-  width: 100%;
+  display:flex;
+  margin: 0 auto;
+
+
+  width: 80%;
+
   padding: 10px;
   background-color: black;
   color: white;
@@ -100,13 +130,17 @@ label[for="email"] {
   font-weight: bold;
   border: none;
   border-radius: 4px;
-  margin-top: 18px;
   cursor: pointer;
 }
 
+
+
+
+
 /* Footer */
 .leedz-footer {
-  position: relative;
+  position: absolute;
+  bottom:0;
   background: var(--LEEDZ_GREEN);
   width: 100%;
   overflow: visible;
