@@ -13,6 +13,11 @@ function toggleSidebar () {
       pane.style.transform = 'translateX(100%)';
     });
     pane.addEventListener('transitionend', () => pane.remove(), { once: true });
+
+    // send message to content.html -- stop HIGHLIGHTER
+    chrome.runtime.sendMessage({ type: "leedz_close_sidebar" });
+
+
   } else {
     const iframe = document.createElement('iframe');
     iframe.id = "leedz-sidebar";
@@ -32,6 +37,10 @@ function toggleSidebar () {
 
     document.body.appendChild(iframe);
 
+    // send message to content.html -- ready to start HIGHLIGHTER
+    chrome.runtime.sendMessage({ type: "leedz_open_sidebar" });
+ 
+
     requestAnimationFrame(() => {
       iframe.style.transform = "translateX(0)";
     });
@@ -45,5 +54,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       chrome.tabs.sendMessage(tabId, { type: "leedz_request_dom" }, sendResponse);
     });
     return true; // Keep message channel open for async response
+  }
+});
+
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === "leedz_selection") {
+      // Forward selection to sidebar
+      chrome.runtime.sendMessage({
+          type: "leedz_update_selection",
+          selection: message.selection
+      });
   }
 });

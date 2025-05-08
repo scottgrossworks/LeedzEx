@@ -1,117 +1,123 @@
-
-//
-// Sidebar script for LeedzEx extension
-// This script runs in the context of the sidebar page and interacts with the background script
-// to fetch the DOM of the current tab and display it in the sidebar.
-//
-
 import { extractAndRedact, pruneShortLines } from "./parser.js";
+import { processHighlight } from "./highlight.js";
 
+// Cache DOM elements and state
+// these fields should be copied into a fresh Leed object when the user
+// posts this leed
+const STATE = {
+    friendsArray: [],
+    emailArray: [],
+    phoneArray: [],
+    price:0,
+    activeField: null,
+    lastSelection: "",
+    domElements: {
+        inputs: null,
+        arrows: null
+    }
+};
 
-const EMAIL_ARRAY = [];
-const PHONE_ARRAY = [];
-
-
-
-// update form input in sidebar with 1st array value
-//
-function updateInputWithArrayValue(inputId, array, index = 0) {
-  const input = document.getElementById(inputId);
-  if (array && array.length > 0) {
-    input.value = array[index % array.length];
-  }
-
-  // Show or hide the arrow based on the array length
-  const arrows = input.parentElement.querySelector('.input-arrow');
-  if (arrows) {
-    arrows.style.opacity = (array.length > 1) ? '0.4' : '0';
-  }  
+// Initialize DOM cache after load
+function initializeDOMCache() {
+    STATE.domElements.inputs = document.querySelectorAll('.sidebar-input');
+    STATE.domElements.arrows = document.querySelectorAll('.input-arrow');
 }
 
-
-
-
-
-
-
-
-
-// Set up click handlers for arrows after data is loaded
-document.querySelectorAll('.input-arrow').forEach(arrow => {
-  const wrapper = arrow.closest('.input-wrapper');
-  const input = wrapper.querySelector('input');
-  const arrayToUse = input.id === 'phone' ? PHONE_ARRAY : EMAIL_ARRAY;
-  let currentIndex = 0;
-
-  arrow.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % arrayToUse.length;
-    updateInputWithArrayValue(input.id, arrayToUse, currentIndex);
+// Unified input value updater
+function updateInputWithArrayValue(inputId, array, index = 0) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
     
-    // Handle rotation
-    const currentRotation = parseInt(arrow.getAttribute('data-rotation') || 0);
-    const newRotation = currentRotation + 90;
-    arrow.setAttribute('data-rotation', newRotation);
-    arrow.style.transform = `rotate(${newRotation}deg)`;
-  });
-});
-
-
-
-// Track the active sidebar input (via click or focus)
-
-document.querySelectorAll(".sidebar-input").forEach(input => {
-  input.addEventListener("focus", () => {
-    let activeField = input.id; // e.g., 'email' or 'phone'
-    console.log("[LeedzEx] Active field:", activeField);
-  });
-});
-
-
-
-
-
-
-
-window.addEventListener("DOMContentLoaded", () => {
-  
-  // Ask background script to fetch DOM via content script
-  chrome.runtime.sendMessage({ type: "leedz_request_dom" }, (response) => {
-    if (chrome.runtime.lastError) {
-      console.error("[LeedzEx] Send error:", chrome.runtime.lastError.message);
-      return;
+    if (array && array.length > 0) {
+        input.value = array[index % array.length];
+        const arrow = input.parentElement?.querySelector('.input-arrow');
+        if (arrow) {
+            arrow.style.opacity = (array.length > 1) ? '0.4' : '0';
+        }
     }
+}
 
-    // console.log("[LeedzEx] Received response:", response);
-
-    // from content.js
-    if (response && response.type === "leedz_dom_data") {
-      const { title, bodyText } = response;
-      console.log("[LeedzEx] Page Title:", title);
-
-      // send bodyText to parser
-      const pruned = pruneShortLines(bodyText, 5);
-
-      const blob = extractAndRedact(pruned, EMAIL_ARRAY, PHONE_ARRAY);
-
-      // FIXME FIXME FIXME
-      // combine title + blob = pruned?
-
-      console.log("[LeedzEx] Extracted Emails:", EMAIL_ARRAY);
-      console.log("[LeedzEx] Extracted Phones:", PHONE_ARRAY);
-      // console.log("[LeedzEx] Redacted Blob:", blob);
-
-      // Initialize inputs with first values from arrays
-      // show or hide arrows accordingly
-      updateInputWithArrayValue('email', EMAIL_ARRAY);
-      updateInputWithArrayValue('phone', PHONE_ARRAY);
-
+// Unified selection handler
+function handleTextSelection(selection, source = 'sidebar') {
+    if (!selection) return;
+    
+    if (STATE.activeField) {
+        processHighlight(selection, STATE.activeField);
     } else {
-      console.error("[LeedzEx] Unexpected response:", response);
+        STATE.lastSelection = selection;
     }
-  });
+    
+    console.log(`[LeedzEx] Selection from ${source}:`, selection);
+}
+
+// Setup event listeners
+function setupEventListeners() {
+    // Input field click handler
+    STATE.domElements.inputs.forEach(input => {
+        input.addEventListener("click", () => {
+            STATE.activeField = input.id;
+            if (STATE.lastSelection && !input.value) {
+                processHighlight(STATE.lastSelection, input.id);
+                STATE.lastSelection = "";
+            }
+        });
+    });
+
+    // Arrow click handler with rotation
+    STATE.domElements.arrows.forEach(arrow => {
+        let currentIndex = 0;
+        const input = arrow.closest('.input-wrapper')?.querySelector('input');
+        if (!input) return;
+
+        arrow.addEventListener('click', () => {
+            const array = input.id === 'phone' ? STATE.phoneArray : STATE.emailArray;
+            currentIndex = (currentIndex + 1) % array.length;
+            updateInputWithArrayValue(input.id, array, currentIndex);
+            
+            const newRotation = ((parseInt(arrow.getAttribute('data-rotation') || 0) + 90) % 360);
+            arrow.setAttribute('data-rotation', newRotation);
+            arrow.style.transform = `rotate(${newRotation}deg)`;
+        });
+    });
+
+    // Unified selection handler
+    document.addEventListener("mouseup", () => {
+        const selection = window.getSelection().toString().trim();
+        handleTextSelection(selection);
+    });
+}
+
+// Message handler
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === "leedz_update_selection") {
+        handleTextSelection(message.selection, 'content');
+    }
 });
 
+// Initialize on DOM load
+window.addEventListener("DOMContentLoaded", () => {
+    initializeDOMCache();
+    setupEventListeners();
+    
+    chrome.runtime.sendMessage({ type: "leedz_request_dom" }, (response) => {
+        if (chrome.runtime.lastError) {
+            console.error("[LeedzEx] Send error:", chrome.runtime.lastError.message);
+            return;
+        }
 
+        if (response?.type === "leedz_dom_data") {
+            const { title, bodyText } = response;
+            const pruned = pruneShortLines(bodyText, 5);
+            const blob = extractAndRedact(pruned, STATE.emailArray, STATE.phoneArray);
 
-
-
+            updateInputWithArrayValue('email', STATE.emailArray);
+            updateInputWithArrayValue('phone', STATE.phoneArray);
+            
+            console.log("[LeedzEx] Data processed:", {
+                title,
+                emailsFound: STATE.emailArray.length,
+                phonesFound: STATE.phoneArray.length
+            });
+        }
+    });
+});
