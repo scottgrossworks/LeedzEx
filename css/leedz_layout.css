@@ -14,12 +14,11 @@ html, body {
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  position: relative;
-  background-color: white;
-  box-sizing: border-box;
 
+  background-color: white;
 }
 
+/* shadow separates Leedz Ex from main page */
 .leedz-sidebar::before {
   content: "";
   position: absolute;
@@ -38,6 +37,7 @@ html, body {
   justify-content: space-between;
   padding: 18px;
   background-color: white;
+  border-top: 6px solid var(--LEEDZ_GREEN);
 }
 
 .leedz-logo {
@@ -52,13 +52,14 @@ html, body {
 
 /* Scrollable content section */
 .leedz-form-section {
- 
-  overflow-y: scroll;
-  padding: 12px 0px 0px 12px;
+  flex: 1 1 auto;     /* Grow to fill available space */
+  overflow-y: auto;   /* Scroll if content overflows */
+  min-height: 0;      /* Prevent flexbox overflow issues */
+  padding: 10px;
   width: 100%;
-
   box-sizing: border-box;
 }
+
 
 .leedz-form-section label {
   display: block;
@@ -69,7 +70,8 @@ html, body {
 
 label[for="location"],
 label[for="phone"],
-label[for="email"] {
+label[for="email"],
+label[for="notes"] {
   color: darkgreen;
   font-weight:600;
 }
@@ -109,11 +111,9 @@ label[for="email"] {
 }
 
 #price-wrapper {
-  margin-top:20px;
   box-shadow: 0px -4px 10px 0px rgba(0,0,0,0.2);  
-} 
-
-
+  margin-top: 10px; 
+}
 
 /* Buttons */
 .leedz-button {
@@ -138,31 +138,33 @@ label[for="email"] {
 
 
 /* Footer */
+/* Footer */
 .leedz-footer {
-  position: absolute;
-  bottom:0;
-  background: var(--LEEDZ_GREEN);
+  position: sticky;
+  bottom: 0;
   width: 100%;
-  overflow: visible;
-  min-height: 100px;
-  padding-top: 0;
+  background: var(--LEEDZ_GREEN);
+  min-height: 80px;
+  margin-top: auto; /* Pushes footer to bottom */
+  z-index: 10; /* Ensures footer stays above other content */
 }
+
 
 .leedz-grass {
   position: absolute;
-  top: -60px;
+  top: -50px;
   left: 0;
   width: 100%;
   height: auto;
-  z-index: 2;
+  z-index: 4;
   display: block;
 }
 
 .leedz-footer-links {
   position: relative;
-  z-index: 2;
+  z-index: 5;
   margin: 0;
-  padding: 30px 20px 20px 30px;
+  padding: 20px;
   list-style: none;
   text-align: left;
 }
@@ -192,13 +194,23 @@ label[for="email"] {
   display: flex;
   align-items: center;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .input-wrapper input,
 .input-wrapper textarea {
-
-    width: 92%;
+    width: 91%;
     left:0;
+    box-sizing: border-box;
+}
+
+.input-wrapper input[type="date"],
+.input-wrapper input[type="time"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 91%;
+    box-sizing: border-box;
 }
 
 .sidebar-input {
@@ -230,6 +242,7 @@ label[for="email"] {
 .visibility-icon {
   position:absolute;
  
+  padding:6px;
   margin-right:0;
   right:0px;
   width: 24px;
