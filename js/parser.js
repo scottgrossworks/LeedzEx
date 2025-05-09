@@ -8,6 +8,7 @@ const EMAIL_REGEX = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}/g;
 const MATCH_ALL = /^.+$/;
 
 const VALIDATORS = {
+    title: MATCH_ALL,
     phone: PHONE_REGEX,
     email: EMAIL_REGEX,
     name: MATCH_ALL,

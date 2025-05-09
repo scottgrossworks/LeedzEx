@@ -37,7 +37,7 @@ html, body {
   justify-content: space-between;
   padding: 18px;
   background-color: white;
-  border-top: 6px solid var(--LEEDZ_GREEN);
+  border-top: 4px solid var(--LEEDZ_GREEN);
 }
 
 .leedz-logo {
@@ -81,8 +81,8 @@ label[for="notes"] {
   width: 100%;
   padding: 8px;
   font-size: 14px;
-  margin-top: 4px;
-  margin-bottom: 4px;
+  margin-top: 2px;
+  margin-bottom: 2px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
@@ -100,7 +100,7 @@ label[for="notes"] {
   width:90%;
   margin-left:auto;
   margin-right:auto;
-  padding:5px;
+  
   background-color: var(--LEEDZ_GRAY);
   border-radius:6px;
 }
@@ -112,7 +112,7 @@ label[for="notes"] {
 
 #price-wrapper {
   box-shadow: 0px -4px 10px 0px rgba(0,0,0,0.2);  
-  margin-top: 10px; 
+  margin-top: 25px; 
 }
 
 /* Buttons */

@@ -9,9 +9,14 @@ const visibleIconPath = 'icons/visible.svg';
 // these fields should be copied into a fresh Leed object when the user
 // posts this leed
 const STATE = {
-    friendsArray: [],
-    emailArray: [],
-    phoneArray: [],
+
+    lists : {
+        friends: [],
+        email: [],
+        phone: [],
+        location: []
+    },
+
     price:0,
     activeField: null,
     lastSelection: "",
@@ -74,13 +79,20 @@ function setupEventListeners() {
         if (!input) return;
 
         arrow.addEventListener('click', () => {
-            const array = input.id === 'phone' ? STATE.phoneArray : STATE.emailArray;
-            currentIndex = (currentIndex + 1) % array.length;
-            updateInputWithArrayValue(input.id, array, currentIndex);
+
+            if (arrow.style.opacity === '0') return;
             
-            const newRotation = ((parseInt(arrow.getAttribute('data-rotation') || 0) + 90) % 360);
-            arrow.setAttribute('data-rotation', newRotation);
-            arrow.style.transform = `rotate(${newRotation}deg)`;
+            // FIXME FIXME FIXME
+            const array = STATE.lists[input.id];
+            if (array && array.length > 1) {
+                currentIndex = (currentIndex + 1) % array.length;
+                updateInputWithArrayValue(input.id, array, currentIndex);
+                
+                // rotate the arrow
+                const newRotation = ((parseInt(arrow.getAttribute('data-rotation') || 0) + 90) % 360);
+                arrow.setAttribute('data-rotation', newRotation);
+                arrow.style.transform = `rotate(${newRotation}deg)`;
+            }
         });
     });
 
@@ -112,15 +124,17 @@ window.addEventListener("DOMContentLoaded", () => {
         if (response?.type === "leedz_dom_data") {
             const { title, bodyText } = response;
             const pruned = pruneShortLines(bodyText, 5);
-            const blob = extractAndRedact(pruned, STATE.emailArray, STATE.phoneArray);
+            const blob = extractAndRedact(pruned, STATE.lists['email'], STATE.lists['phone']);
 
-            updateInputWithArrayValue('email', STATE.emailArray);
-            updateInputWithArrayValue('phone', STATE.phoneArray);
+            updateInputWithArrayValue('email', STATE.lists['email']);
+            updateInputWithArrayValue('phone', STATE.lists['phone']);
+            updateInputWithArrayValue('location', STATE.lists['location']);
             
             console.log("[LeedzEx] Data processed:", {
                 title,
-                emailsFound: STATE.emailArray.length,
-                phonesFound: STATE.phoneArray.length
+                emailsFound: STATE.lists['email'].length,
+                phonesFound: STATE.lists['phone'].length,
+                locationsFound: STATE.lists['location'].length
             });
         }
     });
