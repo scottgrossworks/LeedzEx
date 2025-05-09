@@ -145,18 +145,36 @@ window.addEventListener("DOMContentLoaded", () => {
     const iconDivs = document.querySelectorAll(".visibility-icon");
 
     iconDivs.forEach(iconDiv => {
-      // Load default hidden icon
-      loadSVGIcon(hiddenIconPath, iconDiv);
-      iconDiv.setAttribute('isHidden', 'true');
+        
+      if (iconDiv.id == "vis-nt") {
+        // notes are visible
+        loadSVGIcon(visibleIconPath, iconDiv);
+        iconDiv.setAttribute('isHidden', 'false');
+
+      } else {
+        // Load default hidden icon
+        loadSVGIcon(hiddenIconPath, iconDiv);
+        iconDiv.setAttribute('isHidden', 'true');
+      }
+
       
       iconDiv.addEventListener('click', () => {
         let isHidden = iconDiv.getAttribute('isHidden');
-        setVisIcon( iconDiv, isHidden );
+        if (isHidden == 'true') {
+            iconDiv.setAttribute('isHidden', 'false');
+            setVisIcon( iconDiv, false );
+        } else {
+            iconDiv.setAttribute('isHidden', 'true');
+            setVisIcon( iconDiv, true );
+        }
+
+        
         // FIXME FIXME FIXME
         // additional logic here for toggling visibility
+
+
       });
     });
-
 
 
 });
@@ -174,5 +192,6 @@ function loadSVGIcon(path, container) {
 
 
 export function setVisIcon( iconDiv, isHidden ) {
+
   loadSVGIcon( isHidden ? hiddenIconPath : visibleIconPath, iconDiv);
 }
