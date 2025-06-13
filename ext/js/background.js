@@ -2,75 +2,119 @@
 
 let trackedTabId = null;
 let trackedTitle = null;
+let sidebarReady = false;
+
+// Override console methods to send logs to sidebar
+const originalConsoleLog = console.log;
+console.log = function(...args) {
+  originalConsoleLog.apply(console, args);
+  if (sidebarReady) {
+    try {
+      chrome.runtime.sendMessage({
+        type: "leedz_log",
+        args: args
+      }).catch(() => {
+        // Silently ignore errors
+        sidebarReady = false;
+      });
+    } catch (e) {
+      // Silently ignore errors
+      sidebarReady = false;
+    }
+  }
+};
+
+const originalConsoleError = console.error;
+console.error = function(...args) {
+  originalConsoleError.apply(console, args);
+  if (sidebarReady) {
+    try {
+      chrome.runtime.sendMessage({
+        type: "leedz_error",
+        args: args
+      }).catch(() => {
+        // Silently ignore errors
+        sidebarReady = false;
+      });
+    } catch (e) {
+      // Silently ignore errors
+      sidebarReady = false;
+    }
+  }
+};
+
+// Only send messages to the tracked tab where we opened the sidebar
+function safelyMessageTab(tabId, message) {
+  // Only send messages to our tracked tab where we know content script is loaded
+  if (tabId !== trackedTabId) return;
+  
+  // Check if tab exists before sending message
+  chrome.tabs.get(tabId, (tab) => {
+    if (chrome.runtime.lastError) {
+      console.log(`Tab ${tabId} doesn't exist, can't send message`);
+      return;
+    }
+    
+    // Tab exists, try to send message
+    chrome.tabs.sendMessage(tabId, message, () => {
+      // Ignore any errors - this prevents the uncaught error in console
+      if (chrome.runtime.lastError) {
+        console.log(`Message to tab ${tabId} failed silently: ${chrome.runtime.lastError.message}`);
+      }
+    });
+  });
+}
 
 chrome.action.onClicked.addListener((tab) => {
   if (!tab?.id || !tab.title) return;
 
   trackedTabId = tab.id;
   trackedTitle = tab.title;
+  
+  console.log(`Extension clicked on tab ${tab.id}: "${tab.title}"`);
 
-  // Everything inside the user gesture context
-  chrome.sidePanel.setOptions({
-    tabId: tab.id,
-    path: "sidebar.html",
-    enabled: true
-  }, () => {
-    chrome.sidePanel.open({ tabId: tab.id });
-
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      files: ["js/content.js"]
-    }, () => {
-      chrome.tabs.sendMessage(tab.id, { type: "leedz_open_sidebar" });
-    });
-  });
+  // Open sidebar in user gesture context
+  chrome.sidePanel.open({ tabId: tab.id });
+  console.log(`Sidebar opened for tab ${tab.id}`);
 });
 
 chrome.tabs.onActivated.addListener(({ tabId }) => {
-  if (tabId === trackedTabId) {
-    chrome.sidePanel.setOptions({ tabId, path: "sidebar.html", enabled: true });
-    // Do not call sidePanel.open() here — outside gesture context
-  } else {
-    chrome.sidePanel.setOptions({ tabId, enabled: false });
-  }
+  // Just track the active tab, don't enable/disable sidebar
+  chrome.tabs.get(tabId, (tab) => {
+    if (chrome.runtime.lastError) return;
+    console.log(`Tab activated: ${tabId}`);
+  });
 });
 
 chrome.tabs.onRemoved.addListener((tabId) => {
   if (tabId === trackedTabId) {
+    console.log(`Tracked tab ${tabId} was closed`);
     trackedTabId = null;
     trackedTitle = null;
+    sidebarReady = false;
   }
 });
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.type === "get_tracked_title") {
     sendResponse(trackedTitle);
-    return; // Done
+    return true; // Keep the message channel open for the async response
   }
 
-  if (msg.type === "leedz_request_dom") {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const tabId = tabs[0]?.id;
-      if (!tabId) {
-        sendResponse(null);
-        return;
-      }
-
-      chrome.tabs.sendMessage(tabId, { type: "leedz_request_dom" }, (response) => {
-        if (chrome.runtime.lastError) {
-          sendResponse(null); // still resolve channel
-        } else {
-          sendResponse(response);
-        }
-      });
-    });
-    return true; // Keep channel open
+  if (msg.type === "leedz_check_active_field") {
+    sendResponse({ activeField: null }); // Placeholder until sidebar state is managed
+    return true; // Keep the message channel open for the async response
+  }
+  
+  // Handle sidebar ready message
+  if (msg.type === "sidebar_ready") {
+    sidebarReady = true;
+    console.log("Sidebar is ready to receive logs");
+    sendResponse({ status: "acknowledged" });
+    return true;
   }
 
-  if (msg.type === "leedz_selection") {
-    chrome.runtime.sendMessage({
-      type: "leedz_update_selection",
-      selection: msg.selection
-    });
-  }
+  return false; // Explicitly return false for unhandled messages
 });
+
+console.log('LeedzEx background.js loaded.');

@@ -6,11 +6,13 @@ let ACTIVE = false;
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === "leedz_open_sidebar") {
     ACTIVE = true;
+    console.log('LeedzEx sidebar opened, content script active');
     return true;
   }
 
   if (message.type === "leedz_close_sidebar") {
     ACTIVE = false;
+    console.log('LeedzEx sidebar closed, content script inactive');
     return true;
   }
 
@@ -21,12 +23,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       bodyText: (document.body.innerText || "").slice(0, MAX_CHARS)
     };
     sendResponse(responseData);
+    console.log('LeedzEx DOM data requested and sent');
     return true;
   }
 
   return false;
 });
 
+// Temporarily disable mouseup event listener to simplify debugging
+/*
 document.addEventListener("mouseup", () => {
   if (!ACTIVE) return;
 
@@ -55,3 +60,6 @@ document.addEventListener("mouseup", () => {
     }
   });
 });
+*/
+
+console.log('LeedzEx content.js loaded');

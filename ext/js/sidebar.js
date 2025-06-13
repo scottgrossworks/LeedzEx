@@ -1,14 +1,6 @@
-// sidebar.js — LeedzEx Sidebar Control Logic
-//
-// Handles:
-// - DOM parsing on load
-// - Manual query via Find button
-// - Save button logic
-// - Visibility toggling
-// - Input highlighting and selector behavior
-// - Footer status logging
+// sidebar.js — LeedzEx Sidebar Control Logic (Simplified for Debugging)
 
-
+// Temporarily comment out imports to avoid potential errors from missing modules
 
 import {
   extractMatches,
@@ -21,6 +13,12 @@ import {
 
 import { processHighlight } from "./highlight.js";
 import { findExistingMark, submitMark } from "./http_utils.js";
+
+
+// Debug check to confirm script execution
+console.log('sidebar.js executing. Checking environment...');
+console.log('Document body:', document.body ? 'Present' : 'Missing');
+console.log('Chrome API available:', typeof chrome !== 'undefined' ? 'Yes' : 'No');
 
 const hiddenIconPath = 'icons/hidden.svg';
 const visibleIconPath = 'icons/visible.svg';
@@ -49,185 +47,219 @@ const STATE = {
   }
 };
 
-function populateFromMark(mark) {
-  if (!mark) return;
-  for (let key in mark) {
-    const input = document.getElementById(key);
-    if (input) input.value = mark[key];
+// Enhanced logging function to output to both console and UI
+function log(...args) {
+  console.log(...args);
+  updateDebugOutput(...args);
+}
+
+// Separate function for error logging with different styling
+function logError(...args) {
+  console.error(...args);
+  updateDebugOutput(...args, true);
+}
+
+// Helper function to update the debug output element
+function updateDebugOutput(...args) {
+  const isError = args.length > 0 && args[args.length - 1] === true;
+  if (isError) {
+    args.pop(); // Remove the error flag
+  }
+  
+  try {
+    const debugOutput = document.getElementById('debug-output');
+    if (debugOutput) {
+      const now = new Date().toLocaleTimeString();
+      const message = args.map(a => {
+        if (typeof a === 'object') {
+          try {
+            return JSON.stringify(a);
+          } catch (e) {
+            return String(a);
+          }
+        }
+        return String(a);
+      }).join(' ');
+      
+      const style = isError ? 'color: #ff5555;' : '';
+      debugOutput.innerHTML += `<div style="${style}">[${now}] ${message}</div>`;
+      debugOutput.scrollTop = debugOutput.scrollHeight;
+    }
+  } catch (e) {
+    console.error('UI log failed', e);
   }
 }
 
-function updateInputWithArrayValue(inputId, array, index = 0) {
-  const input = document.getElementById(inputId);
-  if (!input) return;
+// Override console methods to display logs in the footer
+const originalConsoleLog = console.log;
+console.log = function(...args) {
+  originalConsoleLog.apply(console, args);
+  updateDebugOutput(...args);
+};
 
-  if (array && array.length > 0) {
-    input.value = array[index % array.length];
-    const arrow = input.parentElement?.querySelector('.input-arrow');
-    if (arrow) {
-      arrow.style.opacity = (array.length > 1) ? '0.4' : '0';
-    }
+const originalConsoleError = console.error;
+console.error = function(...args) {
+  originalConsoleError.apply(console, args);
+  updateDebugOutput(...args, true);
+};
+
+// Listen for log messages from background script
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === "leedz_log") {
+    console.log("Received log from background:", message.args);
+    updateDebugOutput(...(message.args || ["No message"]));
+    sendResponse({received: true});
+    return true;
   }
-}
-
-function parseAndPopulateFields(bodyText) {
-  const pruned = pruneShortLines(bodyText, 5);
-  STATE.lists.email = extractMatches(pruned, EMAIL_REGEX, 'email');
-  STATE.lists.phone = extractMatches(pruned, PHONE_REGEX, 'phone');
-  STATE.lists.location = extractMatches(pruned, /[A-Z][a-z]+(?:,? [A-Z]{2})?/, 'location');
-
-  updateInputWithArrayValue('email', STATE.lists.email);
-  updateInputWithArrayValue('phone', STATE.lists.phone);
-  updateInputWithArrayValue('location', STATE.lists.location);
-}
-
-function setupVisibilityToggles() {
-  const fields = ['email', 'phone', 'location', 'linkedin', 'on_x', 'notes'];
-  fields.forEach(field => {
-    const icon = document.getElementById(`vis-${field}`);
-    if (!icon) return;
-
-    icon.setAttribute('isHidden', 'false');
-    icon.innerHTML = `<img src="${visibleIconPath}" width="16"/>`;
-
-    icon.onclick = () => {
-      const hidden = icon.getAttribute('isHidden') === 'true';
-      icon.setAttribute('isHidden', hidden ? 'false' : 'true');
-      icon.innerHTML = `<img src="${hidden ? visibleIconPath : hiddenIconPath}" width="16"/>`;
-    };
-  });
-}
-
-function isVisible(fieldId) {
-  const visIcon = document.getElementById(`vis-${fieldId}`);
-  return visIcon?.getAttribute('isHidden') !== 'true';
-}
-
-function saveButton() {
-  const mark = {};
-  ["name", "email", "phone", "title", "org", "location", "linkedin", "on_x", "notes"].forEach(field => {
-    if (isVisible(field)) {
-      mark[field] = document.getElementById(field)?.value || "";
-    }
-  });
-
-  mark.createdAt = new Date().toISOString();
-  mark.lastContact = new Date().toISOString();
-  mark.outreachCount = 0;
-
-  submitMark(mark)
-    .then(data => console.log("Saved successfully"))
-    .catch(err => console.log("Error: " + err.message));
-}
-
-function findButton() {
-  const name = document.getElementById('name')?.value;
-  const email = document.getElementById('email')?.value;
-  const phone = document.getElementById('phone')?.value;
-
-  findExistingMark({ name, email, phone })
-    .then(mark => {
-      if (!mark) {
-        console.log("No match found");
-      } else {
-        console.log("Match found");
-        populateFromMark(mark);
-      }
-    })
-    .catch(err => console.log("Query failed: " + err.message));
-}
-
-function setupSidebarSelectionHandler() {
-  const inputs = document.querySelectorAll('.sidebar-input');
-  inputs.forEach(input => {
-    input.addEventListener("click", () => {
-      STATE.activeField = input.id;
-      if (STATE.lastSelection && !input.value) {
-        processHighlight(STATE.lastSelection, input.id);
-        STATE.lastSelection = "";
-      }
-    });
-  });
-}
-
-function setupArrowHandlers() {
-  document.querySelectorAll('.input-arrow').forEach(arrow => {
-    let currentIndex = 0;
-    const input = arrow.closest('.input-wrapper')?.querySelector('input');
-    if (!input) return;
-
-    arrow.addEventListener('click', () => {
-      const list = STATE.lists[input.id];
-      if (!list || list.length <= 1) return;
-
-      currentIndex = (currentIndex + 1) % list.length;
-      updateInputWithArrayValue(input.id, list, currentIndex);
-      const rotation = ((parseInt(arrow.getAttribute('data-rotation') || 0) + 90) % 360);
-      arrow.setAttribute('data-rotation', rotation);
-      arrow.style.transform = `rotate(${rotation}deg)`;
-    });
-  });
-}
-
-chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.type === "leedz_update_selection") {
-    if (STATE.activeField) {
-      processHighlight(msg.selection, STATE.activeField);
-    } else {
-      STATE.lastSelection = msg.selection;
-    }
+  if (message.type === "leedz_error") {
+    console.error("Received error from background:", message.args);
+    updateDebugOutput(...(message.args || ["No error message"]), true);
+    sendResponse({received: true});
+    return true;
   }
+  return false;
 });
 
-window.addEventListener("DOMContentLoaded", () => {
-  document.body.style.cursor = 'wait';
+// Minimal DOM setup to ensure UI loads
 
-  setupVisibilityToggles();
-  setupSidebarSelectionHandler();
-  setupArrowHandlers();
-
-  chrome.runtime.sendMessage({ type: "leedz_request_dom" }, (response) => {
-    if (chrome.runtime.lastError) {
-      console.log("DOM request failed: " + chrome.runtime.lastError.message);
-      document.body.style.cursor = 'default';
-      return;
-    }
-
-    if (response?.bodyText) {
-      parseAndPopulateFields(response.bodyText);
-    }
-
-    document.body.style.cursor = 'default';
+function setupUI() {
+  log('Setting up LeedzEx sidebar UI...');
+  
+  // Tell background script that sidebar is ready to receive logs
+  chrome.runtime.sendMessage({ type: "sidebar_ready" }, (response) => {
+    log("Notified background script that sidebar is ready");
   });
+  
+  // Setup save button
+  const saveBtn = document.getElementById('saveBtn');
+  if (saveBtn) {
+    saveBtn.addEventListener('click', () => {
+      log('Save button clicked');
+      saveData();
+    });
+  } else {
+    log('Error: Save button not found');
+  }
 
-  document.getElementById("saveBtn")?.addEventListener("click", saveButton);
-  document.getElementById("findBtn")?.addEventListener("click", findButton);
-});
+  // Setup find button
+  const findBtn = document.getElementById('findBtn');
+  if (findBtn) {
+    findBtn.addEventListener('click', () => {
+      log('Find button clicked');
+      findData();
+    });
+  } else {
+    log('Error: Find button not found');
+  }
 
-(function patchConsoleLogForFooter() {
-  const logDiv = document.getElementById("debug-output");
-  if (!logDiv) {
-    console.warn("debug-output footer not found");
+
+
+  // Log successful load
+  log('LeedzEx sidebar UI loaded successfully');
+}
+
+
+// Find button functionality
+// 1. recover form data
+// 2. look for unique fields --- name, email, linkedin, phone
+// 3. SEARCH DB (curl http://localhost/marks?email=foo@bar.com)
+// 4. Return matching mark (if any) and fill-in form fields
+function findData() {
+  log('Searching for existing record...');
+  
+  // Recover form data
+  const email = document.getElementById('email')?.value || '';
+  const name = document.getElementById('name')?.value || '';
+  const phone = document.getElementById('phone')?.value || '';
+  const linkedin = document.getElementById('linkedin')?.value || '';
+  
+  // Build query string based on available unique fields (prioritize email)
+  let queryString = '';
+  if (email) {
+    queryString = `email=${encodeURIComponent(email)}`;
+  } else if (name) {
+    queryString = `name=${encodeURIComponent(name)}`;
+  } else if (phone) {
+    queryString = `phone=${encodeURIComponent(phone)}`;
+  } else if (linkedin) {
+    queryString = `linkedin=${encodeURIComponent(linkedin)}`;
+  } else {
+    log('Error: No unique fields (email, name, phone, or LinkedIn) to search with.');
     return;
   }
+  
+  const url = `http://localhost:3000/marks?${queryString}`;
+  log('Searching with URL:', url);
+  
+  // Make GET request to backend
+  fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    if (!response.ok) throw new Error('Network response was not ok');
+    return response.json();
+  })
+  .then(data => {
+    if (data && data.length > 0) {
+      log('Record found:', data[0]);
+      // Fill form fields with the first matching record
+      const mark = data[0];
+      document.getElementById('name').value = mark.name || '';
+      document.getElementById('org').value = mark.org || '';
+      document.getElementById('title').value = mark.title || '';
+      document.getElementById('location').value = mark.location || '';
+      document.getElementById('phone').value = mark.phone || '';
+      document.getElementById('email').value = mark.email || '';
+      document.getElementById('linkedin').value = mark.linkedin || '';
+    } else {
+      log('No matching record found.');
+    }
+  })
+  .catch(error => {
+    log('Error searching for data:', error.message);
+  });
+}
 
-  const originalLog = console.log;
-  console.log = function (...args) {
-    originalLog.apply(console, args);
-
-    const line = args.map(a => {
-      try {
-        return typeof a === "object" ? JSON.stringify(a) : String(a);
-      } catch {
-        return "[unserializable]";
-      }
-    }).join(" ");
-
-    const entry = document.createElement("div");
-    entry.textContent = line;
-    entry.style.color = "#eee";
-    entry.style.fontFamily = "monospace";
-    logDiv.appendChild(entry);
-    logDiv.scrollTop = logDiv.scrollHeight;
+// Basic save functionality to test API connection
+function saveData() {
+  const data = {
+    name: document.getElementById('name')?.value || '',
+    org: document.getElementById('org')?.value || '',
+    title: document.getElementById('title')?.value || '',
+    location: document.getElementById('location')?.value || '',
+    phone: document.getElementById('phone')?.value || '',
+    email: document.getElementById('email')?.value || '',
+    linkedin: document.getElementById('linkedin')?.value || ''
   };
-})();
+
+  log('Sending data to backend:', JSON.stringify(data, null, 2));
+
+  fetch('http://localhost:3000/marks', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (!response.ok) throw new Error('Network response was not ok');
+    return response.json();
+  })
+  .then(result => {
+    log('Data saved successfully:', result);
+  })
+  .catch(error => {
+    log('Error saving data:', error.message);
+  });
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  log('DOMContentLoaded fired, initializing LeedzEx sidebar...');
+  setupUI();
+});
+
+log('sidebar.js script loaded');
