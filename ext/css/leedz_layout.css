@@ -1,0 +1,321 @@
+@import "./globals.css";
+
+/* General layout reset */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: "Circular", Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.leedz-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+
+  background-color: white;
+}
+
+/* shadow separates Leedz Ex from main page */
+.leedz-sidebar::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 12px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,0.05), transparent);
+  z-index: 3;
+}
+
+/* Header */
+.leedz-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px;
+  background-color: white;
+  border-top: 4px solid var(--LEEDZ_GREEN);
+}
+
+.leedz-logo {
+  height: 40px;
+}
+
+.leedz-hamburger {
+  height: 40px;
+  width: auto;
+  cursor: pointer;
+}
+
+/* Scrollable content section */
+.leedz-form-section {
+  flex: 1 1 auto;     /* Grow to fill available space */
+  overflow-y: auto;   /* Scroll if content overflows */
+  min-height: 0;      /* Prevent flexbox overflow issues */
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom:60px;
+}
+
+
+.leedz-form-section label {
+  display: block;
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+label[for="location"],
+label[for="phone"],
+label[for="email"],
+label[for="notes"] {
+  color: darkgreen;
+  font-weight:600;
+}
+
+.leedz-form-section input,
+.leedz-form-section textarea {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.leedz-form-section textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+
+
+.chooser-wrapper {
+  display:block;
+  width:90%;
+  margin-left:auto;
+  margin-right:auto;
+  
+  background-color: var(--LEEDZ_GRAY);
+  border-radius:6px;
+}
+
+#friend-wrapper {
+  margin-top:10px;
+  box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.2);  
+}
+
+#price-wrapper {
+  box-shadow: 0px -4px 10px 0px rgba(0,0,0,0.2);  
+  margin-top: 25px; 
+}
+
+/* Buttons */
+.leedz-button {
+  display:flex;
+  margin: 0 auto;
+
+
+  width: 80%;
+
+  padding: 10px;
+  background-color: black;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+
+
+/* Footer */
+.leedz-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--LEEDZ_GREEN);
+  min-height: 20px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+
+.leedz-grass {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 4;
+  display: block;
+}
+
+.leedz-footer-links {
+  position: relative;
+  z-index: 5;
+  margin: 0;
+  padding: 20px;
+  list-style: none;
+  text-align: left;
+}
+
+.leedz-footer-links li {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.leedz-footer-links li::before {
+  content: "•";
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.leedz-footer-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-wrapper input,
+.input-wrapper textarea {
+    width: 91%;
+    left:0;
+    box-sizing: border-box;
+}
+
+.input-wrapper input[type="date"],
+.input-wrapper input[type="time"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 91%;
+    box-sizing: border-box;
+}
+
+.sidebar-input {
+  transition: all 0.2s ease;
+}
+
+.sidebar-input:focus {
+  outline: 2px solid var(--LEEDZ_GREEN);
+  background-color: var(--LEEDZ_GRAY);
+}
+
+.input-arrow {
+  display:flex;
+  position:relative;
+  right:30px;
+
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.input-arrow:hover {
+  opacity: 0.75 !important
+}
+
+
+.visibility-icon {
+  position:absolute;
+ 
+  padding:6px;
+  margin-right:0;
+  right:0px;
+  width: 24px;
+  height: 24px;
+
+  cursor: pointer;
+  display:flex;
+  align-items: center;
+ 
+}
+
+.visibility-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+
+
+
+.leedz-highlighted {
+  background-color: var(--LEEDZ_LIGHTGREEN) !important;
+  transition: background-color 0.5s ease;
+  padding: 1px 2px;
+  border-radius: 2px;
+}
+
+
+input.invalid {
+  border: 2px solid red !important;
+  animation: shake 0.2s ease-in-out 0s 2;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0px); }
+  25% { transform: translateX(-3px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(-3px); }
+  100% { transform: translateX(0px); }
+}
+
+
+
+.button-wrapper {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.sidebar-button {
+  color:white;
+  border: none;
+  margin:4px;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight:600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#saveBtn {
+    background-color: var(--LEEDZ_DARKGREEN);
+}
+#saveBtn:hover {
+  background-color:darkgreen;
+}
+
+#findBtn {
+  background-color: royalblue;
+}
+#findBtn:hover {
+  background-color:darkblue;
+}
+

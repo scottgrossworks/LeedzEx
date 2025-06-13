@@ -1,0 +1,12 @@
+[2025-06-13T02:49:33.512Z] 🚀 Local API running on http://localhost:3000
+[2025-06-13T03:01:54.999Z] 🚀 Local API running on http://localhost:3000
+[2025-06-13T03:01:55.007Z] ❌ Server listen failed: Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1811:16)
+    at listenInCluster (node:net:1859:12)
+    at Server.listen (node:net:1947:7)
+    at Function.listen (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/express/lib/application.js:605:24)
+    at /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:97:24
+[2025-06-13T03:19:22.037Z] ! Local API running on http://localhost:3000
+[2025-06-13T03:19:36.087Z] GET /marks
+[2025-06-13T03:20:55.398Z] GET /list?field=email
+[2025-06-13T03:27:52.410Z] POST /marks

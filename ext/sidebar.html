@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Leedz</title>
+  <link rel="stylesheet" href="css/globals.css" />
+  <link rel="stylesheet" href="css/leedz_layout.css" />
+  <script type="module" src="js/sidebar.js"></script>
+</head>
+<body class="leedz-sidebar">
+
+  <header class="leedz-header">
+    <img src="icons/logo_black.png" alt="The Leedz" class="leedz-logo"/>
+    <img src="icons/hamburger.png" alt="Menu" class="leedz-hamburger"/>
+  </header>
+
+  <main class="leedz-form-section">
+
+    <label for="name">Name</label>
+    <input type="text" class="sidebar-input" id="name" placeholder="Name"/>
+
+    <label for="org">Organization</label>
+    <input type="text" class="sidebar-input" id="org" placeholder="Company or Org"/>
+
+    <label for="title">Title</label>
+    <input type="text" class="sidebar-input" id="title" placeholder="e.g. Marketing Director"/>
+
+    <label for="location">Location</label> 
+    <div class="input-wrapper">
+      <input type="text" class="sidebar-input" id="location" placeholder="Los Angeles, CA"/>
+      <img src="icons/arrows_black.png" alt="arrow" class="input-arrow"/>
+      <div id="vis-location" class="visibility-icon" title="Toggle visibility location"></div>
+    </div>
+
+    <label for="phone">Phone</label>
+    <div class="input-wrapper">
+      <input type="tel" class="sidebar-input" id="phone" placeholder="e.g. 323-555-1212"/>
+      <img src="icons/arrows_black.png" alt="arrow" class="input-arrow"/>
+      <div id="vis-phone" class="visibility-icon" title="Toggle visibility phone"></div>
+    </div>
+    
+    <label for="email">Email</label> 
+    <div class="input-wrapper">
+      <input type="email" class="sidebar-input" id="email" placeholder="example@email.com"/>
+      <img src="icons/arrows_black.png" alt="arrow" class="input-arrow"/>
+      <div id="vis-email" class="visibility-icon" title="Toggle visibility email"></div>
+    </div>
+
+    <label for="linkedin">LinkedIn</label> 
+    <div class="input-wrapper">
+      <input type="text" class="sidebar-input" id="linkedin" placeholder="linkedin.com/in/example"/>
+      <div id="vis-linkedin" class="visibility-icon" title="Toggle visibility LinkedIn"></div>
+    </div>
+
+    <label for="on_x">X.com</label> 
+    <div class="input-wrapper">
+      <input type="text" class="sidebar-input" id="on_x" placeholder="x.com/example"/>
+      <div id="vis-on_x" class="visibility-icon" title="Toggle visibility X.com"></div>
+    </div>
+
+    <label for="notes">Notes</label>
+    <div class="input-wrapper">
+      <textarea id="notes" class="sidebar-input" placeholder="Notes about this person..."></textarea>
+      <div id="vis-notes" class="visibility-icon" title="Toggle visibility notes"></div>
+    </div>
+
+
+
+    <!-- BUTTONS -->
+    <div class="button-wrapper">
+      <button id="findBtn" class="sidebar-button"> Find </button>
+      <button id="saveBtn" class="sidebar-button"> Save </button>
+    </div>
+
+  </main>
+
+  <footer class="leedz-footer">
+    <img src="icons/grass.png" alt="grass" class="leedz-grass"/>
+
+    <div id="debug-output" style="z-index:999;font-family: Arial; font-size: 11px; color: white; padding: 6px; overflow-y: auto; height: 100px;"></div>
+    <!--
+    <ul class="leedz-footer-links">
+      <li><a href="/about">About the Leedz</a></li>
+      <li><a href="/contact">Contact Us</a></li>
+    </ul>
+    -->
+
+  </footer>
+
+</body>
+</html>

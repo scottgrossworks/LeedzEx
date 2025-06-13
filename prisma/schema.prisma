@@ -1,0 +1,26 @@
+// prisma/schema.prisma
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./precrime.sqlite"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Mark {
+  id            String   @id @default(cuid())
+  name          String
+  phone         Int      @default(0)
+  email         String?  @unique
+  linkedin      String?  @unique
+  on_x          String?  
+  title         String?
+  org           String?
+  location      String?
+  outreachCount Int       @default(0)
+  lastContact   DateTime?
+  createdAt     DateTime  @default(now())
+  notes         String?
+}
