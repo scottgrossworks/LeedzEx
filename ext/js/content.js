@@ -1,65 +1,80 @@
 // js/content.js
 
-const MAX_CHARS = 3000;
+
 let ACTIVE = false;
 
+
+
+//
+// 
+//
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.type === "leedz_open_sidebar") {
-    ACTIVE = true;
-    console.log('LeedzEx sidebar opened, content script active');
-    return true;
+
+  console.log("Received message:", message);
+
+  if (message.action === "toggleSidebar") {
+    toggleSidebar();
   }
 
-  if (message.type === "leedz_close_sidebar") {
-    ACTIVE = false;
-    console.log('LeedzEx sidebar closed, content script inactive');
-    return true;
-  }
+    console.log("[LeedzEx] content.js > [" + message.type + "] " + message.body);
 
-  if (message.type === "leedz_request_dom") {
-    const responseData = {
-      type: "leedz_dom_data",
-      title: document.title || "",
-      bodyText: (document.body.innerText || "").slice(0, MAX_CHARS)
-    };
-    sendResponse(responseData);
-    console.log('LeedzEx DOM data requested and sent');
-    return true;
-  }
-
-  return false;
 });
 
-// Temporarily disable mouseup event listener to simplify debugging
-/*
-document.addEventListener("mouseup", () => {
-  if (!ACTIVE) return;
 
-  const selection = window.getSelection().toString().trim();
-  if (!selection || selection.length < 4) return;
-
-  chrome.runtime.sendMessage({ type: "leedz_check_active_field" }, (response) => {
-    if (chrome.runtime.lastError) return;
-    if (!response?.activeField) return;
-
-    chrome.runtime.sendMessage({
-      type: "leedz_update_selection",
-      selection: selection
-    });
-
-    try {
-      const sel = window.getSelection();
-      if (sel.rangeCount > 0) {
-        const range = sel.getRangeAt(0);
-        const span = document.createElement("span");
-        span.className = "leedz-highlighted";
-        range.surroundContents(span);
-      }
-    } catch (e) {
-      console.warn("[LeedzEx] Could not apply highlight:", e);
-    }
-  });
-});
-*/
 
 console.log('LeedzEx content.js loaded');
+
+
+
+
+//
+// send leedz_open_sidebar message and 
+// leedz_close_sidebar message to content.html
+//
+function toggleSidebar () {
+  const pane = document.getElementById('leedz-sidebar');
+
+  if (pane) {
+    requestAnimationFrame(() => {
+      pane.style.transform = 'translateX(100%)';
+    });
+    pane.addEventListener('transitionend', () => pane.remove(), { once: true });
+
+    /*
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, { type: "leedz_close_sidebar" });
+    });
+    */
+
+
+  } else {
+    const iframe = document.createElement('iframe');
+    iframe.id = "leedz-sidebar";
+    iframe.src = chrome.runtime.getURL("sidebar.html");
+
+    Object.assign(iframe.style, {
+      position: "fixed",
+      top: "0",
+      right: "0",
+      width: "420px",
+      height: "100vh",
+      border: "none",
+      zIndex: "999999",
+      transform: "translateX(100%)",
+      transition: "transform 0.4s ease",
+      boxShadow: "-6px 0 18px rgba(0,0,0,0.2)",
+    });
+
+    document.body.appendChild(iframe);
+
+    /*
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, { type: "leedz_open_sidebar" });
+    });
+    */
+
+    requestAnimationFrame(() => {
+      iframe.style.transform = "translateX(0)";
+    });
+  }
+}

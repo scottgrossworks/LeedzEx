@@ -35,7 +35,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px;
+  padding: 12px;
   background-color: white;
   border-top: 4px solid var(--LEEDZ_GREEN);
 }
@@ -55,10 +55,10 @@ html, body {
   flex: 1 1 auto;     /* Grow to fill available space */
   overflow-y: auto;   /* Scroll if content overflows */
   min-height: 0;      /* Prevent flexbox overflow issues */
-  padding: 10px;
+  padding: 0px 10px;
   width: 100%;
   box-sizing: border-box;
-  margin-bottom:60px;
+
 }
 
 
@@ -67,6 +67,12 @@ html, body {
   margin-top: 14px;
   font-size: 13px;
   font-weight: 500;
+}
+
+
+/* Remove top margin from first label */
+.leedz-form-section label:first-of-type {
+  margin-top: 0;
 }
 
 label[for="location"],
@@ -154,7 +160,7 @@ label[for="notes"] {
 
 .leedz-grass {
   position: absolute;
-  top: -40px;
+  top: -50px;
   left: 0;
   width: 100%;
   height: auto;
@@ -241,27 +247,6 @@ label[for="notes"] {
 }
 
 
-.visibility-icon {
-  position:absolute;
- 
-  padding:6px;
-  margin-right:0;
-  right:0px;
-  width: 24px;
-  height: 24px;
-
-  cursor: pointer;
-  display:flex;
-  align-items: center;
- 
-}
-
-.visibility-icon svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
 
 
 
@@ -289,7 +274,7 @@ input.invalid {
 
 
 .button-wrapper {
-  margin-top: 20px;
+  margin-top: 6px;
   text-align: center;
 }
 
@@ -319,3 +304,35 @@ input.invalid {
   background-color:darkblue;
 }
 
+/* Clear button styling */
+.clear-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 20px;
+}
+
+.clear-button {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: cornflowerblue;
+  color: white;
+
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.clear-button:hover {
+  background-color: blue;
+}
+
+.clear-button:active {
+  transform: scale(0.95);
+}

@@ -4,20 +4,15 @@
   "version": "1.0",
   "description": "Capture employers from any webpage.",
   "permissions": [
-    "scripting",
-    "activeTab",
     "storage",
     "tabs",
-    "sidePanel"
+    "scripting"
   ],
   "host_permissions": [
-    "http://localhost:3000/",
-    "*://*.linkedin.com/*",
     "<all_urls>"
   ],
   "background": {
-    "service_worker": "js/background.js",
-    "type": "module"
+    "service_worker": "js/background.js"
   },
   "action": {
     "default_icon": {
@@ -27,15 +22,19 @@
     },
     "default_title": "Open LeedzEx"
   },
-  "side_panel": {
-    "default_path": "sidebar.html",
-    "default_open": false
-  },
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["js/content.js"],
+      "css": ["css/leedz_layout.css"],
+      "run_at": "document_idle"
+    }
+  ],
   "web_accessible_resources": [
     {
       "resources": [

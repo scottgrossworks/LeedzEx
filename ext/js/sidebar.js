@@ -1,24 +1,15 @@
 // sidebar.js — LeedzEx Sidebar Control Logic (Simplified for Debugging)
 
-// Temporarily comment out imports to avoid potential errors from missing modules
 
-import {
-  extractMatches,
-  pruneShortLines,
-  EMAIL_REGEX,
-  PHONE_REGEX,
-  LINKEDIN_REGEX,
-  X_REGEX
-} from "./parser.js";
-
-import { processHighlight } from "./highlight.js";
-import { findExistingMark, submitMark } from "./http_utils.js";
+// Import parser functions
+import { findLinkedin, findX } from './parser.js';
 
 
 // Debug check to confirm script execution
-console.log('sidebar.js executing. Checking environment...');
-console.log('Document body:', document.body ? 'Present' : 'Missing');
-console.log('Chrome API available:', typeof chrome !== 'undefined' ? 'Yes' : 'No');
+// console.log('sidebar.js executing. Checking environment...');
+// console.log('Document body:', document.body ? 'Present' : 'Missing');
+// console.log('Chrome API available:', typeof chrome !== 'undefined' ? 'Yes' : 'No');
+
 
 const hiddenIconPath = 'icons/hidden.svg';
 const visibleIconPath = 'icons/visible.svg';
@@ -47,17 +38,21 @@ const STATE = {
   }
 };
 
+// At the top of the file after imports
+let messageCounter = 0;
+
+
 // Enhanced logging function to output to both console and UI
 function log(...args) {
-  console.log(...args);
-  updateDebugOutput(...args);
+  console.log(...args); // This will call the overridden version which already calls updateDebugOutput
 }
 
 // Separate function for error logging with different styling
 function logError(...args) {
-  console.error(...args);
-  updateDebugOutput(...args, true);
+  console.error(...args); // This will call the overridden version which already calls updateDebugOutput
 }
+
+
 
 // Helper function to update the debug output element
 function updateDebugOutput(...args) {
@@ -103,6 +98,17 @@ console.error = function(...args) {
   updateDebugOutput(...args, true);
 };
 
+
+
+
+// Add import verification
+console.log('[Sidebar] Parser functions loaded:', {
+  findLinkedin: typeof findLinkedin,
+  findX: typeof findX
+});
+
+
+
 // Listen for log messages from background script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === "leedz_log") {
@@ -120,16 +126,41 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return false;
 });
 
-// Minimal DOM setup to ensure UI loads
+
+
+
+
+
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  log('DOMContentLoaded fired, initializing LeedzEx sidebar...');
+  setupUI();
+});
+
+log('sidebar.js script loaded');
+
+
+
+
+
 
 function setupUI() {
-  log('Setting up LeedzEx sidebar UI...');
-  
-  // Tell background script that sidebar is ready to receive logs
-  chrome.runtime.sendMessage({ type: "sidebar_ready" }, (response) => {
-    log("Notified background script that sidebar is ready");
-  });
-  
+
+  initButtons();
+
+  // Log successful load
+  log('LeedzEx sidebar UI loaded successfully');
+}
+
+
+
+
+
+// Initialize buttons and their event listeners
+//
+function initButtons() {
+
   // Setup save button
   const saveBtn = document.getElementById('saveBtn');
   if (saveBtn) {
@@ -151,13 +182,99 @@ function setupUI() {
   } else {
     log('Error: Find button not found');
   }
+  
+  // Setup clear button
+  const clearBtn = document.getElementById('clearBtn');
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      log('Clear button clicked');
+      clearForm();
+    });
+  } else {
+    log('Error: Clear button not found');
+  }
 
-
-
-  // Log successful load
-  log('LeedzEx sidebar UI loaded successfully');
+  
 }
 
+// Basic save functionality to test API connection
+function saveData() {
+  const data = {
+    // Normalize name for storage using our standardized format
+    name: normalizeName(document.getElementById('name')?.value || ''),
+    
+    org: document.getElementById('org')?.value || '',
+    title: document.getElementById('title')?.value || '',
+    location: document.getElementById('location')?.value || '',
+    phone: document.getElementById('phone')?.value || '',
+    email: document.getElementById('email')?.value || '',
+    linkedin: document.getElementById('linkedin')?.value || ''
+  };
+
+  log('Sending data to backend:', JSON.stringify(data, null, 2));
+
+
+  fetch('http://localhost:3000/marks', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (!response.ok) throw new Error('Network response was not ok');
+    return response.json();
+  })
+  .then(result => {
+    log('Data saved successfully:', result);
+  })
+  .catch(error => {
+    log('Error saving data:', error.message);
+  });
+}
+
+// Function to clear all form fields and reset state
+function clearForm() {
+  log('Clearing all form fields');
+  
+  // Clear all input fields
+  document.getElementById('name').value = '';
+  document.getElementById('org').value = '';
+  document.getElementById('title').value = '';
+  document.getElementById('location').value = '';
+  document.getElementById('phone').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('linkedin').value = '';
+  
+  // Reset any state variables if needed
+  // If you have a STATE object, you would reset it here
+  
+  log('Form cleared successfully');
+}
+
+// Helper function to normalize a name for storage/searching
+function normalizeName(name) {
+  if (!name) return '';
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, ' ')  // Replace multiple spaces with single space
+    .replace(/\s/g, '#');  // Replace spaces with #
+}
+
+// Helper function to denormalize a name for display
+function denormalizeName(normalizedName) {
+  if (!normalizedName) return '';
+  
+  // Replace # with spaces
+  const nameWithSpaces = normalizedName.replace(/#/g, ' ');
+  
+  // Capitalize first letter of each word
+  return nameWithSpaces
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
 
 // Find button functionality
 // 1. recover form data
@@ -169,7 +286,11 @@ function findData() {
   
   // Recover form data
   const email = document.getElementById('email')?.value || '';
-  const name = document.getElementById('name')?.value || '';
+  
+  // Normalize name for searching using our standardized format
+  const displayName = document.getElementById('name')?.value || '';
+  const name = normalizeName(displayName);
+  
   const phone = document.getElementById('phone')?.value || '';
   const linkedin = document.getElementById('linkedin')?.value || '';
   
@@ -199,7 +320,9 @@ function findData() {
     }
   })
   .then(response => {
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     return response.json();
   })
   .then(data => {
@@ -207,7 +330,10 @@ function findData() {
       log('Record found:', data[0]);
       // Fill form fields with the first matching record
       const mark = data[0];
-      document.getElementById('name').value = mark.name || '';
+      
+      // Denormalize the name for display (convert from storage format to human-readable)
+      document.getElementById('name').value = denormalizeName(mark.name) || '';
+      
       document.getElementById('org').value = mark.org || '';
       document.getElementById('title').value = mark.title || '';
       document.getElementById('location').value = mark.location || '';
@@ -215,51 +341,95 @@ function findData() {
       document.getElementById('email').value = mark.email || '';
       document.getElementById('linkedin').value = mark.linkedin || '';
     } else {
-      log('No matching record found.');
+      log('No matching records found.');
     }
   })
   .catch(error => {
-    log('Error searching for data:', error.message);
+    log('Error finding data:', error.message);
   });
 }
 
-// Basic save functionality to test API connection
-function saveData() {
-  const data = {
-    name: document.getElementById('name')?.value || '',
-    org: document.getElementById('org')?.value || '',
-    title: document.getElementById('title')?.value || '',
-    location: document.getElementById('location')?.value || '',
-    phone: document.getElementById('phone')?.value || '',
-    email: document.getElementById('email')?.value || '',
-    linkedin: document.getElementById('linkedin')?.value || ''
-  };
 
-  log('Sending data to backend:', JSON.stringify(data, null, 2));
 
-  fetch('http://localhost:3000/marks', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  .then(response => {
-    if (!response.ok) throw new Error('Network response was not ok');
-    return response.json();
-  })
-  .then(result => {
-    log('Data saved successfully:', result);
-  })
-  .catch(error => {
-    log('Error saving data:', error.message);
-  });
+
+
+function loadSVGIcon(path, container) {
+  fetch(path)
+    .then(res => res.text())
+    .then(svg => {
+      container.innerHTML = svg;
+    });
 }
 
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-  log('DOMContentLoaded fired, initializing LeedzEx sidebar...');
-  setupUI();
-});
 
-log('sidebar.js script loaded');
+
+export function setVisIcon( iconDiv, isHidden ) {
+
+  loadSVGIcon( isHidden ? hiddenIconPath : visibleIconPath, iconDiv);
+}
+
+
+
+// FIXME FIXME FIXME
+// Initialize DOM cache after load
+function initializeDOMCache() {
+  // FIXME FIXME FIXME
+    STATE.domElements.inputs = document.querySelectorAll('.sidebar-input');
+    STATE.domElements.arrows = document.querySelectorAll('.input-arrow');
+}
+
+// Unified input value updater
+// FIXME FIXME FIXME
+function updateInputWithArrayValue(inputId, array, index = 0) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    
+    if (array && array.length > 0) {
+        input.value = array[index % array.length];
+        const arrow = input.parentElement?.querySelector('.input-arrow');
+        if (arrow) {
+            arrow.style.opacity = (array.length > 1) ? '0.4' : '0';
+        }
+    }
+}
+
+
+
+// Setup event listeners
+function setupEventListeners() {
+
+    // FIXME FIXME FIXME
+    // Arrow click handler with rotation
+    STATE.domElements.arrows.forEach(arrow => {
+        let currentIndex = 0;
+        const input = arrow.closest('.input-wrapper')?.querySelector('input');
+        if (!input) return;
+
+        arrow.addEventListener('click', () => {
+
+            if (arrow.style.opacity === '0') return;
+            
+            // FIXME FIXME FIXME
+            const array = STATE.lists[input.id];
+            if (array && array.length > 1) {
+                currentIndex = (currentIndex + 1) % array.length;
+                updateInputWithArrayValue(input.id, array, currentIndex);
+                
+                // rotate the arrow
+                const newRotation = ((parseInt(arrow.getAttribute('data-rotation') || 0) + 90) % 360);
+                arrow.setAttribute('data-rotation', newRotation);
+                arrow.style.transform = `rotate(${newRotation}deg)`;
+            }
+        });
+    });
+
+    // detects selections within the sidebar
+    // document.addEventListener("mouseup", () => {
+    //    const selection = window.getSelection().toString().trim();
+    //    if (selection) {
+    //        handleTextSelection(selection, 'page');
+    //    }
+    // });
+}
+
+

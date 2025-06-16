@@ -11,3 +11,195 @@
 [2025-06-13T03:20:55.398Z] GET /list?field=email
 [2025-06-13T03:27:52.410Z] POST /marks
 [2025-06-13T21:31:53.932Z] GET /marks
+[2025-06-13T22:24:05.912Z] POST /marks
+[2025-06-15T22:39:13.577Z] ! Local API running on http://localhost:3000
+[2025-06-15T22:41:16.568Z] GET /marks
+[2025-06-15T22:42:48.038Z] POST /marks
+[2025-06-15T22:42:48.081Z] POST /marks failed: PrismaClientValidationError: 
+Invalid `prisma.mark.findFirst()` invocation in
+/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:51:40
+
+  48 
+  49 try {
+  50   // Check if record exists by normalized name
+→ 51   const existing = await prisma.mark.findFirst({
+         where: {
+           normalizedName: "kyle#bartz",
+           ~~~~~~~~~~~~~~
+       ?   AND?: MarkWhereInput | MarkWhereInput[],
+       ?   OR?: MarkWhereInput[],
+       ?   NOT?: MarkWhereInput | MarkWhereInput[],
+       ?   id?: StringFilter | String,
+       ?   name?: StringFilter | String,
+       ?   phone?: IntFilter | Int,
+       ?   email?: StringNullableFilter | String | Null,
+       ?   linkedin?: StringNullableFilter | String | Null,
+       ?   on_x?: StringNullableFilter | String | Null,
+       ?   title?: StringNullableFilter | String | Null,
+       ?   org?: StringNullableFilter | String | Null,
+       ?   location?: StringNullableFilter | String | Null,
+       ?   outreachCount?: IntFilter | Int,
+       ?   lastContact?: DateTimeNullableFilter | DateTime | Null,
+       ?   createdAt?: DateTimeFilter | DateTime,
+       ?   notes?: StringNullableFilter | String | Null
+         }
+       })
+
+Unknown argument `normalizedName`. Available options are marked with ?.
+    at kn (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:29:1363)
+    at Zn.handleRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:7102)
+    at Zn.handleAndLogRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6784)
+    at Zn.request (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6491)
+    at async l (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:130:9778)
+    at async /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:51:22
+[2025-06-15T22:48:32.210Z] ! Local API running on http://localhost:3000
+[2025-06-15T22:48:32.214Z] * Server listen failed: Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1811:16)
+    at listenInCluster (node:net:1859:12)
+    at Server.listen (node:net:1947:7)
+    at Function.listen (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/express/lib/application.js:605:24)
+    at /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:126:24
+[2025-06-15T22:52:42.806Z] ! Local API running on http://localhost:3000
+[2025-06-15T22:53:53.442Z] POST /marks
+[2025-06-15T22:53:53.830Z] POST /marks failed: PrismaClientValidationError: 
+Invalid `prisma.mark.create()` invocation in
+/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:62:27
+
+  59     where: { id: existing.id }, 
+  60     data 
+  61   })
+→ 62 : await prisma.mark.create({
+       data: {
+         name: "kyle#bartz",
+         org: "Stripe",
+         title: "Staff Software Engineer",
+         location: "Seattle, WA",
+         phone: "",
+                ~~
+         email: "",
+         linkedin: "linkedin.com/in/kylebartz"
+       }
+     })
+
+Argument `phone`: Invalid value provided. Expected Int, provided String.
+    at kn (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:29:1363)
+    at Zn.handleRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:7102)
+    at Zn.handleAndLogRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6784)
+    at Zn.request (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6491)
+    at async l (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:130:9778)
+    at async /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:62:9
+[2025-06-15T23:13:30.825Z] ! Local API running on http://localhost:3000
+[2025-06-15T23:13:35.597Z] POST /marks
+[2025-06-15T23:13:52.904Z] GET /marks
+[2025-06-15T23:14:21.453Z] POST /marks
+[2025-06-15T23:14:24.886Z] GET /marks
+[2025-06-15T23:39:00.748Z] GET /marks?name=kyle%23bartz
+[2025-06-16T01:10:29.462Z] DELETE /marks/Scott%20Gross
+[2025-06-16T01:10:29.516Z] DELETE /marks failed: PrismaClientKnownRequestError: 
+Invalid `prisma.mark.delete()` invocation:
+
+
+An operation failed because it depends on one or more records that were required but not found. No record was found for a delete.
+    at Zn.handleRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:7459)
+    at Zn.handleAndLogRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6784)
+    at Zn.request (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6491)
+    at async l (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:130:9778)
+    at async /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:107:5
+[2025-06-16T01:15:13.054Z] ! Local API running on http://localhost:3000
+[2025-06-16T01:15:13.059Z] * Server listen failed: Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1811:16)
+    at listenInCluster (node:net:1859:12)
+    at Server.listen (node:net:1947:7)
+    at Function.listen (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/express/lib/application.js:605:24)
+    at /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:155:24
+[2025-06-16T01:19:16.066Z] ! Local API running on http://localhost:3000
+[2025-06-16T01:19:19.983Z] GET /marks
+[2025-06-16T01:19:23.762Z] DELETE /marks/Scott%20Gross
+[2025-06-16T01:19:23.821Z] DELETE /marks failed: PrismaClientValidationError: 
+Invalid `prisma.mark.findUnique()` invocation in
+/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:114:38
+
+  111 
+  112 try {
+  113   // First check if the record exists
+→ 114   const record = await prisma.mark.findUnique({
+          where: {
+        +   id: String
+          }
+        })
+
+Argument `id` is missing.
+    at kn (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:29:1363)
+    at Zn.handleRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:7102)
+    at Zn.handleAndLogRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6784)
+    at Zn.request (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6491)
+    at async l (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:130:9778)
+    at async /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:114:20
+[2025-06-16T01:23:15.747Z] ! Local API running on http://localhost:3000
+[2025-06-16T01:23:15.756Z] * Server listen failed: Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1811:16)
+    at listenInCluster (node:net:1859:12)
+    at Server.listen (node:net:1947:7)
+    at Function.listen (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/express/lib/application.js:605:24)
+    at /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:173:24
+[2025-06-16T01:23:37.344Z] ! Local API running on http://localhost:3000
+[2025-06-16T01:23:42.392Z] GET /marks
+[2025-06-16T01:23:47.630Z] DELETE /marks/Scott%20Gross
+[2025-06-16T01:24:35.130Z] GET /marks?name=Scott%20Gross
+[2025-06-16T01:47:01.541Z] ! Local API running on http://localhost:3000
+[2025-06-16T01:47:01.546Z] * Server listen failed: Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1811:16)
+    at listenInCluster (node:net:1859:12)
+    at Server.listen (node:net:1947:7)
+    at Function.listen (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/express/lib/application.js:605:24)
+    at /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:236:24
+[2025-06-16T01:47:22.494Z] ! Local API running on http://localhost:3000
+[2025-06-16T01:47:27.579Z] GET /marks?name=Scott%20Gross
+[2025-06-16T01:48:38.882Z] DELETE /marks/cmbss0ly3000198yoxhuwxoa4
+[2025-06-16T01:48:58.828Z] DELETE /marks/cmbss0ly3000198yoxhuwxoa4
+[2025-06-16T01:49:19.634Z] DELETE /marks/Scott%20Gross
+[2025-06-16T01:49:47.719Z] GET /marks?name=Scott%20Gross
+[2025-06-16T02:12:33.244Z] ! Local API running on http://localhost:3000
+[2025-06-16T02:12:36.444Z] GET /marks?name=Scott%20Gross
+[2025-06-16T02:12:43.697Z] GET /marks?name=Scott%20Gross
+[2025-06-16T02:12:51.010Z] DELETE /marks/Scott%20Gross
+[2025-06-16T02:12:51.016Z] Looking for record with normalized name: scott#gross
+[2025-06-16T02:12:55.697Z] DELETE /marks/Scott%20Gross
+[2025-06-16T02:12:55.703Z] Looking for record with normalized name: scott#gross
+[2025-06-16T02:13:25.656Z] DELETE /marks/Scott%20Gross
+[2025-06-16T02:13:25.663Z] Looking for record with normalized name: scott#gross
+[2025-06-16T03:13:30.276Z] ! Local API running on http://localhost:3000
+[2025-06-16T03:13:30.281Z] * Server listen failed: Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1811:16)
+    at listenInCluster (node:net:1859:12)
+    at Server.listen (node:net:1947:7)
+    at Function.listen (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/express/lib/application.js:605:24)
+    at /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:235:24
+[2025-06-16T03:14:13.541Z] ! Local API running on http://localhost:3000
+[2025-06-16T03:14:42.257Z] GET /marks/
+[2025-06-16T03:14:42.452Z] GET /marks failed: PrismaClientKnownRequestError: 
+Invalid `prisma.mark.findMany()` invocation in
+/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:144:39
+
+  141 }
+  142 
+  143 try {
+→ 144   const results = await prisma.mark.findMany(
+The table `main.Mark` does not exist in the current database.
+    at Zn.handleRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:7459)
+    at Zn.handleAndLogRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6784)
+    at Zn.request (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6491)
+    at async l (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:130:9778)
+    at async /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:144:21
+[2025-06-16T03:17:06.218Z] ! Local API running on http://localhost:3000
+[2025-06-16T03:17:06.221Z] * Server listen failed: Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1811:16)
+    at listenInCluster (node:net:1859:12)
+    at Server.listen (node:net:1947:7)
+    at Function.listen (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/express/lib/application.js:605:24)
+    at /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:235:24
+[2025-06-16T03:17:31.557Z] ! Local API running on http://localhost:3000
+[2025-06-16T03:17:36.345Z] GET /marks/
+[2025-06-16T03:55:25.000Z] POST /marks
+[2025-06-16T03:55:25.091Z] Created new record with ID: kyleba#18329651
+[2025-06-16T03:55:29.356Z] GET /marks/
