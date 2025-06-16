@@ -203,3 +203,4 @@ The table `main.Mark` does not exist in the current database.
 [2025-06-16T03:55:25.000Z] POST /marks
 [2025-06-16T03:55:25.091Z] Created new record with ID: kyleba#18329651
 [2025-06-16T03:55:29.356Z] GET /marks/
+[2025-06-16T22:19:05.293Z] GET /marks

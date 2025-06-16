@@ -38,8 +38,7 @@ const STATE = {
   }
 };
 
-// At the top of the file after imports
-let messageCounter = 0;
+
 
 
 // Enhanced logging function to output to both console and UI
@@ -85,6 +84,8 @@ function updateDebugOutput(...args) {
   }
 }
 
+
+// PROBLEM
 // Override console methods to display logs in the footer
 const originalConsoleLog = console.log;
 console.log = function(...args) {
@@ -128,24 +129,30 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 
 
-
-
-
-
+// FIXME FIXME FIXME
+// can function 1 and function 2 be consolidated?  WHich needs to be called first?
+//
 // Initialize when DOM is ready
+
+// function 1
 document.addEventListener('DOMContentLoaded', () => {
   log('DOMContentLoaded fired, initializing LeedzEx sidebar...');
+
+  updateFormFromState();
+
+  // Set up listeners for all form inputs
+  setupInputListeners();
+
+
   setupUI();
 });
 
 log('sidebar.js script loaded');
 
 
-
-
-
-
 function setupUI() {
+
+  initArrows();
 
   initButtons();
 
@@ -154,6 +161,64 @@ function setupUI() {
 }
 
 
+
+
+function updateFormFromState() {
+  document.getElementById('name').value = STATE.name || '';
+  document.getElementById('org').value = STATE.org || '';
+  document.getElementById('title').value = STATE.title || '';
+  document.getElementById('location').value = STATE.lists.location[0] || '';
+  document.getElementById('phone').value = STATE.lists.phone[0] || '';
+  document.getElementById('email').value = STATE.lists.email[0] || '';
+  document.getElementById('linkedin').value = STATE.linkedin || '';
+  document.getElementById('on_x').value = STATE.on_x || '';
+  document.getElementById('notes').value = STATE.notes || '';
+}
+
+function setupInputListeners() {
+  document.getElementById('name').addEventListener('input', e => STATE.name = e.target.value);
+  document.getElementById('org').addEventListener('input', e => STATE.org = e.target.value);
+  document.getElementById('title').addEventListener('input', e => STATE.title = e.target.value);
+  document.getElementById('location').addEventListener('input', e => STATE.lists.location[0] = e.target.value);
+  document.getElementById('phone').addEventListener('input', e => STATE.lists.phone[0] = e.target.value);
+  document.getElementById('email').addEventListener('input', e => STATE.lists.email[0] = e.target.value);
+  document.getElementById('linkedin').addEventListener('input', e => STATE.linkedin = e.target.value);
+  document.getElementById('on_x').addEventListener('input', e => STATE.on_x = e.target.value);
+  document.getElementById('notes').addEventListener('input', e => STATE.notes = e.target.value);
+}
+
+
+// arrows to cycle through lists in STATE
+//
+function initArrows() {
+  const fields = ['email', 'phone', 'location'];
+  fields.forEach(field => {
+    const input = document.getElementById(field);
+    const arrow = document.getElementById(`${field}-arrow`);
+    let index = 0;
+
+    function updateArrowVisibility() {
+      arrow.style.display = (STATE.lists[field].length > 1) ? 'inline-block' : 'none';
+    }
+
+    function updateInputFromState() {
+      input.value = STATE.lists[field][index] || '';
+    }
+
+    if (arrow && input) {
+      updateArrowVisibility();
+      arrow.onclick = () => {
+        if (STATE.lists[field].length > 1) {
+          index = (index + 1) % STATE.lists[field].length;
+          arrow.style.transform = `rotate(${(parseInt(arrow.getAttribute('data-rotation') || 0) + 90) % 360}deg)`;
+          arrow.setAttribute('data-rotation', ((parseInt(arrow.getAttribute('data-rotation') || 0) + 90) % 360));
+          updateInputFromState();
+          STATE.lists[field][0] = STATE.lists[field][index]; // Ensure first element is canonical
+        }
+      };
+    }
+  });
+}
 
 
 
@@ -199,16 +264,18 @@ function initButtons() {
 
 // Basic save functionality to test API connection
 function saveData() {
+
   const data = {
     // Normalize name for storage using our standardized format
-    name: normalizeName(document.getElementById('name')?.value || ''),
+    name: normalizeName(STATE.name),
     
-    org: document.getElementById('org')?.value || '',
-    title: document.getElementById('title')?.value || '',
-    location: document.getElementById('location')?.value || '',
-    phone: document.getElementById('phone')?.value || '',
-    email: document.getElementById('email')?.value || '',
-    linkedin: document.getElementById('linkedin')?.value || ''
+    org: STATE.org,
+    title: STATE.title,
+    location: STATE.lists.location[0],
+    phone: STATE.lists.phone[0],
+    email: STATE.lists.email[0],
+    linkedin: STATE.linkedin,
+    on_x: STATE.on_x
   };
 
   log('Sending data to backend:', JSON.stringify(data, null, 2));
@@ -219,7 +286,7 @@ function saveData() {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify( data )
   })
   .then(response => {
     if (!response.ok) throw new Error('Network response was not ok');
@@ -362,11 +429,6 @@ function loadSVGIcon(path, container) {
 }
 
 
-
-export function setVisIcon( iconDiv, isHidden ) {
-
-  loadSVGIcon( isHidden ? hiddenIconPath : visibleIconPath, iconDiv);
-}
 
 
 

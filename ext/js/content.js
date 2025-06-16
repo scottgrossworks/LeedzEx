@@ -1,5 +1,6 @@
-// js/content.js
-
+// content.js
+//
+// toggle the sidebar panel
 
 let ACTIVE = false;
 
@@ -10,14 +11,13 @@ let ACTIVE = false;
 //
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
-  console.log("Received message:", message);
 
   if (message.action === "toggleSidebar") {
     toggleSidebar();
-  }
+  } else {
 
     console.log("[LeedzEx] content.js > [" + message.type + "] " + message.body);
-
+  }
 });
 
 

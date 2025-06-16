@@ -67,6 +67,8 @@ html, body {
   margin-top: 14px;
   font-size: 13px;
   font-weight: 500;
+  color: darkgreen;
+  font-weight:600;
 }
 
 
@@ -75,24 +77,20 @@ html, body {
   margin-top: 0;
 }
 
-label[for="location"],
-label[for="phone"],
-label[for="email"],
-label[for="notes"] {
-  color: darkgreen;
-  font-weight:600;
-}
+
 
 .leedz-form-section input,
 .leedz-form-section textarea {
   width: 100%;
   padding: 8px;
+  padding-right: 32px; /* Space for the arrows */
   font-size: 14px;
   margin-top: 2px;
   margin-bottom: 2px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  position: relative; /* For arrow positioning */
 }
 
 .leedz-form-section textarea {
@@ -205,50 +203,57 @@ label[for="notes"] {
   box-sizing: border-box;
 }
 
-.input-wrapper input,
-.input-wrapper textarea {
-    width: 91%;
-    left:0;
-    box-sizing: border-box;
+.input-wrapper input {
+  width: 100%;
+  padding-right: 32px; /* Space for the arrow */
+  box-sizing: border-box;
 }
 
-.input-wrapper input[type="date"],
-.input-wrapper input[type="time"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 91%;
-    box-sizing: border-box;
-}
-
-.sidebar-input {
-  transition: all 0.2s ease;
-}
-
-.sidebar-input:focus {
-  outline: 2px solid var(--LEEDZ_GREEN);
-  background-color: var(--LEEDZ_GRAY);
-}
-
-.input-arrow {
-  display:flex;
-  position:relative;
-  right:30px;
-
-  width: 20px;
-  height: 20px;
-  opacity: 0;
+.input-wrapper .input-arrow {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  display: none; /* Hidden by default */
+}
+
+.input-wrapper .input-arrow:hover {
+  opacity: 1;
+}
+
+/* Styling for the rotating arrow icon */
+.input-arrow {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  display: none; /* Hidden by default */
 }
 
 .input-arrow:hover {
-  opacity: 0.75 !important
+  opacity: 1;
 }
 
+/* Show arrows only when there are multiple items */
+.input-container[data-has-multiple="true"] .input-arrow {
+  display: block;
+}
 
-
-
+/* Ensure proper positioning of inputs relative to their arrows */
+.input-container {
+  position: relative;
+  width: 100%;
+}
 
 .leedz-highlighted {
   background-color: var(--LEEDZ_LIGHTGREEN) !important;
