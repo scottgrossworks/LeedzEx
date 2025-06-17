@@ -1,8 +1,8 @@
 // sidebar.js — LeedzEx Sidebar Control Logic (Simplified for Debugging)
 
 
-// Import parser functions
-import { findLinkedin, findX } from './parser.js';
+import { saveData, findData } from './http_utils.js';
+
 
 
 // Debug check to confirm script execution
@@ -11,10 +11,7 @@ import { findLinkedin, findX } from './parser.js';
 // console.log('Chrome API available:', typeof chrome !== 'undefined' ? 'Yes' : 'No');
 
 
-const hiddenIconPath = 'icons/hidden.svg';
-const visibleIconPath = 'icons/visible.svg';
-
-const STATE = {
+export const STATE = {
   id: null,
   name: null,
   title: null,
@@ -31,23 +28,26 @@ const STATE = {
   lastContact: null,
   notes: null,
   activeField: null,
-  lastSelection: "",
+  lastSelection: null,
+
   domElements: {
-    inputs: null,
-    arrows: null
-  }
+      inputs: null,
+      arrows: null
+  },
+
+
 };
 
 
 
 
 // Enhanced logging function to output to both console and UI
-function log(...args) {
+export function log(...args) {
   console.log(...args); // This will call the overridden version which already calls updateDebugOutput
 }
 
 // Separate function for error logging with different styling
-function logError(...args) {
+export function logError(...args) {
   console.error(...args); // This will call the overridden version which already calls updateDebugOutput
 }
 
@@ -85,7 +85,10 @@ function updateDebugOutput(...args) {
 }
 
 
-// PROBLEM
+
+
+
+
 // Override console methods to display logs in the footer
 const originalConsoleLog = console.log;
 console.log = function(...args) {
@@ -99,14 +102,6 @@ console.error = function(...args) {
   updateDebugOutput(...args, true);
 };
 
-
-
-
-// Add import verification
-console.log('[Sidebar] Parser functions loaded:', {
-  findLinkedin: typeof findLinkedin,
-  findX: typeof findX
-});
 
 
 
@@ -129,41 +124,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 
 
-// FIXME FIXME FIXME
-// can function 1 and function 2 be consolidated?  WHich needs to be called first?
-//
-// Initialize when DOM is ready
 
-// function 1
-document.addEventListener('DOMContentLoaded', () => {
-  log('DOMContentLoaded fired, initializing LeedzEx sidebar...');
-
-  updateFormFromState();
-
-  // Set up listeners for all form inputs
-  setupInputListeners();
-
-
-  setupUI();
-});
-
-log('sidebar.js script loaded');
-
-
-function setupUI() {
-
-  initArrows();
-
-  initButtons();
-
-  // Log successful load
-  log('LeedzEx sidebar UI loaded successfully');
-}
-
-
-
-
-function updateFormFromState() {
+// Function to update form inputs from STATE
+export function updateFormFromState() {
   document.getElementById('name').value = STATE.name || '';
   document.getElementById('org').value = STATE.org || '';
   document.getElementById('title').value = STATE.title || '';
@@ -175,48 +138,142 @@ function updateFormFromState() {
   document.getElementById('notes').value = STATE.notes || '';
 }
 
-function setupInputListeners() {
-  document.getElementById('name').addEventListener('input', e => STATE.name = e.target.value);
-  document.getElementById('org').addEventListener('input', e => STATE.org = e.target.value);
-  document.getElementById('title').addEventListener('input', e => STATE.title = e.target.value);
-  document.getElementById('location').addEventListener('input', e => STATE.lists.location[0] = e.target.value);
-  document.getElementById('phone').addEventListener('input', e => STATE.lists.phone[0] = e.target.value);
-  document.getElementById('email').addEventListener('input', e => STATE.lists.email[0] = e.target.value);
-  document.getElementById('linkedin').addEventListener('input', e => STATE.linkedin = e.target.value);
-  document.getElementById('on_x').addEventListener('input', e => STATE.on_x = e.target.value);
-  document.getElementById('notes').addEventListener('input', e => STATE.notes = e.target.value);
+
+
+
+// DOM CONTENT LOADED
+//
+//
+document.addEventListener('DOMContentLoaded', () => {
+  log('DOMContentLoaded fired, initializing LeedzEx sidebar...');
+
+  initializeDOMCache();
+
+  setupEventListeners();
+
+  updateFormFromState();
+
+  // Set up listeners for all form inputs
+  setupInputListeners();
+
+  setupUI();
+});
+
+log('sidebar.js script loaded');
+
+
+function setupUI() {
+
+  // Then initialize UI components that depend on the cache
+  initArrows();
+  initButtons();
+
+  // Log successful load
+  log('LeedzEx sidebar UI loaded successfully');
 }
 
 
-// arrows to cycle through lists in STATE
-//
-function initArrows() {
-  const fields = ['email', 'phone', 'location'];
+
+
+// Function has been moved to the top of the file and exported
+
+function setupInputListeners() {
+  const fields = ['name', 'org', 'title', 'location', 'phone', 'email', 'linkedin', 'on_x', 'notes'];
   fields.forEach(field => {
     const input = document.getElementById(field);
-    const arrow = document.getElementById(`${field}-arrow`);
-    let index = 0;
+    if (input) {
+      input.addEventListener('input', e => {
+        const value = e.target.value;
+        if (STATE.lists[field]) {
+          STATE.lists[field][0] = value; // Synchronize the first element
+        } else {
+          STATE[field] = value; // For non-array fields
+        }
+      });
+    }
+  });
+}
+
+
+// Initialize arrows to cycle through field values in STATE.lists
+function initArrows() {
+  const fields = ['email', 'phone', 'location'];
+  
+  fields.forEach(field => {
+    // Get input element
+    const input = document.getElementById(field);
+    if (!input) {
+      logError(`Missing input element for field: ${field}`);
+      return;
+    }
+
+    // Get the arrow element that's a sibling of the input
+    const wrapper = input.closest('.input-wrapper');
+    if (!wrapper) {
+      logError(`Missing wrapper for field: ${field}`);
+      return;
+    }
+    const arrow = wrapper.querySelector('.input-arrow');
+    if (!arrow) {
+      logError(`Missing arrow for field: ${field}`);
+      return;
+    }
+
+    // Initialize the field's array if it doesn't exist
+    if (!STATE.lists[field]) {
+      STATE.lists[field] = [];
+    }
+
+    // Track current index for this field
+    let currentIndex = 0;
 
     function updateArrowVisibility() {
-      arrow.style.display = (STATE.lists[field].length > 1) ? 'inline-block' : 'none';
+      const hasMultipleValues = STATE.lists[field].length > 1;
+      arrow.style.display = hasMultipleValues ? 'inline-block' : 'none';
+      arrow.style.opacity = hasMultipleValues ? '0.4' : '0';
     }
 
-    function updateInputFromState() {
-      input.value = STATE.lists[field][index] || '';
+    function updateInputValue() {
+      // Always show the current index value, defaulting to empty string
+      input.value = STATE.lists[field][currentIndex] || '';
+      
+      // Update the canonical value (array[0])
+      if (STATE.lists[field].length > 0) {
+        STATE.lists[field][0] = input.value;
+      }
     }
 
-    if (arrow && input) {
-      updateArrowVisibility();
-      arrow.onclick = () => {
-        if (STATE.lists[field].length > 1) {
-          index = (index + 1) % STATE.lists[field].length;
-          arrow.style.transform = `rotate(${(parseInt(arrow.getAttribute('data-rotation') || 0) + 90) % 360}deg)`;
-          arrow.setAttribute('data-rotation', ((parseInt(arrow.getAttribute('data-rotation') || 0) + 90) % 360));
-          updateInputFromState();
-          STATE.lists[field][0] = STATE.lists[field][index]; // Ensure first element is canonical
-        }
-      };
-    }
+    // Initialize visibility and value
+    updateArrowVisibility();
+    updateInputValue();
+
+    // Handle arrow clicks
+    arrow.onclick = () => {
+      if (STATE.lists[field].length > 1) {
+        // Cycle to next value
+        currentIndex = (currentIndex + 1) % STATE.lists[field].length;
+        
+        // Rotate arrow icon
+        const newRotation = ((parseInt(arrow.getAttribute('data-rotation') || 0) + 90) % 360);
+        arrow.style.transform = `rotate(${newRotation}deg)`;
+        arrow.setAttribute('data-rotation', newRotation);
+        
+        // Update input and canonical value
+        updateInputValue();
+        log(`Cycled ${field} to value: ${input.value} (${currentIndex + 1}/${STATE.lists[field].length})`);
+      }
+    };
+
+    // Handle manual input
+    input.addEventListener('input', (e) => {
+      const value = e.target.value;
+      if (STATE.lists[field].length === 0) {
+        STATE.lists[field].push(value);
+      } else {
+        STATE.lists[field][currentIndex] = value;
+        STATE.lists[field][0] = value; // Update canonical value
+      }
+    });
   });
 }
 
@@ -262,43 +319,6 @@ function initButtons() {
   
 }
 
-// Basic save functionality to test API connection
-function saveData() {
-
-  const data = {
-    // Normalize name for storage using our standardized format
-    name: normalizeName(STATE.name),
-    
-    org: STATE.org,
-    title: STATE.title,
-    location: STATE.lists.location[0],
-    phone: STATE.lists.phone[0],
-    email: STATE.lists.email[0],
-    linkedin: STATE.linkedin,
-    on_x: STATE.on_x
-  };
-
-  log('Sending data to backend:', JSON.stringify(data, null, 2));
-
-
-  fetch('http://localhost:3000/marks', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify( data )
-  })
-  .then(response => {
-    if (!response.ok) throw new Error('Network response was not ok');
-    return response.json();
-  })
-  .then(result => {
-    log('Data saved successfully:', result);
-  })
-  .catch(error => {
-    log('Error saving data:', error.message);
-  });
-}
 
 // Function to clear all form fields and reset state
 function clearForm() {
@@ -313,141 +333,74 @@ function clearForm() {
   document.getElementById('email').value = '';
   document.getElementById('linkedin').value = '';
   
-  // Reset any state variables if needed
-  // If you have a STATE object, you would reset it here
+  // Clear the STATE
+
+  STATE.id = null;
+  STATE.name = null;
+  STATE.title = null;
+  STATE.org = null;
   
+  STATE.lists.email = [];
+  STATE.lists.location = [];
+  STATE.lists.phone = [];
+
+  STATE.linkedin = null;
+  STATE.on_x = null;
+
+  STATE.outreachCount = 0;
+  STATE.createdAt = null;
+  STATE.lastContact = null;
+  STATE.notes = null;
+
+  STATE.activeField = null;
+
+  STATE.lastSelection = null;
+
   log('Form cleared successfully');
 }
 
-// Helper function to normalize a name for storage/searching
-function normalizeName(name) {
-  if (!name) return '';
-  return name
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, ' ')  // Replace multiple spaces with single space
-    .replace(/\s/g, '#');  // Replace spaces with #
-}
 
-// Helper function to denormalize a name for display
-function denormalizeName(normalizedName) {
-  if (!normalizedName) return '';
-  
-  // Replace # with spaces
-  const nameWithSpaces = normalizedName.replace(/#/g, ' ');
-  
-  // Capitalize first letter of each word
-  return nameWithSpaces
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-}
-
-// Find button functionality
-// 1. recover form data
-// 2. look for unique fields --- name, email, linkedin, phone
-// 3. SEARCH DB (curl http://localhost/marks?email=foo@bar.com)
-// 4. Return matching mark (if any) and fill-in form fields
-function findData() {
-  log('Searching for existing record...');
-  
-  // Recover form data
-  const email = document.getElementById('email')?.value || '';
-  
-  // Normalize name for searching using our standardized format
-  const displayName = document.getElementById('name')?.value || '';
-  const name = normalizeName(displayName);
-  
-  const phone = document.getElementById('phone')?.value || '';
-  const linkedin = document.getElementById('linkedin')?.value || '';
-  
-  // Build query string based on available unique fields (prioritize email)
-  let queryString = '';
-  if (email) {
-    queryString = `email=${encodeURIComponent(email)}`;
-  } else if (name) {
-    queryString = `name=${encodeURIComponent(name)}`;
-  } else if (phone) {
-    queryString = `phone=${encodeURIComponent(phone)}`;
-  } else if (linkedin) {
-    queryString = `linkedin=${encodeURIComponent(linkedin)}`;
-  } else {
-    log('Error: No unique fields (email, name, phone, or LinkedIn) to search with.');
-    return;
-  }
-  
-  const url = `http://localhost:3000/marks?${queryString}`;
-  log('Searching with URL:', url);
-  
-  // Make GET request to backend
-  fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    if (data && data.length > 0) {
-      log('Record found:', data[0]);
-      // Fill form fields with the first matching record
-      const mark = data[0];
-      
-      // Denormalize the name for display (convert from storage format to human-readable)
-      document.getElementById('name').value = denormalizeName(mark.name) || '';
-      
-      document.getElementById('org').value = mark.org || '';
-      document.getElementById('title').value = mark.title || '';
-      document.getElementById('location').value = mark.location || '';
-      document.getElementById('phone').value = mark.phone || '';
-      document.getElementById('email').value = mark.email || '';
-      document.getElementById('linkedin').value = mark.linkedin || '';
-    } else {
-      log('No matching records found.');
-    }
-  })
-  .catch(error => {
-    log('Error finding data:', error.message);
-  });
-}
-
-
-
-
-
-function loadSVGIcon(path, container) {
-  fetch(path)
-    .then(res => res.text())
-    .then(svg => {
-      container.innerHTML = svg;
-    });
-}
-
-
-
-
-
-// FIXME FIXME FIXME
-// Initialize DOM cache after load
+// Initialize DOM cache for inputs and arrows
 function initializeDOMCache() {
-  // FIXME FIXME FIXME
-    STATE.domElements.inputs = document.querySelectorAll('.sidebar-input');
-    STATE.domElements.arrows = document.querySelectorAll('.input-arrow');
+
+    // Ensure STATE.domElements exists
+    if (! STATE.domElements) {
+      STATE.domElements = {};
+    }
+
+    // Cache all input elements
+    const inputs = document.querySelectorAll('.sidebar-input');
+    if (!inputs) {
+        logError('Failed to find sidebar inputs');
+        return false;
+    }
+    STATE.domElements.inputs = inputs;
+
+    // Cache arrow elements
+    const arrows = document.querySelectorAll('.input-arrow');
+    if (!arrows) {
+        logError('Failed to find input arrows');
+        return false;
+    }
+    STATE.domElements.arrows = arrows;
+
+    log('DOM cache initialized successfully');
+    return true;
 }
+
+
+
 
 // Unified input value updater
-// FIXME FIXME FIXME
+// 
 function updateInputWithArrayValue(inputId, array, index = 0) {
     const input = document.getElementById(inputId);
     if (!input) return;
-    
+
     if (array && array.length > 0) {
         input.value = array[index % array.length];
+        array[0] = input.value; // Ensure the first element is always the displayed value
+
         const arrow = input.parentElement?.querySelector('.input-arrow');
         if (arrow) {
             arrow.style.opacity = (array.length > 1) ? '0.4' : '0';
@@ -460,7 +413,19 @@ function updateInputWithArrayValue(inputId, array, index = 0) {
 // Setup event listeners
 function setupEventListeners() {
 
-    // FIXME FIXME FIXME
+
+  // FIXME FIXME FIXME is this code necessary to cycle through the lists?
+//  lists: {
+//    email: [],
+//    phone: [],
+//    location: []
+//  },
+// when a user clicks the arrow icon in each field the corr array should cycle
+// and the new value[0] should be displayed in the UI.  The icon should rotate when pressed.
+// if the array.length < 2 the icon should not be visible
+//
+
+
     // Arrow click handler with rotation
     STATE.domElements.arrows.forEach(arrow => {
         let currentIndex = 0;
@@ -471,7 +436,6 @@ function setupEventListeners() {
 
             if (arrow.style.opacity === '0') return;
             
-            // FIXME FIXME FIXME
             const array = STATE.lists[input.id];
             if (array && array.length > 1) {
                 currentIndex = (currentIndex + 1) % array.length;
@@ -485,13 +449,6 @@ function setupEventListeners() {
         });
     });
 
-    // detects selections within the sidebar
-    // document.addEventListener("mouseup", () => {
-    //    const selection = window.getSelection().toString().trim();
-    //    if (selection) {
-    //        handleTextSelection(selection, 'page');
-    //    }
-    // });
 }
 
 

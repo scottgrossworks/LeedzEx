@@ -14,6 +14,42 @@ const RESERVED_PATHS = [
 
 
 
+
+
+
+// Helper function to normalize a name for storage/searching
+export function normalizeName(name) {
+  if (!name) return '';
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, ' ')  // Replace multiple spaces with single space
+    .replace(/\s/g, '#');  // Replace spaces with #
+}
+
+
+
+
+
+// Helper function to denormalize a name for display
+export function denormalizeName(normalizedName) {
+  if (!normalizedName) return '';
+  
+  // Replace # with spaces
+  const nameWithSpaces = normalizedName.replace(/#/g, ' ');
+  
+  // Capitalize first letter of each word
+  return nameWithSpaces
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+
+
+
+
+
 export function extractMatches(text, regex, label) {
   const results = [];
   let match;

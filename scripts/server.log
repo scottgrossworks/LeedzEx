@@ -204,3 +204,8 @@ The table `main.Mark` does not exist in the current database.
 [2025-06-16T03:55:25.091Z] Created new record with ID: kyleba#18329651
 [2025-06-16T03:55:29.356Z] GET /marks/
 [2025-06-16T22:19:05.293Z] GET /marks
+[2025-06-17T00:47:48.804Z] GET /marks
+[2025-06-17T01:29:35.836Z] GET /marks?name=kyle
+[2025-06-17T01:32:07.756Z] GET /marks?name=kyle
+[2025-06-17T01:36:38.257Z] GET /marks?name=kyle%23bartz
+[2025-06-17T02:30:11.955Z] GET /marks?name=kyle%23bartz
