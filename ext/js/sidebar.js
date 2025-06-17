@@ -3,6 +3,10 @@
 
 import { saveData, findData } from './http_utils.js';
 
+import { LinkedInParser } from './linkedin_parser.js';
+import { XParser } from './x_parser.js';
+
+
 
 
 // Debug check to confirm script execution
@@ -151,12 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setupEventListeners();
 
-  updateFormFromState();
-
-  // Set up listeners for all form inputs
   setupInputListeners();
 
   setupUI();
+
 });
 
 log('sidebar.js script loaded');
@@ -174,9 +176,10 @@ function setupUI() {
 
 
 
-
-// Function has been moved to the top of the file and exported
-
+// FIXME FIXME FIMXME -- what does this do?  Is it necessary??
+//
+// Function to set up input listeners for form fields
+// This will synchronize input values with STATE.lists
 function setupInputListeners() {
   const fields = ['name', 'org', 'title', 'location', 'phone', 'email', 'linkedin', 'on_x', 'notes'];
   fields.forEach(field => {
@@ -388,9 +391,6 @@ function initializeDOMCache() {
     return true;
 }
 
-
-
-
 // Unified input value updater
 // 
 function updateInputWithArrayValue(inputId, array, index = 0) {
@@ -407,8 +407,6 @@ function updateInputWithArrayValue(inputId, array, index = 0) {
         }
     }
 }
-
-
 
 // Setup event listeners
 function setupEventListeners() {
@@ -451,4 +449,46 @@ function setupEventListeners() {
 
 }
 
+
+chrome.runtime.sendMessage({ type: 'leedz_get_tab_url' }, (response) => {
+    if (response && response.url) {
+        detectAndPreload(response.url);
+    } else {
+        log('Cannot auto-detect page data');
+    }
+  });
+
+
+// 1. try a DB get based on some detectable value
+// 2. parse the page
+//
+async function detectAndPreload(realPageUrl) {
+    log('Starting auto-detection process...');
+
+    const linkedinParser = new LinkedInParser();
+
+    // Pass the real URL to isRelevantPage
+    if (linkedinParser.isRelevantPage(realPageUrl)) {
+        log('LinkedIn page detected, preloading data...');
+        STATE.linkedin = linkedinParser.getValue('profile', realPageUrl);
+
+        // Try to find existing record
+        log('Linkedin being searched:', STATE.linkedin);
+        const existingRecord = await findData({ linkedin: STATE.linkedin });
+
+        if (! existingRecord) {
+           
+            log('No matching records found.');
+            // FIXME FIXME FIXME -- additional parsing using LinkedInParser ? 
+        }
+
+
+
+
+
+
+    } else {
+      log("No portal page auto-detected")
+    }
+}
 

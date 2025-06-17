@@ -5,7 +5,7 @@ import { STATE, updateFormFromState } from "./sidebar.js";
 import { log, logError } from "./sidebar.js";
 
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "http://localhost:3000/marks";
 
 
 
@@ -35,8 +35,8 @@ export function saveData() {
 
   log('Sending data to backend:', JSON.stringify(data, null, 2));
 
-
-  fetch('http://localhost:3000/marks', {
+  
+  fetch(BASE_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -61,43 +61,58 @@ export function saveData() {
 
 // Find button functionality
 // 1. recover form data
-// 2. look for unique fields --- name
+// 2. look for unique fields --- normalized name, linkedin, on_x
 // 3. SEARCH DB (curl http://localhost/marks?name=scott#gross)
 // 4. Return matching mark (if any) and fill-in form fields
-export function findData() {
-  log('Searching for existing record...');
-  
-  if (!STATE.name || STATE.name.trim() === '') {
-    logError('Error: Name field is required to find data.');
-    return; 
+export async function findData(searchParams) {
+  if (!searchParams || typeof searchParams !== 'object') {
+    logError('Error: Search params must be an object.');
+    return null;
   }
-  // construct search query
-  let name = normalizeName(STATE.name);
-  const url = "http://localhost:3000/marks?name=" + encodeURIComponent(name);
-  log('Searching with URL:', url);
-  log('Normalized name being searched:', name);
   
-  // Make GET request to backend
-  fetch(url, {
+  let url = new URL( BASE_URL);
+  let params = new URLSearchParams();
+  
+  // Handle each possible search parameter
+  if (searchParams.name) {
+    params.append('name', normalizeName(searchParams.name));
+    log('Normalized name being searched:', normalizeName(searchParams.name));
+  }
+  
+  if (searchParams.linkedin) {
+    params.append('linkedin', searchParams.linkedin);
+    log('Linkedin being searched:', searchParams.linkedin);
+  }
+  
+  if (searchParams.on_x) {
+    params.append('on_x', searchParams.on_x);
+    log('X handle being searched:', searchParams.on_x);
+  }
+  
+  url.search = params.toString();
+
+  log('Searching with URL:', url.toString());
+  
+  try {
+    // Make GET request to backend
+    const response = await fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
-    }
-  })
-  .then(response => {
+    }    });
+    
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    return response.json();
-  })
-  .then(data => {
+    
+    const data = await response.json();
+    
     if (data && data.length > 0) {
       log('Record found:', data[0]);
-      // Fill form fields with the first matching record
-      const mark = data[0];      // Copy the contents of the mark object from the DB into the STATE object      STATE.name = denormalizeName(mark.name);
+      const mark = data[0];
       
+      // Copy the contents of the mark object from the DB into the STATE object
       STATE.name = denormalizeName(mark.name);
-      
       STATE.org = mark.org || null;
       STATE.title = mark.title || null;
       
@@ -112,19 +127,16 @@ export function findData() {
 
       // Update the form fields
       updateFormFromState();
-      STATE.notes = mark.notes || null;
-
-      // Update the form fields based on the updated STATE
-      updateFormFromState();
-
-
+      
+      return mark;
     } else {
       log('No matching records found.');
+      return null;
     }
-  })
-  .catch(error => {
+  } catch (error) {
     log('Error finding data:', error.message);
-  });
+    return null;
+  }
 }
 
 

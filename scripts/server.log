@@ -209,3 +209,6 @@ The table `main.Mark` does not exist in the current database.
 [2025-06-17T01:32:07.756Z] GET /marks?name=kyle
 [2025-06-17T01:36:38.257Z] GET /marks?name=kyle%23bartz
 [2025-06-17T02:30:11.955Z] GET /marks?name=kyle%23bartz
+[2025-06-17T04:13:28.510Z] GET /marks?&linkedin=null
+[2025-06-17T05:29:21.328Z] GET /marks?
+[2025-06-17T05:49:57.420Z] GET /marks?linkedin=linkedin.com%2Fin%2Fkylebartz%2F
