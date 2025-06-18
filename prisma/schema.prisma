@@ -19,6 +19,7 @@ model Mark {
   title         String?
   org           String?
   location      String?
+  www           String?  
   outreachCount Int       @default(0)
   lastContact   DateTime?
   createdAt     DateTime  @default(now())

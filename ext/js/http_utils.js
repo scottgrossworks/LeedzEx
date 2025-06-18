@@ -11,9 +11,8 @@ const BASE_URL = "http://localhost:3000/marks";
 
 
 
-// Basic save functionality to test API connection
+// Save or update data in the backend
 export function saveData() {
-
   if (!STATE.name || STATE.name.trim() === '') {
     logError('Error: Name field is required to save data.');
     return; 
@@ -22,20 +21,19 @@ export function saveData() {
   const data = {
     // Normalize name for storage using our standardized format
     name: normalizeName(STATE.name),
-    
     org: STATE.org,
     title: STATE.title,
-
+    www: STATE.www,
     location: STATE.lists.location[0],
     phone: STATE.lists.phone[0],
     email: STATE.lists.email[0],
     linkedin: STATE.linkedin,
-    on_x: STATE.on_x
-  };
-
-  log('Sending data to backend:', JSON.stringify(data, null, 2));
-
-  
+    on_x: STATE.on_x,
+    notes: STATE.notes,
+    outreachCount: STATE.outreachCount,
+    lastContact: STATE.lastContact
+  };  // Server handles both create and update through POST
+  log('POSTing data to backend:', JSON.stringify(data, null, 2));
   fetch(BASE_URL, {
     method: 'POST',
     headers: {
@@ -108,10 +106,10 @@ export async function findData(searchParams) {
     const data = await response.json();
     
     if (data && data.length > 0) {
-      log('Record found:', data[0]);
+      // log('Record found:', data[0]);
       const mark = data[0];
-      
-      // Copy the contents of the mark object from the DB into the STATE object
+        // Copy the contents of the mark object from the DB into the STATE object
+      STATE.id = mark.id; // Store the ID so we know this is an existing record
       STATE.name = denormalizeName(mark.name);
       STATE.org = mark.org || null;
       STATE.title = mark.title || null;

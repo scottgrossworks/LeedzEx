@@ -212,3 +212,120 @@ The table `main.Mark` does not exist in the current database.
 [2025-06-17T04:13:28.510Z] GET /marks?&linkedin=null
 [2025-06-17T05:29:21.328Z] GET /marks?
 [2025-06-17T05:49:57.420Z] GET /marks?linkedin=linkedin.com%2Fin%2Fkylebartz%2F
+[2025-06-17T23:28:35.077Z] GET /marks
+[2025-06-17T23:32:48.609Z] GET /marks?linkedin=linkedin.com%2Fin%2Fhadar-ziv-16544%2F
+[2025-06-17T23:33:55.395Z] POST /marks
+[2025-06-17T23:33:55.510Z] Created new record with ID: hadarz#32733050
+[2025-06-17T23:34:05.265Z] GET /marks
+[2025-06-17T23:47:59.565Z] GET /marks?linkedin=linkedin.com%2Fin%2Fyahavromano%2F
+[2025-06-17T23:50:34.602Z] POST /marks
+[2025-06-17T23:50:34.671Z] Created new record with ID: yahavr#31435822
+[2025-06-18T00:10:33.756Z] ! Local API running on http://localhost:3000
+[2025-06-18T00:10:33.761Z] * Server listen failed: Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1811:16)
+    at listenInCluster (node:net:1859:12)
+    at Server.listen (node:net:1947:7)
+    at Function.listen (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/express/lib/application.js:605:24)
+    at /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:235:24
+[2025-06-18T00:10:54.442Z] ! Local API running on http://localhost:3000
+[2025-06-18T00:11:08.476Z] GET /marks
+[2025-06-18T00:11:08.811Z] GET /marks failed: PrismaClientKnownRequestError: 
+Invalid `prisma.mark.findMany()` invocation in
+/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:144:39
+
+  141 }
+  142 
+  143 try {
+→ 144   const results = await prisma.mark.findMany(
+The table `main.Mark` does not exist in the current database.
+    at Zn.handleRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:7459)
+    at Zn.handleAndLogRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6784)
+    at Zn.request (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6491)
+    at async l (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:130:9778)
+    at async /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:144:21
+[2025-06-18T00:12:30.287Z] ! Local API running on http://localhost:3000
+[2025-06-18T00:12:30.314Z] * Server listen failed: Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1811:16)
+    at listenInCluster (node:net:1859:12)
+    at Server.listen (node:net:1947:7)
+    at Function.listen (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/express/lib/application.js:605:24)
+    at /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:235:24
+[2025-06-18T00:13:15.913Z] ! Local API running on http://localhost:3000
+[2025-06-18T00:13:59.501Z] GET /marks
+[2025-06-18T00:13:59.917Z] GET /marks failed: PrismaClientKnownRequestError: 
+Invalid `prisma.mark.findMany()` invocation in
+/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:144:39
+
+  141 }
+  142 
+  143 try {
+→ 144   const results = await prisma.mark.findMany(
+The table `main.Mark` does not exist in the current database.
+    at Zn.handleRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:7459)
+    at Zn.handleAndLogRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6784)
+    at Zn.request (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6491)
+    at async l (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:130:9778)
+    at async /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:144:21
+[2025-06-18T00:15:39.890Z] ! Local API running on http://localhost:3000
+[2025-06-18T00:15:39.895Z] * Server listen failed: Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1811:16)
+    at listenInCluster (node:net:1859:12)
+    at Server.listen (node:net:1947:7)
+    at Function.listen (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/express/lib/application.js:605:24)
+    at /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:235:24
+[2025-06-18T00:16:03.643Z] ! Local API running on http://localhost:3000
+[2025-06-18T00:16:08.446Z] GET /marks
+[2025-06-18T00:16:22.455Z] GET /marks?linkedin=linkedin.com%2Fin%2Fyahav-romano-b7416230a%2F
+[2025-06-18T00:17:34.982Z] POST /marks
+[2025-06-18T00:17:35.047Z] Created new record with ID: yahavr#73321197
+[2025-06-18T00:17:45.631Z] GET /marks
+[2025-06-18T00:26:53.308Z] GET /marks?linkedin=linkedin.com%2Fin%2Fyoav-weber%2F
+[2025-06-18T00:28:21.409Z] POST /marks
+[2025-06-18T00:28:21.488Z] Created new record with ID: yoavwe#87982233
+[2025-06-18T00:29:04.679Z] GET /marks?linkedin=linkedin.com%2Fin%2Fyoav-feigenbaum-25bb642a8%2F
+[2025-06-18T00:29:53.631Z] POST /marks
+[2025-06-18T00:29:53.713Z] Created new record with ID: yoavfe#70517370
+[2025-06-18T00:39:42.979Z] GET /marks?linkedin=linkedin.com%2Fin%2Flee-orh%2F
+[2025-06-18T00:41:17.382Z] POST /marks
+[2025-06-18T00:41:17.482Z] Created new record with ID: leeorh#37736865
+[2025-06-18T00:42:12.800Z] GET /marks?linkedin=linkedin.com%2Fin%2Fzoe-shiovitz%2F
+[2025-06-18T00:42:56.416Z] POST /marks
+[2025-06-18T00:42:56.500Z] Created new record with ID: zoeshi#58803366
+[2025-06-18T00:49:08.134Z] GET /marks?linkedin=linkedin.com%2Fin%2Froyf%2F
+[2025-06-18T00:51:46.405Z] GET /marks?linkedin=linkedin.com%2Fin%2Froyf%2F
+[2025-06-18T00:52:37.084Z] POST /marks
+[2025-06-18T00:52:37.200Z] Created new record with ID: royfox#52396999
+[2025-06-18T00:52:50.547Z] POST /marks
+[2025-06-18T00:52:50.700Z] Updated record with ID: royfox#52396999
+[2025-06-18T00:53:28.235Z] GET /marks?name=roy
+[2025-06-18T00:53:40.705Z] GET /marks
+[2025-06-18T00:54:06.326Z] GET /marks
+[2025-06-18T01:33:54.212Z] GET /marks?linkedin=linkedin.com%2Fsearch%2Fresults%2Fpeople%2F%3Fkeywords%3DUCI%2520israel%26origin%3DCLUSTER_EXPANSION%26page%3D5%26sid%3DRe%7E
+[2025-06-18T04:43:22.975Z] GET /marks?linkedin=linkedin.com%2Fin%2Froyf%2F
+[2025-06-18T04:43:45.769Z] POST /marks/royfox
+[2025-06-18T04:43:57.847Z] POST /marks/royfox
+[2025-06-18T05:22:41.889Z] GET /marks?linkedin=linkedin.com%2Fin%2Froyf%2F
+[2025-06-18T05:28:50.944Z] GET /marks?linkedin=linkedin.com%2Fin%2Froyf%2F
+[2025-06-18T05:31:15.340Z] GET /marks?linkedin=linkedin.com%2Fin%2Froyf%2F
+[2025-06-18T05:34:19.825Z] PUT /marks/royfox%2352396999
+[2025-06-18T05:38:04.174Z] ! Local API running on http://localhost:3000
+[2025-06-18T05:38:09.357Z] GET /marks
+[2025-06-18T05:46:59.664Z] GET /marks?linkedin=linkedin.com%2Fin%2Froyf%2F
+[2025-06-18T05:47:12.821Z] PUT /marks/royfox%2352396999
+[2025-06-18T05:52:37.077Z] GET /marks?linkedin=linkedin.com%2Fin%2Froyf%2F
+[2025-06-18T05:52:45.150Z] POST /marks
+[2025-06-18T05:52:45.224Z] Updated record with ID: royfox#52396999
+[2025-06-18T05:52:49.414Z] POST /marks
+[2025-06-18T05:52:49.480Z] Updated record with ID: royfox#52396999
+[2025-06-18T05:52:59.136Z] GET /marks
+[2025-06-18T06:02:26.825Z] GET /marks
+[2025-06-18T06:14:07.863Z] GET /marks?linkedin=linkedin.com%2Fin%2Froyf%2F
+[2025-06-18T06:14:13.702Z] POST /marks
+[2025-06-18T06:14:13.760Z] Updated record with ID: royfox#52396999
+[2025-06-18T06:14:22.994Z] GET /marks
+[2025-06-18T06:14:54.939Z] POST /marks
+[2025-06-18T06:14:54.985Z] Updated record with ID: royfox#52396999
+[2025-06-18T07:06:56.657Z] GET /marks?linkedin=linkedin.com%2Fin%2Froyf%2F
+[2025-06-18T07:06:59.659Z] POST /marks
+[2025-06-18T07:06:59.724Z] Updated record with ID: royfox#52396999
+[2025-06-18T07:07:10.569Z] GET /marks

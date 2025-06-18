@@ -277,23 +277,36 @@ input.invalid {
 }
 
 
-
 .button-wrapper {
-  margin-top: 6px;
-  text-align: center;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;  /* This will space them evenly */
+  align-items: center;
+  padding: 0 12px;  /* Optional: adds some margin on the sides */
 }
 
 .sidebar-button {
-  color:white;
+  flex: 1;
+  margin: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;  /* All buttons should center their content */
+  
+  color: white;
   border: none;
-  margin:4px;
-  padding: 12px 24px;
   border-radius: 6px;
+  padding: 8px;
+  
   font-size: 16px;
-  font-weight:600;
+  font-weight: 600;
+  
   cursor: pointer;
   transition: background-color 0.2s;
+  gap: 6px;
 }
+
+
+
 
 #saveBtn {
     background-color: var(--LEEDZ_DARKGREEN);
@@ -308,6 +321,31 @@ input.invalid {
 #findBtn:hover {
   background-color:darkblue;
 }
+#outreachBtn {
+  background-color: coral;
+}
+
+
+#outreachBtn:hover {
+  background-color: #e85d3f;
+}
+
+
+.check-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.outreach-count {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+
+
+
 
 /* Clear button styling */
 .clear-button-container {
@@ -339,5 +377,7 @@ input.invalid {
 }
 
 .clear-button:active {
-  transform: scale(0.95);
+  transform: scale(0.9);
 }
+
+

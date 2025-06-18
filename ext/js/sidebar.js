@@ -2,6 +2,7 @@
 
 
 import { saveData, findData } from './http_utils.js';
+import { denormalizeName } from './parser.js';
 
 import { LinkedInParser } from './linkedin_parser.js';
 import { XParser } from './x_parser.js';
@@ -20,6 +21,7 @@ export const STATE = {
   name: null,
   title: null,
   org: null,
+  www: null,
   lists: {
     email: [],
     phone: [],
@@ -129,19 +131,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 
 
-// Function to update form inputs from STATE
-export function updateFormFromState() {
-  document.getElementById('name').value = STATE.name || '';
-  document.getElementById('org').value = STATE.org || '';
-  document.getElementById('title').value = STATE.title || '';
-  document.getElementById('location').value = STATE.lists.location[0] || '';
-  document.getElementById('phone').value = STATE.lists.phone[0] || '';
-  document.getElementById('email').value = STATE.lists.email[0] || '';
-  document.getElementById('linkedin').value = STATE.linkedin || '';
-  document.getElementById('on_x').value = STATE.on_x || '';
-  document.getElementById('notes').value = STATE.notes || '';
-}
-
 
 
 
@@ -158,6 +147,15 @@ document.addEventListener('DOMContentLoaded', () => {
   setupInputListeners();
 
   setupUI();
+
+  // Get the real page URL and start detection after UI is ready
+  chrome.runtime.sendMessage({ type: 'leedz_get_tab_url' }, (response) => {
+    if (response && response.url) {
+      detectAndPreload(response.url);
+    } else {
+      log('Cannot auto-detect page data');
+    }
+  });
 
 });
 
@@ -331,6 +329,9 @@ function clearForm() {
   document.getElementById('name').value = '';
   document.getElementById('org').value = '';
   document.getElementById('title').value = '';
+  document.getElementById('on_x').value = '';
+  document.getElementById('notes').value = '';
+  document.getElementById('www').value = '';
   document.getElementById('location').value = '';
   document.getElementById('phone').value = '';
   document.getElementById('email').value = '';
@@ -342,6 +343,7 @@ function clearForm() {
   STATE.name = null;
   STATE.title = null;
   STATE.org = null;
+  STATE.www = null;
   
   STATE.lists.email = [];
   STATE.lists.location = [];
@@ -447,19 +449,57 @@ function setupEventListeners() {
         });
     });
 
+
+  // Set up outreach button
+  const outreachBtn = document.getElementById('outreachBtn');
+  if (outreachBtn) {
+    const countSpan = outreachBtn.querySelector('.outreach-count');
+    if (countSpan) countSpan.textContent = '0';
+    
+    outreachBtn.addEventListener('click', () => {
+
+      STATE.outreachCount++;
+      countSpan.textContent = STATE.outreachCount;
+      STATE.lastContact = new Date().toISOString();
+      saveData();
+    });
+  }
 }
 
-
-chrome.runtime.sendMessage({ type: 'leedz_get_tab_url' }, (response) => {
-    if (response && response.url) {
-        detectAndPreload(response.url);
-    } else {
-        log('Cannot auto-detect page data');
+// Add function to update outreach count display
+function updateOutreachCount() {
+  const outreachBtn = document.getElementById('outreachBtn');
+  if (outreachBtn) {
+    const countSpan = outreachBtn.querySelector('.outreach-count');
+    if (countSpan) {
+      countSpan.textContent = STATE.outreachCount || '0';
     }
-  });
+  }
+}
 
+// Populate form fields from a database record
+function populateFromRecord(record) {
+    STATE.id = record.id;
+    STATE.name = denormalizeName(record.name);
+    STATE.org = record.org || null;
+    STATE.title = record.title || null;
+    STATE.www = record.www || null;
+    STATE.outreachCount = record.outreachCount || 0;
+    STATE.lastContact = record.lastContact || null;
+    STATE.notes = record.notes || null;
+    STATE.linkedin = record.linkedin || null;
+    STATE.on_x = record.on_x || null;
+    
+    // Handle array fields
+    STATE.lists.location = Array.isArray(record.location) ? record.location : [record.location || ''];
+    STATE.lists.phone = Array.isArray(record.phone) ? record.phone : [record.phone || ''];
+    STATE.lists.email = Array.isArray(record.email) ? record.email : [record.email || ''];
+    
+    updateOutreachCount();
+    updateFormFromState();
+}
 
-// 1. try a DB get based on some detectable value
+// 1. try a DB getbased on some detectable value
 // 2. parse the page
 //
 async function detectAndPreload(realPageUrl) {
@@ -470,21 +510,26 @@ async function detectAndPreload(realPageUrl) {
     // Pass the real URL to isRelevantPage
     if (linkedinParser.isRelevantPage(realPageUrl)) {
         log('LinkedIn page detected, preloading data...');
-        STATE.linkedin = linkedinParser.getValue('profile', realPageUrl);
-
-        // Try to find existing record
+        STATE.linkedin = linkedinParser.getValue('profile', realPageUrl);        // Try to find existing record
         log('Linkedin being searched:', STATE.linkedin);
         const existingRecord = await findData({ linkedin: STATE.linkedin });
 
-        if (! existingRecord) {
-           
-            log('No matching records found.');
-            // FIXME FIXME FIXME -- additional parsing using LinkedInParser ? 
+        if (existingRecord) {
+            log('Found existing record:', existingRecord);
+            populateFromRecord(existingRecord);
+        } else {
+            log('No matching records found. Scanning page for data...');
+            STATE.name = linkedinParser.getValue('name');
+            STATE.org = linkedinParser.getValue('org');
+            STATE.title = linkedinParser.getValue('title'); 
+            STATE.lists.location[0] = linkedinParser.getValue('location') || '';
+            
+            // already known
+            // STATE.linkedin = linkedinParser.getValue('profile', realPageUrl);
+
+            updateFormFromState();
+            updateOutreachCount(); // Initialize outreach count to 0 for new records
         }
-
-
-
-
 
 
     } else {
@@ -492,3 +537,17 @@ async function detectAndPreload(realPageUrl) {
     }
 }
 
+
+// Function to update form inputs from STATE
+export function updateFormFromState() {
+  document.getElementById('name').value = STATE.name || '';
+  document.getElementById('org').value = STATE.org || '';
+  document.getElementById('www').value = STATE.www || '';
+  document.getElementById('title').value = STATE.title || '';
+  document.getElementById('location').value = STATE.lists.location[0] || '';
+  document.getElementById('phone').value = STATE.lists.phone[0] || '';
+  document.getElementById('email').value = STATE.lists.email[0] || '';
+  document.getElementById('linkedin').value = STATE.linkedin || '';
+  document.getElementById('on_x').value = STATE.on_x || '';
+  document.getElementById('notes').value = STATE.notes || '';
+}
