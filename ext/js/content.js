@@ -6,6 +6,8 @@ let ACTIVE = false;
 
 
 
+
+
 //
 // 
 //
@@ -24,6 +26,49 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 console.log('LeedzEx content.js loaded');
 
+
+
+
+
+
+
+// respond to sidebar requests
+chrome.runtime.onMessage.addListener((msg, _sender, reply) => {
+  if (msg.type !== 'leedz_parse_linkedin') return;   // ignore others
+
+  (async () => {
+    try {
+      const p = new window.LinkedInParser();
+      await p.waitUntilReady();          // <h1> now visible in page DOM
+     
+      // ────────────────────────────────────────────────
+      // send back the SAME field names populateFromRecord expects
+      // ────────────────────────────────────────────────
+      reply({
+        ok: true,
+        data: {
+          id:            null, // new record
+          name:          p.getValue('name'),
+          org:           p.getValue('org'),
+          title:         p.getValue('title'),
+          location:      p.getValue('location'),
+          www:           null,
+          outreachCount: 0,
+          lastContact:   null,
+          notes:         null,
+          linkedin:      p.getValue('profile'),
+          on_x:          null
+        }
+
+
+      });
+    } catch (e) {
+      reply({ ok:false, error: e.message });
+    }
+  })();
+
+  return true; // keep port open for async reply
+});
 
 
 

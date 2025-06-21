@@ -1,17 +1,19 @@
-
-// Common regex patterns used across parsers
-export const PHONE_REGEX = /\(?\d{3}\)?[\s.\-]?\d{3}[\s.\-]?\d{4}/g;
-export const EMAIL_REGEX = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}/g;
-
-
-
+//
+//
+//
 
 // Portal Parser Interface
-export class PortalParser {
+class PortalParser {
+
+
     constructor() {
         if (this.constructor === PortalParser) {
             throw new Error("Abstract class 'PortalParser' cannot be instantiated directly.");
         }
+
+        // Common regex patterns used across parsers
+        this.PHONE_REGEX = /\(?\d{3}\)?[\s.\-]?\d{3}[\s.\-]?\d{4}/g;
+        this.EMAIL_REGEX = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}/g;
     }
 
     /**
@@ -38,9 +40,40 @@ export class PortalParser {
     isRelevantPage() {
         throw new Error("isRelevantPage() must be implemented by subclass");
     }
+
+
+    
+  // ───────────────────────────────────────────────────────────────
+  //  ONE GENERIC STATIC HELPER  (observer + polling + timeout)
+  // ───────────────────────────────────────────────────────────────
+  static waitForElement(selector, timeout = 15000, pollMs = 120) {
+    return new Promise((resolve, reject) => {
+      const test = () => document.querySelector(selector);
+      if (test()) return resolve(true);
+
+      const obs = new MutationObserver(() => { if (test()) done(true); });
+      const poll = setInterval(() => { if (test()) done(true); }, pollMs);
+      const to   = setTimeout(()   => done(false), timeout);
+
+      function done(found) {
+        clearInterval(poll);
+        clearTimeout(to);
+        obs.disconnect();
+        return found ? resolve(true) : reject(new Error(
+          `waitForElement timed-out (${timeout} ms) waiting for ${selector}`));
+      }
+      obs.observe(document.documentElement, {childList:true,subtree:true});
+    });
+  }
+
+  // each subclass **must** implement:
+  async waitUntilReady() { throw new Error('waitUntilReady() not implemented'); }
+
+
+
 }
 
-
+window.PortalParser = PortalParser;
 
 // Define comprehensive reserved names list at the top of function
 const RESERVED_PATHS = [
@@ -56,49 +89,7 @@ const RESERVED_PATHS = [
 
 
 
-
-
-
-
-
-
-
-
-
-// Helper function to normalize a name for storage/searching
-export function normalizeName(name) {
-  if (!name) return '';
-  return name
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, ' ')  // Replace multiple spaces with single space
-    .replace(/\s/g, '#');  // Replace spaces with #
-}
-
-
-
-
-
-// Helper function to denormalize a name for display
-export function denormalizeName(normalizedName) {
-  if (!normalizedName) return '';
-  
-  // Replace # with spaces
-  const nameWithSpaces = normalizedName.replace(/#/g, ' ');
-  
-  // Capitalize first letter of each word
-  return nameWithSpaces
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-}
-
-
-
-
-
-
-export function extractMatches(text, regex, label) {
+function extractMatches(text, regex, label) {
   const results = [];
   let match;
 
@@ -118,7 +109,7 @@ export function extractMatches(text, regex, label) {
   return results;
 }
 
-export function pruneShortLines(blob, minChars = 5) {
+function pruneShortLines(blob, minChars = 5) {
   const lines = blob.split(/\r?\n/);
   return lines.filter(line => line.trim().length >= minChars).join('\n');
 }

@@ -1,12 +1,7 @@
 // sidebar.js — LeedzEx Sidebar Control Logic (Simplified for Debugging)
 
 
-import { saveData, findData } from './http_utils.js';
-import { denormalizeName } from './parser.js';
-
-import { LinkedInParser } from './linkedin_parser.js';
-import { XParser } from './x_parser.js';
-
+import { saveData, findData, denormalizeName } from './http_utils.js';
 
 
 
@@ -148,20 +143,81 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setupUI();
 
-  // Get the real page URL and start detection after UI is ready
-  chrome.runtime.sendMessage({ type: 'leedz_get_tab_url' }, (response) => {
-    if (response && response.url) {
-      detectAndPreload(response.url);
-    } else {
-      log('Cannot auto-detect page data');
-    }
-  });
 
-});
+
+  chrome.runtime.sendMessage({ type: 'leedz_get_tab_url' }, async ({ url, tabId }) => {
+      if (!url || !tabId) {
+        log('Cannot auto-detect page data');
+        return;
+      }
+
+      // 1. Check if page is a LinkedIn profile
+      if (!url.includes('linkedin.com/in/')) {
+        log('Not a LinkedIn profile page');
+        return;
+      }
+      
+      log('LinkedIn profile page detected');
+   
+      // 2. Query DB by LinkedIn URL  
+      const linkedinProfile = url.replace(/^https?:\/\/(www\.)?/, '');
+      const existingRecord = await findData({ linkedin: linkedinProfile });
+
+      // 3. If found, use it to populate the form
+      if (existingRecord) {
+        log('Found existing record, populating form');
+        populateFromRecord(existingRecord);
+      }
+
+      // 4. Parse the page using content script and LinkedInParser
+      log('Requesting LinkedIn page parsing from content script');
+      
+      // Send message to content script to parse LinkedIn page
+      chrome.tabs.sendMessage(tabId, { type: 'leedz_parse_linkedin' }, (resp) => {
+        if (resp?.ok) {
+          log('Received parsed LinkedIn data');
+          
+          // Merge data from parser with existing STATE
+          const parsedData = resp.data;
+          mergePageData(parsedData);
+          
+          log('Form updated with parsed LinkedIn data');
+        } else {
+          logError('Failed to parse LinkedIn page:', resp?.error || 'Unknown error');
+        }
+      });
+    });
+});  // CLOSED the DOMContentLoaded listener
 
 log('sidebar.js script loaded');
 
 
+
+//
+// Merge data: Only update fields that are empty in the current STATE
+//
+function mergePageData(parsedData) {
+      
+        if (!STATE.name && parsedData.name) STATE.name = parsedData.name;
+        if (!STATE.org && parsedData.org) STATE.org = parsedData.org;
+        if (!STATE.title && parsedData.title) STATE.title = parsedData.title;
+        
+        if (!STATE.lists.location.includes(parsedData.location))
+           STATE.lists.location.push(parsedData.location);      
+  
+        if (!STATE.linkedin && parsedData.linkedin) STATE.linkedin = parsedData.linkedin;
+        
+        // Update the form with merged data
+        updateFormFromState();
+}
+
+
+
+
+//
+//
+//
+//
 function setupUI() {
 
   // Then initialize UI components that depend on the cache
@@ -425,7 +481,6 @@ function setupEventListeners() {
 // if the array.length < 2 the icon should not be visible
 //
 
-
     // Arrow click handler with rotation
     STATE.domElements.arrows.forEach(arrow => {
         let currentIndex = 0;
@@ -499,43 +554,6 @@ function populateFromRecord(record) {
     updateFormFromState();
 }
 
-// 1. try a DB getbased on some detectable value
-// 2. parse the page
-//
-async function detectAndPreload(realPageUrl) {
-    log('Starting auto-detection process...');
-
-    const linkedinParser = new LinkedInParser();
-
-    // Pass the real URL to isRelevantPage
-    if (linkedinParser.isRelevantPage(realPageUrl)) {
-        log('LinkedIn page detected, preloading data...');
-        STATE.linkedin = linkedinParser.getValue('profile', realPageUrl);        // Try to find existing record
-        log('Linkedin being searched:', STATE.linkedin);
-        const existingRecord = await findData({ linkedin: STATE.linkedin });
-
-        if (existingRecord) {
-            log('Found existing record:', existingRecord);
-            populateFromRecord(existingRecord);
-        } else {
-            log('No matching records found. Scanning page for data...');
-            STATE.name = linkedinParser.getValue('name');
-            STATE.org = linkedinParser.getValue('org');
-            STATE.title = linkedinParser.getValue('title'); 
-            STATE.lists.location[0] = linkedinParser.getValue('location') || '';
-            
-            // already known
-            // STATE.linkedin = linkedinParser.getValue('profile', realPageUrl);
-
-            updateFormFromState();
-            updateOutreachCount(); // Initialize outreach count to 0 for new records
-        }
-
-
-    } else {
-      log("No portal page auto-detected")
-    }
-}
 
 
 // Function to update form inputs from STATE

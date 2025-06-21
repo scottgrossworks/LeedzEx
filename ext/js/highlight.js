@@ -1,11 +1,16 @@
 // highlight.js
 // Shared DOM highlighter + validator
 import {
-  PHONE_REGEX,
-  EMAIL_REGEX,
+
   LINKEDIN_REGEX,
   X_REGEX
 } from "./parser.js"; // import from centralized regex source
+
+
+const PHONE_REGEX = /\(?\d{3}\)?[\s.\-]?\d{3}[\s.\-]?\d{4}/g;
+const EMAIL_REGEX = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}/g;
+
+
 
 const MATCH_ALL = /^.+$/;
 

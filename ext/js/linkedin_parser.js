@@ -1,13 +1,14 @@
-import { PortalParser } from './parser.js';
+
 
 // Broader LinkedIn regex: matches any URL containing 'linkedin.com'
 const LINKEDIN_REGEX = /linkedin\.com/i;
 
-export class LinkedInParser extends PortalParser {
+class LinkedInParser extends window.PortalParser {
     constructor() {
         super();
         this.supportedKeys = ['profile', 'name', 'title', 'org', 'location'];
         this.realUrl = null;
+        this._ready = false;
     }
 
     getKeys() {
@@ -23,12 +24,19 @@ export class LinkedInParser extends PortalParser {
         return LINKEDIN_REGEX.test(testUrl);
     }
 
+    async waitUntilReady() {
+        await PortalParser.waitForElement('h1');   // blocks until <h1> exists
+    }
+
+
+
     getValue(key, url) {
         // Always use the stored real URL or passed URL
         const testUrl = url || this.realUrl || window.location.href;
         if (!this.isRelevantPage(testUrl)) {
             return null;
         }
+
 
         // If no key provided, return profile URL (default behavior)
         if (!key) {
@@ -51,20 +59,20 @@ export class LinkedInParser extends PortalParser {
         }
     }
 
+
+    // for LinkedIn, the profile URL should be the current tab’s URL
+    // normalized (remove protocol and www)
+    //
     _getProfileUrl(url) {
-        // Use the real URL directly since we know it's a LinkedIn URL
-        if (url) {
-            return url.replace(/https?:\/\/(www\.)?/, '');
-        }
-        return null;
+        if (!url) url = window.location.href;
+        return url.replace(/^https?:\/\/(www\.)?/, '');
     }
 
     _getName() {
-        // Try various LinkedIn selectors for name
-        const nameElement = document.querySelector('[data-field="name"]') ||
-                          document.querySelector('.pv-top-card-section__name') ||
-                          document.querySelector('.profile-overview-card__name');
-        return nameElement ? nameElement.textContent.trim() : null;
+        // look for the <h1> tag
+        const h1 = document.querySelector('h1');
+        console.log("FOUND H1?", h1 ? h1.textContent : null);
+        return h1 ? h1.textContent.trim() : null;
     }
 
     _getTitle() {
@@ -89,3 +97,5 @@ export class LinkedInParser extends PortalParser {
         return locationElement ? locationElement.textContent.trim() : null;
     }
 }
+
+window.LinkedInParser = LinkedInParser;

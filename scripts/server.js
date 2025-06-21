@@ -1,4 +1,31 @@
 // scripts/server.js
+//
+//
+/*
+*
+# Get all marks
+curl "http://localhost:3000/marks"
+
+# Filter by name
+curl "http://localhost:3000/marks?name=john%23doe"
+
+# Filter by email
+curl "http://localhost:3000/marks?email=john@example.com"
+
+# Filter by linkedin
+curl "http://localhost:3000/marks?linkedin=https://linkedin.com/in/johndoe"
+
+# Get list of all emails
+curl "http://localhost:3000/list?field=email"
+
+# Get list of all names
+curl "http://localhost:3000/list?field=name"
+
+# Get list of all linkedin profiles
+curl "http://localhost:3000/list?field=linkedin"
+*
+*
+*/
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
