@@ -76,6 +76,7 @@ chrome.runtime.onMessage.addListener((msg, _sender, reply) => {
 // send leedz_open_sidebar message and 
 // leedz_close_sidebar message to content.html
 //
+/*
 function toggleSidebar () {
   const pane = document.getElementById('leedz-sidebar-container');
 
@@ -130,4 +131,43 @@ function toggleSidebar () {
      });
    }
  }
+   */
 
+ function toggleSidebar () {
+  const pane = document.getElementById('leedz-sidebar-container');
+
+  if (pane) {
+    // If sidebar exists, close it
+    requestAnimationFrame(() => {
+      pane.style.transform = 'translateX(100%)';
+    });
+    pane.addEventListener('transitionend', () => pane.remove(), { once: true });
+  } else {
+    // Create a completely isolated iframe
+    const iframe = document.createElement('iframe');
+    iframe.id = "leedz-sidebar-container";
+    iframe.src = chrome.runtime.getURL("sidebar.html");
+    
+    // Style the iframe to be positioned as a sidebar
+    Object.assign(iframe.style, {
+      position: "fixed",
+      top: "0",
+      right: "0",
+      width: "420px",
+      height: "100vh",
+      zIndex: "2147483647", // Maximum z-index value
+      border: "none",
+      transform: "translateX(100%)",
+      transition: "transform 0.4s ease",
+      boxShadow: "-6px 0 18px rgba(0,0,0,0.2)"
+    });
+    
+    // Append directly to body
+    document.body.appendChild(iframe);
+    
+    // Animate it in
+    requestAnimationFrame(() => {
+      iframe.style.transform = "translateX(0)";
+    });
+  }
+}

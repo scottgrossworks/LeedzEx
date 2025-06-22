@@ -190,7 +190,7 @@ function checkForLinkedin() {
       
       try {
         // Check if LinkedInParser exists
-        if (!window.LinkedInParser) {
+        if (! window.LinkedInParser) {
           log('LinkedInParser not available');
           resolve(false);
           return;
@@ -287,8 +287,6 @@ function setupUI() {
 
 
 
-// FIXME FIXME FIMXME -- what does this do?  Is it necessary??
-//
 // Function to set up input listeners for form fields
 // This will synchronize input values with STATE.lists
 function setupInputListeners() {
@@ -547,7 +545,7 @@ function updateInputWithArrayValue(inputId, array, index = 0) {
 function setupEventListeners() {
 
 
-  // FIXME FIXME FIXME is this code necessary to cycle through the lists?
+  
 //  lists: {
 //    email: [],
 //    phone: [],

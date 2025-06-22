@@ -453,3 +453,24 @@ The table `main.Mark` does not exist in the current database.
 [2025-06-22T20:27:55.569Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaaretartosalo%2F
 [2025-06-22T20:31:00.014Z] POST /marks
 [2025-06-22T20:31:00.088Z] Created new record with ID: maaret#48335327
+[2025-06-22T20:42:30.825Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaaretartosalo%2F
+[2025-06-22T20:42:30.841Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaaretartosalo%2F
+[2025-06-22T20:42:30.863Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaaretartosalo%2F
+[2025-06-22T20:42:30.879Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaaretartosalo%2F
+[2025-06-22T20:42:30.890Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaaretartosalo%2F
+[2025-06-22T20:42:30.900Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaaretartosalo%2F
+[2025-06-22T20:42:30.909Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaaretartosalo%2F
+[2025-06-22T20:42:30.919Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaaretartosalo%2F
+[2025-06-22T20:42:47.942Z] POST /marks
+[2025-06-22T20:42:47.994Z] POST /marks failed: PrismaClientKnownRequestError: 
+Invalid `prisma.mark.update()` invocation:
+
+
+Unique constraint failed on the fields: (`email`)
+    at Zn.handleRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:7459)
+    at Zn.handleAndLogRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6784)
+    at Zn.request (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6491)
+    at async l (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:130:9778)
+    at async /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:101:16
+[2025-06-22T20:42:53.678Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaaretartosalo%2F
+[2025-06-22T20:43:08.401Z] GET /marks?linkedin=linkedin.com%2Fin%2Flivi-kerszenbaum%2F
