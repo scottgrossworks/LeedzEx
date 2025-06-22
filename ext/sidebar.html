@@ -4,15 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The Leedz</title>
+
   <link rel="stylesheet" href="css/globals.css" />
   <link rel="stylesheet" href="css/leedz_layout.css" />
  
+  <!-- Load parser scripts first -->
+  <script src="js/parser.js"></script>
+  <script src="js/linkedin_parser.js"></script>
+  
+  <!-- Then load the main sidebar script -->
   <script type="module" src="js/sidebar.js"></script>
   <script type="module" src="js/http_utils.js"></script>
 
-
-
 </head>
+
+
 <body class="leedz-sidebar">
 
   <header class="leedz-header">
@@ -20,11 +26,22 @@
     <img src="icons/hamburger.png" alt="Menu" class="leedz-hamburger"/>
   </header>
 
-  <div class="clear-button-container">
+
+  <div class="buttons-container">
+    <button id="reloadBtn" class="reload-button" title="Reload the parser">
+      <span>
+        <img src="icons/arrows_white.png" class="button-icon" alt="reload parser"/>
+      </span>
+    </button>
+
     <button id="clearBtn" class="clear-button" title="Clear all fields">
       <span>✕</span>
     </button>
   </div>
+
+
+
+
 
   <main class="leedz-form-section">
     

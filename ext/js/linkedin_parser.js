@@ -1,9 +1,17 @@
 
 
 // Broader LinkedIn regex: matches any URL containing 'linkedin.com'
-const LINKEDIN_REGEX = /linkedin\.com/i;
+// const LINKEDIN_REGEX = /linkedin\.com/i;
+
+// LinkedIn profile regex: matches LinkedIn profile URLs
+const LINKEDIN_PROFILE_REGEX = /linkedin\.com\/in\//i;
+
 
 class LinkedInParser extends window.PortalParser {
+
+    // Add static property to access the regex directly
+    static LINKEDIN_PROFILE_REGEX = LINKEDIN_PROFILE_REGEX;
+     
     constructor() {
         super();
         this.supportedKeys = ['profile', 'name', 'title', 'org', 'location'];
@@ -15,28 +23,42 @@ class LinkedInParser extends window.PortalParser {
         return this.supportedKeys;
     }
 
-    // Accepts a url parameter for minimal sidebar/content separation
-    isRelevantPage(url) {
-        const testUrl = url || window.location.href;
-        if (url) {
-            this.realUrl = url; // Store the real URL when provided
-        }
-        return LINKEDIN_REGEX.test(testUrl);
+    // Static method to check if URL is a LinkedIn profile page
+    static isLinkedinProfileUrl(url) {
+        return url && LINKEDIN_PROFILE_REGEX.test(url);
     }
 
-    async waitUntilReady() {
+    // Static method to check if URL is any LinkedIn page
+    static isLinkedinUrl(url) {
+        return url && LINKEDIN_REGEX.test(url);
+    }
+
+
+    // Instance method to check if URL is a LinkedIn profile and store it
+    testLinkedinUrl(url) {
+        const testUrl = url || window.location.href;
+        const detected = testUrl && LINKEDIN_PROFILE_REGEX.test(testUrl);
+        if (detected && url) {
+            this.realUrl = url.replace(/^https?:\/\/(www\.)?/, '');
+        }
+        return detected;
+    }
+
+
+
+        async waitUntilReady() {
         await PortalParser.waitForElement('h1');   // blocks until <h1> exists
     }
 
 
 
     getValue(key, url) {
+        
         // Always use the stored real URL or passed URL
         const testUrl = url || this.realUrl || window.location.href;
-        if (!this.isRelevantPage(testUrl)) {
+        if (! this.testLinkedinUrl(testUrl) ) {
             return null;
         }
-
 
         // If no key provided, return profile URL (default behavior)
         if (!key) {
@@ -64,6 +86,11 @@ class LinkedInParser extends window.PortalParser {
     // normalized (remove protocol and www)
     //
     _getProfileUrl(url) {
+        // If we already have realUrl set, use it
+        if (this.realUrl) {
+            return this.realUrl;
+        }
+        // Otherwise normalize the provided URL or current URL
         if (!url) url = window.location.href;
         return url.replace(/^https?:\/\/(www\.)?/, '');
     }

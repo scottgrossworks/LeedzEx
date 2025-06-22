@@ -64,7 +64,11 @@ export function saveData() {
     outreachCount: STATE.outreachCount,
     lastContact: STATE.lastContact
   };  // Server handles both create and update through POST
-  log('POSTing data to backend:', JSON.stringify(data, null, 2));
+  
+  
+  // log('POSTing data to backend:', JSON.stringify(data, null, 2));
+  
+ 
   fetch(BASE_URL, {
     method: 'POST',
     headers: {
@@ -77,7 +81,8 @@ export function saveData() {
     return response.json();
   })
   .then(result => {
-    log('Data saved successfully:', result);
+    log('Data saved successfully.');
+    // log('Data saved successfully:', result);
   })
   .catch(error => {
     log('Error saving data:', error.message);

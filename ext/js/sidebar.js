@@ -129,9 +129,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 
 
+
+
+
+/*
 // DOM CONTENT LOADED
 //
 //
+*/
 document.addEventListener('DOMContentLoaded', () => {
   log('DOMContentLoaded fired, initializing LeedzEx sidebar...');
 
@@ -143,53 +148,105 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setupUI();
 
+  reloadParsers();
 
-
-  chrome.runtime.sendMessage({ type: 'leedz_get_tab_url' }, async ({ url, tabId }) => {
-      if (!url || !tabId) {
-        log('Cannot auto-detect page data');
-        return;
-      }
-
-      // 1. Check if page is a LinkedIn profile
-      if (!url.includes('linkedin.com/in/')) {
-        log('Not a LinkedIn profile page');
-        return;
-      }
-      
-      log('LinkedIn profile page detected');
-   
-      // 2. Query DB by LinkedIn URL  
-      const linkedinProfile = url.replace(/^https?:\/\/(www\.)?/, '');
-      const existingRecord = await findData({ linkedin: linkedinProfile });
-
-      // 3. If found, use it to populate the form
-      if (existingRecord) {
-        log('Found existing record, populating form');
-        populateFromRecord(existingRecord);
-      }
-
-      // 4. Parse the page using content script and LinkedInParser
-      log('Requesting LinkedIn page parsing from content script');
-      
-      // Send message to content script to parse LinkedIn page
-      chrome.tabs.sendMessage(tabId, { type: 'leedz_parse_linkedin' }, (resp) => {
-        if (resp?.ok) {
-          log('Received parsed LinkedIn data');
-          
-          // Merge data from parser with existing STATE
-          const parsedData = resp.data;
-          mergePageData(parsedData);
-          
-          log('Form updated with parsed LinkedIn data');
-        } else {
-          logError('Failed to parse LinkedIn page:', resp?.error || 'Unknown error');
-        }
-      });
-    });
 });  // CLOSED the DOMContentLoaded listener
 
 log('sidebar.js script loaded');
+
+
+
+
+/*
+// include ALL of the portal-specific checks
+// i.e. LinkedIn, X, etc
+*/
+async function reloadParsers() {
+  try {
+    const isLinkedin = await checkForLinkedin();
+    if (!isLinkedin) {
+      // Try other parsers or handle no matches
+      log('No matching parsers found');
+    }
+  } catch (error) {
+    logError('Error in reloadParsers:', error);
+  }
+}
+
+
+
+/*
+// is this a linkedin page?
+// query the url to find out
+*/
+function checkForLinkedin() {
+  return new Promise((resolve) => {
+    chrome.runtime.sendMessage({ type: 'leedz_get_tab_url' }, async ({ url, tabId }) => {
+      if (!url || !tabId) {
+        log('Cannot auto-detect page data');
+        resolve(false);
+        return;
+      }
+      
+      try {
+        // Check if LinkedInParser exists
+        if (!window.LinkedInParser) {
+          log('LinkedInParser not available');
+          resolve(false);
+          return;
+        }
+        
+        const isLinkedin = window.LinkedInParser.isLinkedinProfileUrl(url);
+        if (!isLinkedin) {
+          log('Not a LinkedIn profile page');
+          resolve(false);
+        } else {
+          log('LinkedIn profile page detected');
+          await parseLinkedin(url, tabId);
+          resolve(true);
+        }
+      } catch (error) {
+        logError('Error checking LinkedIn:', error);
+        resolve(false);
+      }
+    });
+  });
+}
+
+
+/*
+It queries the database for an existing record matching the LinkedIn URL
+It populates the form with any existing data
+It requests the content script to parse the LinkedIn page for additional data
+*/
+async function parseLinkedin( url, tabId ) {
+
+    // 1. Query DB by LinkedIn URL  
+    const linkedinProfile = url.replace(/^https?:\/\/(www\.)?/, '');
+    const existingRecord = await findData({ linkedin: linkedinProfile });
+
+    // 2. If found, use it to populate the form
+    if (existingRecord) {
+      log('Found existing record for: ' + linkedinProfile);
+      populateFromRecord(existingRecord);
+    }
+
+    // 3. Parse the page using content script and LinkedInParser
+    log('Requesting LinkedIn page parsing from content script');
+    
+    // Send message to content script to parse LinkedIn page
+    chrome.tabs.sendMessage(tabId, { type: 'leedz_parse_linkedin' }, (resp) => {
+      if (resp?.ok) {
+        // log('Received parsed LinkedIn data');
+        // Merge data from parser with existing STATE
+        mergePageData( resp.data );
+  
+      } else {
+        logError('Failed to parse LinkedIn page:', resp?.error || 'Unknown error');
+      }
+    });
+}
+
 
 
 
@@ -366,15 +423,29 @@ function initButtons() {
   const clearBtn = document.getElementById('clearBtn');
   if (clearBtn) {
     clearBtn.addEventListener('click', () => {
-      log('Clear button clicked');
+      // log('Clear button clicked');
       clearForm();
     });
   } else {
     log('Error: Clear button not found');
   }
 
+  // Setup reload button
+  const reloadBtn = document.getElementById('reloadBtn');
+  if (reloadBtn) {
+    reloadBtn.addEventListener('click', () => {
+      // log('Reload button clicked');
+      clearForm();
+      reloadParsers();
+    });
+  } else {
+    log('Error: Reload button not found');
+  }
+
   
 }
+
+
 
 
 // Function to clear all form fields and reset state
@@ -392,7 +463,13 @@ function clearForm() {
   document.getElementById('phone').value = '';
   document.getElementById('email').value = '';
   document.getElementById('linkedin').value = '';
-  
+
+  // Clear the outreach count
+  const outreachBtn = document.getElementById('outreachBtn');
+  const countSpan = outreachBtn.querySelector('.outreach-count');
+  countSpan.textContent = '0';
+
+
   // Clear the STATE
 
   STATE.id = null;
@@ -417,7 +494,7 @@ function clearForm() {
 
   STATE.lastSelection = null;
 
-  log('Form cleared successfully');
+  // log('Form cleared successfully');
 }
 
 

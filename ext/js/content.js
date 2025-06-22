@@ -77,49 +77,57 @@ chrome.runtime.onMessage.addListener((msg, _sender, reply) => {
 // leedz_close_sidebar message to content.html
 //
 function toggleSidebar () {
-  const pane = document.getElementById('leedz-sidebar');
+  const pane = document.getElementById('leedz-sidebar-container');
 
   if (pane) {
+    // If sidebar exists, close it
     requestAnimationFrame(() => {
       pane.style.transform = 'translateX(100%)';
     });
     pane.addEventListener('transitionend', () => pane.remove(), { once: true });
-
-    /*
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, { type: "leedz_close_sidebar" });
-    });
-    */
-
-
   } else {
-    const iframe = document.createElement('iframe');
-    iframe.id = "leedz-sidebar";
-    iframe.src = chrome.runtime.getURL("sidebar.html");
-
-    Object.assign(iframe.style, {
+    // Create a shadow DOM container for the sidebar to isolate it from the page
+    const container = document.createElement('div');
+    container.id = "leedz-sidebar-container";
+    
+    // Apply styles to ensure it's positioned properly on top of page content
+    Object.assign(container.style, {
       position: "fixed",
       top: "0",
       right: "0",
       width: "420px",
       height: "100vh",
-      border: "none",
-      zIndex: "999999",
-      transform: "translateX(100%)",
-      transition: "transform 0.4s ease",
+      zIndex: "2147483647", // Maximum z-index value
+      backgroundColor: "#ffffff",
       boxShadow: "-6px 0 18px rgba(0,0,0,0.2)",
+      border: "none",
+      transform: "translateX(100%)",
+      transition: "transform 0.4s ease"
     });
+    
+     // Create an iframe for the sidebar content
+     const iframe = document.createElement('iframe');
+     iframe.id = "leedz-sidebar";
+     iframe.src = chrome.runtime.getURL("sidebar.html");
+     
+     // Style the iframe to fill the container
+     Object.assign(iframe.style, {
+       width: "100%",
+       height: "100%",
+       border: "none",
+       backgroundColor: "#ffffff"
+     });
+     
+     // Append the iframe directly to the container
+     container.appendChild(iframe);
+     
+     // Append the container directly to the body
+     document.body.appendChild(container);
+     
+     // Animate it in
+     requestAnimationFrame(() => {
+       container.style.transform = "translateX(0)";
+     });
+   }
+ }
 
-    document.body.appendChild(iframe);
-
-    /*
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, { type: "leedz_open_sidebar" });
-    });
-    */
-
-    requestAnimationFrame(() => {
-      iframe.style.transform = "translateX(0)";
-    });
-  }
-}
