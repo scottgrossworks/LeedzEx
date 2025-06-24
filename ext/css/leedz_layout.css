@@ -45,7 +45,7 @@ html, body {
 }
 
 .leedz-hamburger {
-  height: 40px;
+  height: 36px;
   width: auto;
   cursor: pointer;
 }
@@ -55,8 +55,9 @@ html, body {
   flex: 1 1 auto;     /* Grow to fill available space */
   overflow-y: auto;   /* Scroll if content overflows */
   min-height: 0;      /* Prevent flexbox overflow issues */
-  padding: 0px 10px;
-  width: 100%;
+  padding: 10px;
+  width: 98%;
+  margin: 0 auto;
   box-sizing: border-box;
 
 }
@@ -64,7 +65,7 @@ html, body {
 
 .leedz-form-section label {
   display: block;
-  margin-top: 14px;
+  margin-top: 10px;
   font-size: 13px;
   font-weight: 500;
   color: darkgreen;
@@ -282,7 +283,7 @@ input.invalid {
   display: flex;
   justify-content: space-between;  /* This will space them evenly */
   align-items: center;
-  padding: 0 12px;  /* Optional: adds some margin on the sides */
+  padding: 6px 12px;  /* Optional: adds some margin on the sides */
 }
 
 .sidebar-button {

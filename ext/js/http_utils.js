@@ -1,7 +1,7 @@
 // http_utils.js
 // Handles local DB communication for querying existing marks and submitting new ones
 
-import { STATE } from "./sidebar.js";
+import { STATE, updateFormFromState } from "./sidebar.js";
 import { log, logError } from "./sidebar.js";
 
 
@@ -192,30 +192,8 @@ export function populateFromRecord(record) {
   updateFormFromState();
 }
 
-// Function to update form inputs from STATE
-export function updateFormFromState() {
-document.getElementById('name').value = STATE.name || '';
-document.getElementById('org').value = STATE.org || '';
-document.getElementById('www').value = STATE.www || '';
-document.getElementById('title').value = STATE.title || '';
-document.getElementById('location').value = STATE.lists.location[0] || '';
-document.getElementById('phone').value = STATE.lists.phone[0] || '';
-document.getElementById('email').value = STATE.lists.email[0] || '';
-document.getElementById('linkedin').value = STATE.linkedin || '';
-document.getElementById('on_x').value = STATE.on_x || '';
-document.getElementById('notes').value = STATE.notes || '';
 
-  
-  // Update hasReplied button if it exists
-  const hasRepliedBtn = document.getElementById('hasRepliedBtn');
-  if (hasRepliedBtn) {
-    if (STATE.hasReplied) {
-      hasRepliedBtn.classList.add('hasReplied');
-    } else {
-      hasRepliedBtn.classList.remove('hasReplied');
-    }
-  }
-}
+
 
 
 

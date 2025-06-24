@@ -1,7 +1,7 @@
 // sidebar.js — LeedzEx Sidebar Control Logic (Simplified for Debugging)
 
 
-import { saveData, findData, populateFromRecord, updateFormFromState } from './http_utils.js';
+import { saveData, findData, populateFromRecord } from './http_utils.js';
 
 
 
@@ -266,7 +266,7 @@ function mergePageData(parsedData) {
         if (!STATE.lists.email.includes(parsedData.email))
           STATE.lists.email.push(parsedData.email);      
 
-        if (!STATE.lists.phone.includes(parsedData.phone))
+        if (parsedData.phone && !STATE.lists.phone.includes(parsedData.phone))
           STATE.lists.phone.push(parsedData.phone);      
 
         if (!STATE.linkedin && parsedData.linkedin) STATE.linkedin = parsedData.linkedin;
@@ -479,6 +479,60 @@ function initButtons() {
   }
 
 }
+
+
+
+
+
+
+
+
+
+// Function to update form inputs from STATE
+export function updateFormFromState() {
+  document.getElementById('name').value = STATE.name || '';
+  document.getElementById('org').value = STATE.org || '';
+  document.getElementById('www').value = STATE.www || '';
+  document.getElementById('title').value = STATE.title || '';
+  document.getElementById('location').value = STATE.lists.location[0] || '';
+  document.getElementById('phone').value = STATE.lists.phone[0] || '';
+  document.getElementById('email').value = STATE.lists.email[0] || '';
+  document.getElementById('linkedin').value = STATE.linkedin || '';
+  document.getElementById('on_x').value = STATE.on_x || '';
+  document.getElementById('notes').value = STATE.notes || '';
+  
+    
+    // Update hasReplied button if it exists
+    const hasRepliedBtn = document.getElementById('hasRepliedBtn');
+    if (hasRepliedBtn) {
+      if (STATE.hasReplied) {
+        hasRepliedBtn.classList.add('hasReplied');
+      } else {
+        hasRepliedBtn.classList.remove('hasReplied');
+      }
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
