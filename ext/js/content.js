@@ -18,7 +18,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     toggleSidebar();
   } else {
 
-    console.log("[LeedzEx] content.js > [" + message.type + "] " + message.body);
+    // console.log("[LeedzEx] content.js > [" + message.type + "] " + message.body);
   }
 });
 
@@ -41,6 +41,7 @@ chrome.runtime.onMessage.addListener((msg, _sender, reply) => {
       const p = new window.LinkedInParser();
       await p.waitUntilReady();          // <h1> now visible in page DOM
      
+    
       // ────────────────────────────────────────────────
       // send back the SAME field names populateFromRecord expects
       // ────────────────────────────────────────────────
@@ -52,6 +53,7 @@ chrome.runtime.onMessage.addListener((msg, _sender, reply) => {
           org:           p.getValue('org'),
           title:         p.getValue('title'),
           location:      p.getValue('location'),
+          phone:         null,  // Add this line
           www:           null,
           outreachCount: 0,
           lastContact:   null,
@@ -59,8 +61,6 @@ chrome.runtime.onMessage.addListener((msg, _sender, reply) => {
           linkedin:      p.getValue('profile'),
           on_x:          null
         }
-
-
       });
     } catch (e) {
       reply({ ok:false, error: e.message });

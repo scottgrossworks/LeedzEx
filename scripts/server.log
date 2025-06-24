@@ -651,3 +651,216 @@ Unique constraint failed on the fields: (`email`)
 [2025-06-24T01:22:06.079Z] GET /marks?linkedin=linkedin.com%2Fin%2Flivi-kerszenbaum%2F
 [2025-06-24T01:22:06.089Z] GET /marks?linkedin=linkedin.com%2Fin%2Flivi-kerszenbaum%2F
 [2025-06-24T01:22:06.098Z] GET /marks?linkedin=linkedin.com%2Fin%2Flivi-kerszenbaum%2F
+[2025-06-24T01:24:47.870Z] GET /marks?linkedin=linkedin.com%2Fin%2Froyf%2F
+[2025-06-24T01:33:36.783Z] POST /marks
+[2025-06-24T01:33:36.836Z] Created new record with ID: royfox#93413919
+[2025-06-24T01:34:43.450Z] POST /marks
+[2025-06-24T01:34:43.501Z] Updated record with ID: royfox#93413919
+[2025-06-24T01:35:55.066Z] GET /marks?linkedin=linkedin.com%2Fin%2Fbkblanton%2F
+[2025-06-24T01:36:32.143Z] POST /marks
+[2025-06-24T01:36:32.193Z] Created new record with ID: bryceb#80070129
+[2025-06-24T01:36:33.749Z] POST /marks
+[2025-06-24T01:36:33.785Z] Updated record with ID: bryceb#80070129
+[2025-06-24T01:42:27.709Z] GET /marks?linkedin=linkedin.com%2Fin%2Fscott-harris-6245531a%2F
+[2025-06-24T01:42:27.728Z] GET /marks?linkedin=linkedin.com%2Fin%2Fscott-harris-6245531a%2F
+[2025-06-24T01:42:27.744Z] GET /marks?linkedin=linkedin.com%2Fin%2Fscott-harris-6245531a%2F
+[2025-06-24T01:42:27.761Z] GET /marks?linkedin=linkedin.com%2Fin%2Fscott-harris-6245531a%2F
+[2025-06-24T01:42:27.773Z] GET /marks?linkedin=linkedin.com%2Fin%2Fscott-harris-6245531a%2F
+[2025-06-24T01:42:27.785Z] GET /marks?linkedin=linkedin.com%2Fin%2Fscott-harris-6245531a%2F
+[2025-06-24T01:42:27.797Z] GET /marks?linkedin=linkedin.com%2Fin%2Fscott-harris-6245531a%2F
+[2025-06-24T01:42:27.807Z] GET /marks?linkedin=linkedin.com%2Fin%2Fscott-harris-6245531a%2F
+[2025-06-24T01:43:41.716Z] POST /marks
+[2025-06-24T01:43:41.767Z] Created new record with ID: scotth#30896640
+[2025-06-24T01:43:46.069Z] POST /marks
+[2025-06-24T01:43:46.123Z] Updated record with ID: scotth#30896640
+[2025-06-24T01:43:51.611Z] GET /marks
+[2025-06-24T01:44:29.426Z] GET /marks?linkedin=linkedin.com%2Fin%2Fkylebartz%2F
+[2025-06-24T01:45:00.898Z] POST /marks
+[2025-06-24T01:45:00.955Z] Created new record with ID: kyleba#86459781
+[2025-06-24T01:45:21.457Z] GET /marks
+[2025-06-24T01:46:06.533Z] GET /marks?linkedin=linkedin.com%2Fin%2Fleo-vannini-b2856986%2F
+[2025-06-24T01:46:35.533Z] POST /marks
+[2025-06-24T01:46:35.579Z] Created new record with ID: leovan#28626416
+[2025-06-24T01:46:36.780Z] POST /marks
+[2025-06-24T01:46:36.836Z] Updated record with ID: leovan#28626416
+[2025-06-24T01:59:17.975Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohnmwoo%2F
+[2025-06-24T01:59:17.987Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohnmwoo%2F
+[2025-06-24T01:59:17.997Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohnmwoo%2F
+[2025-06-24T01:59:18.007Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohnmwoo%2F
+[2025-06-24T01:59:18.017Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohnmwoo%2F
+[2025-06-24T01:59:18.027Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohnmwoo%2F
+[2025-06-24T01:59:18.038Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohnmwoo%2F
+[2025-06-24T01:59:18.048Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohnmwoo%2F
+[2025-06-24T02:00:42.714Z] POST /marks
+[2025-06-24T02:00:42.776Z] Created new record with ID: johnwo#17527758
+[2025-06-24T02:00:43.712Z] POST /marks
+[2025-06-24T02:00:43.763Z] Updated record with ID: johnwo#17527758
+[2025-06-24T02:03:43.620Z] POST /marks
+[2025-06-24T02:03:43.659Z] Created new record with ID: keithr#78070504
+[2025-06-24T02:03:44.552Z] POST /marks
+[2025-06-24T02:03:44.596Z] Updated record with ID: keithr#78070504
+[2025-06-24T02:04:11.976Z] GET /marks?linkedin=linkedin.com%2Fin%2Fcarolynshin%2F
+[2025-06-24T02:04:45.178Z] POST /marks
+[2025-06-24T02:04:45.231Z] Created new record with ID: caroly#70993202
+[2025-06-24T02:04:46.365Z] POST /marks
+[2025-06-24T02:04:46.412Z] Updated record with ID: caroly#70993202
+[2025-06-24T02:05:33.211Z] GET /marks?linkedin=linkedin.com%2Fin%2Fbondchristina%2F
+[2025-06-24T02:06:25.093Z] POST /marks
+[2025-06-24T02:06:25.148Z] Created new record with ID: christ#41657192
+[2025-06-24T02:06:27.838Z] POST /marks
+[2025-06-24T02:06:27.889Z] Updated record with ID: christ#41657192
+[2025-06-24T02:07:03.769Z] GET /marks?linkedin=linkedin.com%2Fin%2Frachelholden22%2F
+[2025-06-24T02:07:55.673Z] POST /marks
+[2025-06-24T02:07:55.725Z] Created new record with ID: rachel#77007367
+[2025-06-24T02:08:19.048Z] GET /marks?linkedin=linkedin.com%2Fin%2Fchristinebmun%2F
+[2025-06-24T02:08:51.657Z] POST /marks
+[2025-06-24T02:08:51.701Z] Created new record with ID: christ#96101291
+[2025-06-24T02:08:53.230Z] POST /marks
+[2025-06-24T02:08:53.280Z] Updated record with ID: christ#96101291
+[2025-06-24T02:10:01.199Z] GET /marks?linkedin=linkedin.com%2Fin%2Flilian-lin-0284b125%2F
+[2025-06-24T02:10:01.211Z] GET /marks?linkedin=linkedin.com%2Fin%2Flilian-lin-0284b125%2F
+[2025-06-24T02:10:01.220Z] GET /marks?linkedin=linkedin.com%2Fin%2Flilian-lin-0284b125%2F
+[2025-06-24T02:10:01.230Z] GET /marks?linkedin=linkedin.com%2Fin%2Flilian-lin-0284b125%2F
+[2025-06-24T02:10:01.238Z] GET /marks?linkedin=linkedin.com%2Fin%2Flilian-lin-0284b125%2F
+[2025-06-24T02:10:01.247Z] GET /marks?linkedin=linkedin.com%2Fin%2Flilian-lin-0284b125%2F
+[2025-06-24T02:10:01.256Z] GET /marks?linkedin=linkedin.com%2Fin%2Flilian-lin-0284b125%2F
+[2025-06-24T02:10:01.267Z] GET /marks?linkedin=linkedin.com%2Fin%2Flilian-lin-0284b125%2F
+[2025-06-24T02:11:01.001Z] POST /marks
+[2025-06-24T02:11:01.060Z] Created new record with ID: lilian#19724974
+[2025-06-24T02:11:02.249Z] POST /marks
+[2025-06-24T02:11:02.304Z] Updated record with ID: lilian#19724974
+[2025-06-24T02:11:28.688Z] GET /marks?linkedin=linkedin.com%2Fin%2Ferikpeterson%2F
+[2025-06-24T02:13:59.008Z] POST /marks
+[2025-06-24T02:13:59.055Z] Created new record with ID: erikpe#30766593
+[2025-06-24T02:13:59.922Z] POST /marks
+[2025-06-24T02:13:59.978Z] Updated record with ID: erikpe#30766593
+[2025-06-24T02:28:42.138Z] GET /marks?linkedin=linkedin.com%2Fin%2Falexnegvesky%2F
+[2025-06-24T02:29:29.625Z] POST /marks
+[2025-06-24T02:29:29.683Z] Created new record with ID: alexne#23171105
+[2025-06-24T02:29:31.100Z] POST /marks
+[2025-06-24T02:29:31.155Z] Updated record with ID: alexne#23171105
+[2025-06-24T02:30:11.498Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjeffreymfellows%2F
+[2025-06-24T02:31:42.361Z] POST /marks
+[2025-06-24T02:31:42.416Z] Created new record with ID: jeffre#11350085
+[2025-06-24T02:31:45.777Z] POST /marks
+[2025-06-24T02:31:45.834Z] Updated record with ID: jeffre#11350085
+[2025-06-24T02:31:59.358Z] POST /marks
+[2025-06-24T02:31:59.405Z] Updated record with ID: jeffre#11350085
+[2025-06-24T02:33:56.050Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidochi%2F
+[2025-06-24T02:35:06.100Z] POST /marks
+[2025-06-24T02:35:06.157Z] Created new record with ID: davido#83867424
+[2025-06-24T02:35:11.036Z] POST /marks
+[2025-06-24T02:35:11.093Z] Updated record with ID: davido#83867424
+[2025-06-24T02:37:21.729Z] POST /marks
+[2025-06-24T02:37:21.777Z] Updated record with ID: davido#83867424
+[2025-06-24T02:37:25.752Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidochi%2F
+[2025-06-24T02:37:25.762Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidochi%2F
+[2025-06-24T02:37:36.236Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidochi%2F
+[2025-06-24T02:38:12.318Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmary-gillis%2F
+[2025-06-24T02:38:47.646Z] POST /marks
+[2025-06-24T02:38:47.716Z] Created new record with ID: marygi#96534115
+[2025-06-24T02:38:48.726Z] POST /marks
+[2025-06-24T02:38:48.762Z] Updated record with ID: marygi#96534115
+[2025-06-24T02:39:14.077Z] GET /marks?linkedin=linkedin.com%2Fin%2Fron-degany-2566b9%2F
+[2025-06-24T02:40:14.560Z] POST /marks
+[2025-06-24T02:40:14.609Z] Created new record with ID: rondeg#49054307
+[2025-06-24T02:40:15.977Z] POST /marks
+[2025-06-24T02:40:16.019Z] Updated record with ID: rondeg#49054307
+[2025-06-24T02:40:42.759Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-06-24T02:41:29.588Z] POST /marks
+[2025-06-24T02:41:29.655Z] Created new record with ID: davidr#42047878
+[2025-06-24T02:41:32.207Z] POST /marks
+[2025-06-24T02:41:32.251Z] Updated record with ID: davidr#42047878
+[2025-06-24T02:42:08.483Z] GET /marks?linkedin=linkedin.com%2Fin%2Falbert-tran-8b366418b%2F
+[2025-06-24T02:42:42.196Z] POST /marks
+[2025-06-24T02:42:42.252Z] Created new record with ID: albert#53679176
+[2025-06-24T02:42:42.518Z] POST /marks
+[2025-06-24T02:42:42.571Z] Updated record with ID: albert#53679176
+[2025-06-24T02:42:43.658Z] POST /marks
+[2025-06-24T02:42:43.709Z] Updated record with ID: albert#53679176
+[2025-06-24T02:43:40.907Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-06-24T02:45:28.858Z] POST /marks
+[2025-06-24T02:45:28.919Z] Created new record with ID: patric#13425794
+[2025-06-24T02:45:29.811Z] POST /marks
+[2025-06-24T02:45:29.865Z] Updated record with ID: patric#13425794
+[2025-06-24T02:45:39.067Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-06-24T02:45:39.078Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-06-24T02:45:39.093Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-06-24T02:45:39.628Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-06-24T02:45:39.641Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-06-24T02:45:39.652Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-06-24T02:45:39.664Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-06-24T02:45:39.674Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-06-24T02:46:49.538Z] GET /marks
+[2025-06-24T02:47:04.897Z] POST /marks
+[2025-06-24T02:47:04.942Z] Updated record with ID: patric#13425794
+[2025-06-24T02:47:07.110Z] GET /marks
+[2025-06-24T05:06:47.753Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidochi%2F
+[2025-06-24T05:06:47.796Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidochi%2F
+[2025-06-24T05:06:47.808Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidochi%2F
+[2025-06-24T05:06:47.820Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidochi%2F
+[2025-06-24T05:06:47.831Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidochi%2F
+[2025-06-24T05:06:47.842Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidochi%2F
+[2025-06-24T05:06:47.852Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidochi%2F
+[2025-06-24T05:06:47.864Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidochi%2F
+[2025-06-24T05:07:11.374Z] POST /marks
+[2025-06-24T05:07:11.448Z] Updated record with ID: davido#83867424
+[2025-06-24T05:07:37.932Z] GET /marks?linkedin=linkedin.com%2Fin%2Flivi-kerszenbaum%2F
+[2025-06-24T05:09:04.656Z] GET /marks?linkedin=linkedin.com%2Fin%2Fbondchristina%2F
+[2025-06-24T05:09:12.977Z] POST /marks
+[2025-06-24T05:09:13.069Z] Updated record with ID: christ#41657192
+[2025-06-24T05:10:39.539Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-06-24T05:11:13.546Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohnpdang%2F
+[2025-06-24T05:12:33.552Z] POST /marks
+[2025-06-24T05:12:33.623Z] POST /marks failed: PrismaClientKnownRequestError: 
+Invalid `prisma.mark.create()` invocation in
+/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:138:34
+
+  135 const customId = generateCustomId(normalizedName);
+  136 
+  137 // Create new record with custom ID
+→ 138 result = await prisma.mark.create(
+Inconsistent column data: Conversion failed: Value 9494270289 does not fit in an INT column, try migrating the 'phone' column type to BIGINT
+    at Zn.handleRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:7459)
+    at Zn.handleAndLogRequestError (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6784)
+    at Zn.request (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:121:6491)
+    at async l (/mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/node_modules/@prisma/client/runtime/library.js:130:9778)
+    at async /mnt/c/Users/Scott/Desktop/WKG/PRECRIME/LOCAL/scripts/server.js:138:16
+[2025-06-24T05:14:30.324Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:15:38.972Z] POST /marks
+[2025-06-24T05:15:39.050Z] Created new record with ID: johnsc#36734533
+[2025-06-24T05:15:42.806Z] POST /marks
+[2025-06-24T05:15:42.905Z] Updated record with ID: johnsc#36734533
+[2025-06-24T05:16:09.555Z] POST /marks
+[2025-06-24T05:16:09.617Z] Updated record with ID: johnsc#36734533
+[2025-06-24T05:28:53.312Z] ! Local API running on http://localhost:3000
+[2025-06-24T05:28:57.824Z] GET /marks
+[2025-06-24T05:30:08.716Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:30:08.756Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:30:08.769Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:30:08.782Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:30:08.793Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:30:08.805Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:30:08.820Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:30:08.833Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:41:00.032Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:41:00.075Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:41:00.091Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:41:00.107Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:41:00.119Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:41:00.130Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:41:00.143Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:41:00.154Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:41:00.167Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:41:00.179Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:41:00.190Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:41:00.202Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:41:11.921Z] POST /marks
+[2025-06-24T05:41:12.064Z] Updated record with ID: johnsc#36734533
+[2025-06-24T05:46:12.369Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:46:12.389Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:46:12.438Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:46:12.487Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:46:12.508Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:46:12.539Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F
+[2025-06-24T05:46:12.554Z] GET /marks?linkedin=linkedin.com%2Fin%2Fjohncouch%2F

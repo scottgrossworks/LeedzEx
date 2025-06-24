@@ -107,13 +107,14 @@ app.post("/marks", async (req, res) => {
   // Store the normalized name in the name field
   data.name = normalizedName;
   
-  // Convert phone to integer if it exists, or set to 0 if empty
+  // Handle phone as a string, just clean it up
   if (data.phone === '' || data.phone === undefined || data.phone === null) {
-    data.phone = 0;
+    data.phone = null;
   } else {
-    // Remove non-numeric characters and convert to integer
-    const phoneDigits = data.phone.toString().replace(/\D/g, '');
-    data.phone = phoneDigits ? parseInt(phoneDigits, 10) : 0;
+    // Remove non-numeric characters but keep as string
+    data.phone = data.phone.toString().replace(/\D/g, '');
+    // If empty after cleaning, set to null
+    if (!data.phone) data.phone = null;
   }
   
   try {

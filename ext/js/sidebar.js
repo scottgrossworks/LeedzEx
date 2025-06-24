@@ -230,10 +230,9 @@ async function parseLinkedin( url, tabId ) {
       populateFromRecord(existingRecord);
     }
 
-    // 3. Parse the page using content script and LinkedInParser
-    log('Requesting LinkedIn page parsing from content script');
-    
-    // Send message to content script to parse LinkedIn page
+    // 3. Send message to content script to parse LinkedIn page
+    // log('Requesting LinkedIn page parsing from content script');
+    // 
     chrome.tabs.sendMessage(tabId, { type: 'leedz_parse_linkedin' }, (resp) => {
       if (resp?.ok) {
         // log('Received parsed LinkedIn data');
@@ -257,10 +256,19 @@ function mergePageData(parsedData) {
         if (!STATE.name && parsedData.name) STATE.name = parsedData.name;
         if (!STATE.org && parsedData.org) STATE.org = parsedData.org;
         if (!STATE.title && parsedData.title) STATE.title = parsedData.title;
-        
+        if (!STATE.linkedin && parsedData.linkedin) STATE.linkedin = parsedData.linkedin;
+        if (!STATE.on_x && parsedData.on_x) STATE.on_x = parsedData.on_x; 
+        if (!STATE.www && parsedData.www) STATE.www = parsedData.www;
+
         if (!STATE.lists.location.includes(parsedData.location))
            STATE.lists.location.push(parsedData.location);      
   
+        if (!STATE.lists.email.includes(parsedData.email))
+          STATE.lists.email.push(parsedData.email);      
+
+        if (!STATE.lists.phone.includes(parsedData.phone))
+          STATE.lists.phone.push(parsedData.phone);      
+
         if (!STATE.linkedin && parsedData.linkedin) STATE.linkedin = parsedData.linkedin;
         
         // Update the form with merged data
@@ -289,12 +297,26 @@ function setupUI() {
 // Function to set up input listeners for form fields
 // This will synchronize input values with STATE.lists
 function setupInputListeners() {
-  const fields = ['name', 'org', 'title', 'location', 'phone', 'email', 'linkedin', 'on_x', 'notes'];
+  const fields = ['name', 'org', 'title', 'www', 'location', 'phone', 'email', 'linkedin', 'on_x', 'notes'];
   fields.forEach(field => {
     const input = document.getElementById(field);
     if (input) {
       input.addEventListener('input', e => {
         const value = e.target.value;
+        
+        // Special handling for phone field
+        if (field === 'phone') {
+          // Basic phone validation - allow only digits, spaces, dashes, parentheses, and plus sign
+          const isValidPhone = /^[0-9\s\-\(\)\+]*$/.test(value);
+          if (!isValidPhone && value !== '') {
+            // Visual indicator for invalid input
+            input.classList.add('invalid-input');
+            return; // Don't update STATE with invalid phone
+          } else {
+            input.classList.remove('invalid-input');
+          }
+        }
+        
         if (STATE.lists[field]) {
           STATE.lists[field][0] = value; // Synchronize the first element
         } else {
@@ -540,7 +562,7 @@ function initializeDOMCache() {
     }
     STATE.domElements.arrows = arrows;
 
-    log('DOM cache initialized successfully');
+    // log('DOM cache initialized successfully');
     return true;
 }
 
@@ -581,6 +603,3 @@ function hasReplied() {
   }
   saveData();
 }
-
-
-

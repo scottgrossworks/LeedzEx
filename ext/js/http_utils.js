@@ -125,8 +125,7 @@ export async function findData(searchParams) {
   }
   
   url.search = params.toString();
-
-  log('Searching with URL:', url.toString());
+  // log('Searching with URL:', url.toString());
   
   try {
     // Make GET request to backend

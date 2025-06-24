@@ -12,7 +12,7 @@ generator client {
 model Mark {
   id            String   @id @default(cuid())
   name          String   @unique
-  phone         Int      @default(0)
+  phone         String?  
   email         String?  
   linkedin      String?  @unique
   on_x          String?  
