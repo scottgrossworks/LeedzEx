@@ -11,9 +11,9 @@ generator client {
 
 model Mark {
   id            String   @id @default(cuid())
-  name          String
+  name          String   @unique
   phone         Int      @default(0)
-  email         String?  @unique
+  email         String?  
   linkedin      String?  @unique
   on_x          String?  
   title         String?
@@ -23,5 +23,6 @@ model Mark {
   outreachCount Int       @default(0)
   lastContact   DateTime?
   createdAt     DateTime  @default(now())
+  hasReplied    Boolean   @default(false)
   notes         String?
 }

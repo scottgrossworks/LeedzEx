@@ -1,7 +1,7 @@
 // sidebar.js — LeedzEx Sidebar Control Logic (Simplified for Debugging)
 
 
-import { saveData, findData, denormalizeName } from './http_utils.js';
+import { saveData, findData, populateFromRecord, updateFormFromState } from './http_utils.js';
 
 
 
@@ -28,6 +28,7 @@ export const STATE = {
   createdAt: null,
   lastContact: null,
   notes: null,
+  hasReplied: false,
   activeField: null,
   lastSelection: null,
 
@@ -141,8 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
   log('DOMContentLoaded fired, initializing LeedzEx sidebar...');
 
   initializeDOMCache();
-
-  setupEventListeners();
 
   setupInputListeners();
 
@@ -391,15 +390,32 @@ function initArrows() {
 
 
 
+
+
+
 // Initialize buttons and their event listeners
 //
 function initButtons() {
+
+  // Setup hasReplied button
+  const hasRepliedBtn = document.getElementById('hasRepliedBtn');
+  if (hasRepliedBtn) {
+    hasRepliedBtn.addEventListener('click', () => {
+      //log('Has Replied button clicked');
+      hasReplied();
+    });
+  } else {
+    log('Error: Has Replied button not found');
+  }
+
+
+  initOutreachButton();
 
   // Setup save button
   const saveBtn = document.getElementById('saveBtn');
   if (saveBtn) {
     saveBtn.addEventListener('click', () => {
-      log('Save button clicked');
+      // log('Save button clicked');
       saveData();
     });
   } else {
@@ -410,7 +426,7 @@ function initButtons() {
   const findBtn = document.getElementById('findBtn');
   if (findBtn) {
     findBtn.addEventListener('click', () => {
-      log('Find button clicked');
+      //log('Find button clicked');
       findData();
     });
   } else {
@@ -440,7 +456,6 @@ function initButtons() {
     log('Error: Reload button not found');
   }
 
-  
 }
 
 
@@ -448,7 +463,7 @@ function initButtons() {
 
 // Function to clear all form fields and reset state
 function clearForm() {
-  log('Clearing all form fields');
+  // log('Clearing all form fields');
   
   // Clear all input fields
   document.getElementById('name').value = '';
@@ -461,6 +476,10 @@ function clearForm() {
   document.getElementById('phone').value = '';
   document.getElementById('email').value = '';
   document.getElementById('linkedin').value = '';
+
+  // Clear the hasReplied button
+  const hasReplied = document.getElementById('hasRepliedBtn');
+  if (hasReplied) hasReplied.classList.remove('hasReplied');
 
   // Clear the outreach count
   const outreachBtn = document.getElementById('outreachBtn');
@@ -484,6 +503,7 @@ function clearForm() {
   STATE.on_x = null;
 
   STATE.outreachCount = 0;
+  STATE.hasReplied = false;
   STATE.createdAt = null;
   STATE.lastContact = null;
   STATE.notes = null;
@@ -524,62 +544,11 @@ function initializeDOMCache() {
     return true;
 }
 
-// Unified input value updater
-// 
-function updateInputWithArrayValue(inputId, array, index = 0) {
-    const input = document.getElementById(inputId);
-    if (!input) return;
-
-    if (array && array.length > 0) {
-        input.value = array[index % array.length];
-        array[0] = input.value; // Ensure the first element is always the displayed value
-
-        const arrow = input.parentElement?.querySelector('.input-arrow');
-        if (arrow) {
-            arrow.style.opacity = (array.length > 1) ? '0.4' : '0';
-        }
-    }
-}
-
-// Setup event listeners
-function setupEventListeners() {
 
 
-  
-//  lists: {
-//    email: [],
-//    phone: [],
-//    location: []
-//  },
-// when a user clicks the arrow icon in each field the corr array should cycle
-// and the new value[0] should be displayed in the UI.  The icon should rotate when pressed.
-// if the array.length < 2 the icon should not be visible
-//
-
-    // Arrow click handler with rotation
-    STATE.domElements.arrows.forEach(arrow => {
-        let currentIndex = 0;
-        const input = arrow.closest('.input-wrapper')?.querySelector('input');
-        if (!input) return;
-
-        arrow.addEventListener('click', () => {
-
-            if (arrow.style.opacity === '0') return;
-            
-            const array = STATE.lists[input.id];
-            if (array && array.length > 1) {
-                currentIndex = (currentIndex + 1) % array.length;
-                updateInputWithArrayValue(input.id, array, currentIndex);
-                
-                // rotate the arrow
-                const newRotation = ((parseInt(arrow.getAttribute('data-rotation') || 0) + 90) % 360);
-                arrow.setAttribute('data-rotation', newRotation);
-                arrow.style.transform = `rotate(${newRotation}deg)`;
-            }
-        });
-    });
 
 
+function initOutreachButton() {
   // Set up outreach button
   const outreachBtn = document.getElementById('outreachBtn');
   if (outreachBtn) {
@@ -596,51 +565,22 @@ function setupEventListeners() {
   }
 }
 
-// Add function to update outreach count display
-function updateOutreachCount() {
-  const outreachBtn = document.getElementById('outreachBtn');
-  if (outreachBtn) {
-    const countSpan = outreachBtn.querySelector('.outreach-count');
-    if (countSpan) {
-      countSpan.textContent = STATE.outreachCount || '0';
-    }
+// indicate that the user being viewed has replied to outreach
+//
+function hasReplied() {
+  STATE.hasReplied = true;
+
+  const hasRepliedBtn = document.getElementById('hasRepliedBtn');
+
+  if (hasRepliedBtn) {
+      if (STATE.hasReplied) {
+          hasRepliedBtn.classList.add('hasReplied');
+      } else {
+          hasRepliedBtn.classList.remove('hasReplied');
+      }
   }
-}
-
-// Populate form fields from a database record
-function populateFromRecord(record) {
-    STATE.id = record.id;
-    STATE.name = denormalizeName(record.name);
-    STATE.org = record.org || null;
-    STATE.title = record.title || null;
-    STATE.www = record.www || null;
-    STATE.outreachCount = record.outreachCount || 0;
-    STATE.lastContact = record.lastContact || null;
-    STATE.notes = record.notes || null;
-    STATE.linkedin = record.linkedin || null;
-    STATE.on_x = record.on_x || null;
-    
-    // Handle array fields
-    STATE.lists.location = Array.isArray(record.location) ? record.location : [record.location || ''];
-    STATE.lists.phone = Array.isArray(record.phone) ? record.phone : [record.phone || ''];
-    STATE.lists.email = Array.isArray(record.email) ? record.email : [record.email || ''];
-    
-    updateOutreachCount();
-    updateFormFromState();
+  saveData();
 }
 
 
 
-// Function to update form inputs from STATE
-export function updateFormFromState() {
-  document.getElementById('name').value = STATE.name || '';
-  document.getElementById('org').value = STATE.org || '';
-  document.getElementById('www').value = STATE.www || '';
-  document.getElementById('title').value = STATE.title || '';
-  document.getElementById('location').value = STATE.lists.location[0] || '';
-  document.getElementById('phone').value = STATE.lists.phone[0] || '';
-  document.getElementById('email').value = STATE.lists.email[0] || '';
-  document.getElementById('linkedin').value = STATE.linkedin || '';
-  document.getElementById('on_x').value = STATE.on_x || '';
-  document.getElementById('notes').value = STATE.notes || '';
-}

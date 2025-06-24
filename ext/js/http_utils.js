@@ -1,7 +1,7 @@
 // http_utils.js
 // Handles local DB communication for querying existing marks and submitting new ones
 
-import { STATE, updateFormFromState } from "./sidebar.js";
+import { STATE } from "./sidebar.js";
 import { log, logError } from "./sidebar.js";
 
 
@@ -61,6 +61,7 @@ export function saveData() {
     linkedin: STATE.linkedin,
     on_x: STATE.on_x,
     notes: STATE.notes,
+    hasReplied: STATE.hasReplied,
     outreachCount: STATE.outreachCount,
     lastContact: STATE.lastContact
   };  // Server handles both create and update through POST
@@ -144,20 +145,9 @@ export async function findData(searchParams) {
     if (data && data.length > 0) {
       // log('Record found:', data[0]);
       const mark = data[0];
-        // Copy the contents of the mark object from the DB into the STATE object
-      STATE.id = mark.id; // Store the ID so we know this is an existing record
-      STATE.name = denormalizeName(mark.name);
-      STATE.org = mark.org || null;
-      STATE.title = mark.title || null;
-      
-      // Handle array fields - if DB sends arrays use them, otherwise create single-item arrays
-      STATE.lists.location = Array.isArray(mark.location) ? mark.location : [mark.location || ''];
-      STATE.lists.phone = Array.isArray(mark.phone) ? mark.phone : [mark.phone || ''];
-      STATE.lists.email = Array.isArray(mark.email) ? mark.email : [mark.email || ''];
-      
-      STATE.linkedin = mark.linkedin || null;
-      STATE.on_x = mark.on_x || null;
-      STATE.notes = mark.notes || null;
+
+      // Copy the contents of the mark object from the DB into the STATE object
+      copyFromRecord(mark);
 
       // Update the form fields
       updateFormFromState();
@@ -172,5 +162,74 @@ export async function findData(searchParams) {
     return null;
   }
 }
+
+
+// Copy record data into STATE
+function copyFromRecord(record) {
+  STATE.id = record.id;
+  STATE.name = denormalizeName(record.name);
+  STATE.org = record.org || null;
+  STATE.title = record.title || null;
+  STATE.www = record.www || null;
+  STATE.outreachCount = record.outreachCount || 0;
+  STATE.lastContact = record.lastContact || null;
+  STATE.notes = record.notes || null;
+  STATE.linkedin = record.linkedin || null;
+  STATE.on_x = record.on_x || null;
+  STATE.hasReplied = record.hasReplied || false;
+  
+  // Handle array fields
+  STATE.lists.location = Array.isArray(record.location) ? record.location : [record.location || ''];
+  STATE.lists.phone = Array.isArray(record.phone) ? record.phone : [record.phone || ''];
+  STATE.lists.email = Array.isArray(record.email) ? record.email : [record.email || ''];
+}
+
+
+// NUMBER 2
+// Populate form fields from a database record  
+export function populateFromRecord(record) {
+  copyFromRecord(record);
+  updateOutreachCount();
+  updateFormFromState();
+}
+
+// Function to update form inputs from STATE
+export function updateFormFromState() {
+document.getElementById('name').value = STATE.name || '';
+document.getElementById('org').value = STATE.org || '';
+document.getElementById('www').value = STATE.www || '';
+document.getElementById('title').value = STATE.title || '';
+document.getElementById('location').value = STATE.lists.location[0] || '';
+document.getElementById('phone').value = STATE.lists.phone[0] || '';
+document.getElementById('email').value = STATE.lists.email[0] || '';
+document.getElementById('linkedin').value = STATE.linkedin || '';
+document.getElementById('on_x').value = STATE.on_x || '';
+document.getElementById('notes').value = STATE.notes || '';
+
+  
+  // Update hasReplied button if it exists
+  const hasRepliedBtn = document.getElementById('hasRepliedBtn');
+  if (hasRepliedBtn) {
+    if (STATE.hasReplied) {
+      hasRepliedBtn.classList.add('hasReplied');
+    } else {
+      hasRepliedBtn.classList.remove('hasReplied');
+    }
+  }
+}
+
+
+
+// Add function to update outreach count display
+function updateOutreachCount() {
+  const outreachBtn = document.getElementById('outreachBtn');
+  if (outreachBtn) {
+    const countSpan = outreachBtn.querySelector('.outreach-count');
+    if (countSpan) {
+      countSpan.textContent = STATE.outreachCount || '0';
+    }
+  }
+}
+
 
 
