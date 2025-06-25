@@ -946,3 +946,89 @@ Inconsistent column data: Conversion failed: Value 9494270289 does not fit in an
 [2025-06-24T06:18:05.989Z] GET /marks?linkedin=linkedin.com%2Fin%2Froyf%2F
 [2025-06-24T06:18:05.999Z] GET /marks?linkedin=linkedin.com%2Fin%2Froyf%2F
 [2025-06-24T06:18:06.011Z] GET /marks?linkedin=linkedin.com%2Fin%2Froyf%2F
+[2025-06-24T22:28:33.657Z] ! Local API running on http://localhost:3000
+[2025-06-24T22:28:48.525Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-06-24T22:29:10.639Z] POST /marks
+[2025-06-24T22:29:10.702Z] Updated record with ID: patric#13425794
+[2025-06-24T22:29:46.127Z] GET /marks?linkedin=linkedin.com%2Fin%2Fakshubhat%2F
+[2025-06-25T00:51:44.019Z] GET /api/auth/schemes/
+[2025-06-25T00:51:59.273Z] GET /api/auth/schemes/
+[2025-06-25T00:52:00.141Z] GET /api/auth/schemes/
+[2025-06-25T00:52:00.313Z] GET /api/auth/schemes/
+[2025-06-25T00:52:00.485Z] GET /api/auth/schemes/
+[2025-06-25T00:52:00.625Z] GET /api/auth/schemes/
+[2025-06-25T00:52:45.700Z] GET /marks
+[2025-06-25T18:54:54.306Z] GET /marks
+[2025-06-25T18:56:47.722Z] GET /marks
+[2025-06-25T18:56:47.775Z] GET /marks/maaret
+[2025-06-25T18:56:47.790Z] GET /marks/hadarz
+[2025-06-25T18:56:47.804Z] GET /marks/livike
+[2025-06-25T18:56:47.822Z] GET /marks/royfox
+[2025-06-25T18:56:47.839Z] GET /marks/bryceb
+[2025-06-25T18:56:47.845Z] GET /marks/scotth
+[2025-06-25T18:56:47.853Z] GET /marks/kyleba
+[2025-06-25T18:56:47.860Z] GET /marks/leovan
+[2025-06-25T18:56:47.872Z] GET /marks/johnwo
+[2025-06-25T18:56:47.882Z] GET /marks/keithr
+[2025-06-25T18:56:47.898Z] GET /marks/caroly
+[2025-06-25T18:56:47.908Z] GET /marks/christ
+[2025-06-25T18:56:47.924Z] GET /marks/rachel
+[2025-06-25T18:56:47.938Z] GET /marks/christ
+[2025-06-25T18:56:47.948Z] GET /marks/lilian
+[2025-06-25T18:56:47.995Z] GET /marks/erikpe
+[2025-06-25T18:56:48.011Z] GET /marks/alexne
+[2025-06-25T18:56:48.024Z] GET /marks/jeffre
+[2025-06-25T18:56:48.036Z] GET /marks/davido
+[2025-06-25T18:56:48.046Z] GET /marks/marygi
+[2025-06-25T18:56:48.056Z] GET /marks/rondeg
+[2025-06-25T18:56:48.064Z] GET /marks/davidr
+[2025-06-25T18:56:48.073Z] GET /marks/albert
+[2025-06-25T18:57:28.578Z] GET /marks
+[2025-06-25T18:59:33.390Z] GET /marks
+[2025-06-25T18:59:33.449Z] POST /marks
+[2025-06-25T18:59:33.510Z] Updated record with ID: maaret#82875523
+[2025-06-25T18:59:33.525Z] POST /marks
+[2025-06-25T18:59:33.596Z] Updated record with ID: hadarz#45091603
+[2025-06-25T18:59:33.614Z] POST /marks
+[2025-06-25T18:59:32.140Z] Updated record with ID: livike#35119347
+[2025-06-25T18:59:32.152Z] POST /marks
+[2025-06-25T18:59:32.208Z] Updated record with ID: royfox#93413919
+[2025-06-25T18:59:32.218Z] POST /marks
+[2025-06-25T18:59:32.270Z] Updated record with ID: bryceb#80070129
+[2025-06-25T18:59:32.279Z] POST /marks
+[2025-06-25T18:59:32.315Z] Updated record with ID: scotth#30896640
+[2025-06-25T18:59:32.322Z] POST /marks
+[2025-06-25T18:59:32.354Z] Updated record with ID: kyleba#86459781
+[2025-06-25T18:59:32.362Z] POST /marks
+[2025-06-25T18:59:32.398Z] Updated record with ID: leovan#28626416
+[2025-06-25T18:59:32.406Z] POST /marks
+[2025-06-25T18:59:32.434Z] Updated record with ID: johnwo#17527758
+[2025-06-25T18:59:32.441Z] POST /marks
+[2025-06-25T18:59:32.473Z] Updated record with ID: keithr#78070504
+[2025-06-25T18:59:32.481Z] POST /marks
+[2025-06-25T18:59:32.541Z] Updated record with ID: caroly#70993202
+[2025-06-25T18:59:32.551Z] POST /marks
+[2025-06-25T18:59:32.594Z] Updated record with ID: christ#41657192
+[2025-06-25T18:59:32.604Z] POST /marks
+[2025-06-25T18:59:32.650Z] Updated record with ID: rachel#77007367
+[2025-06-25T18:59:32.657Z] POST /marks
+[2025-06-25T18:59:32.701Z] Updated record with ID: christ#96101291
+[2025-06-25T18:59:32.709Z] POST /marks
+[2025-06-25T18:59:32.808Z] Updated record with ID: lilian#19724974
+[2025-06-25T18:59:32.816Z] POST /marks
+[2025-06-25T18:59:32.882Z] Updated record with ID: erikpe#30766593
+[2025-06-25T18:59:32.890Z] POST /marks
+[2025-06-25T18:59:32.945Z] Updated record with ID: alexne#23171105
+[2025-06-25T18:59:32.963Z] POST /marks
+[2025-06-25T18:59:33.013Z] Updated record with ID: jeffre#11350085
+[2025-06-25T18:59:33.021Z] POST /marks
+[2025-06-25T18:59:33.066Z] Updated record with ID: davido#83867424
+[2025-06-25T18:59:33.073Z] POST /marks
+[2025-06-25T18:59:33.124Z] Updated record with ID: marygi#96534115
+[2025-06-25T18:59:33.132Z] POST /marks
+[2025-06-25T18:59:33.176Z] Updated record with ID: rondeg#49054307
+[2025-06-25T18:59:33.189Z] POST /marks
+[2025-06-25T18:59:33.251Z] Updated record with ID: davidr#42047878
+[2025-06-25T18:59:33.261Z] POST /marks
+[2025-06-25T18:59:33.307Z] Updated record with ID: albert#53679176
+[2025-06-25T18:59:44.269Z] GET /marks

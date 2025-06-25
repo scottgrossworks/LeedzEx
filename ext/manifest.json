@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "LeedzEx",
+  "name": "Leedz Precrime",
   "version": "1.0",
   "description": "Capture employers from any webpage.",
   "permissions": [
@@ -20,7 +20,7 @@
       "48": "icons/icon48.png",
       "128": "icons/icon128.png"
     },
-    "default_title": "Open LeedzEx"
+    "default_title": "Open Leedz Precrime"
   },
   "icons": {
     "16": "icons/icon16.png",

@@ -178,9 +178,18 @@ function copyFromRecord(record) {
   STATE.hasReplied = record.hasReplied || false;
   
   // Handle array fields
-  STATE.lists.location = Array.isArray(record.location) ? record.location : [record.location || ''];
-  STATE.lists.phone = Array.isArray(record.phone) ? record.phone : [record.phone || ''];
-  STATE.lists.email = Array.isArray(record.email) ? record.email : [record.email || ''];
+  if (record.location && record.location.length > 0) {
+    STATE.lists.location.push( record.location);
+  }
+  
+  // look for '0' phone numbers
+  if (record.phone && record.phone.length > 0 && record.phone != '0') {
+    STATE.lists.phone.push( record.phone );
+  }
+  
+  if (record.email && record.email.length > 0) {
+    STATE.lists.email.push( record.email );
+  }
 }
 
 

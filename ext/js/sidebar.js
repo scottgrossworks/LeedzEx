@@ -173,6 +173,38 @@ async function reloadParsers() {
 }
 
 
+function clearState() {
+
+  // Clear the STATE
+
+  STATE.id = null;
+  STATE.name = null;
+  STATE.title = null;
+  STATE.org = null;
+  STATE.www = null;
+  
+  STATE.lists.email = [];
+  STATE.lists.location = [];
+  STATE.lists.phone = [];
+
+  STATE.linkedin = null;
+  STATE.on_x = null;
+
+  STATE.outreachCount = 0;
+  STATE.hasReplied = false;
+  STATE.createdAt = null;
+  STATE.lastContact = null;
+  STATE.notes = null;
+
+  STATE.activeField = null;
+
+  STATE.lastSelection = null;
+
+}
+
+
+
+
 
 /*
 // is this a linkedin page?
@@ -541,6 +573,7 @@ export function updateFormFromState() {
 function clearForm() {
   // log('Clearing all form fields');
   
+  clearState();
   // Clear all input fields
   document.getElementById('name').value = '';
   document.getElementById('org').value = '';
@@ -561,33 +594,6 @@ function clearForm() {
   const outreachBtn = document.getElementById('outreachBtn');
   const countSpan = outreachBtn.querySelector('.outreach-count');
   countSpan.textContent = '0';
-
-
-  // Clear the STATE
-
-  STATE.id = null;
-  STATE.name = null;
-  STATE.title = null;
-  STATE.org = null;
-  STATE.www = null;
-  
-  STATE.lists.email = [];
-  STATE.lists.location = [];
-  STATE.lists.phone = [];
-
-  STATE.linkedin = null;
-  STATE.on_x = null;
-
-  STATE.outreachCount = 0;
-  STATE.hasReplied = false;
-  STATE.createdAt = null;
-  STATE.lastContact = null;
-  STATE.notes = null;
-
-  STATE.activeField = null;
-
-  STATE.lastSelection = null;
-
   // log('Form cleared successfully');
 }
 
