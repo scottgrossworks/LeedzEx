@@ -33,7 +33,11 @@ const { PrismaClient } = require("@prisma/client");
 
 const app = express();
 const prisma = new PrismaClient();
+
+// FIXME 
+// this should come from config
 const port = 3000;
+
 const logFile = path.resolve(__dirname, "server.log");
 
 function log(message) {
@@ -254,6 +258,127 @@ app.get("/list", async (req, res) => {
   } catch (e) {
     log("GET /list failed: " + e.stack);
     res.status(500).send("Error");
+  }
+});
+
+/**
+ * Get active RSS matches that exceed the threshold
+ * Returns matches with their related RSS items, marks, and scores
+ * Can filter by userId, markId, or minimum score
+ */
+app.get("/matches", async (req, res) => {
+  try {
+    // Parse query parameters
+    const minScore = req.query.minScore ? parseFloat(req.query.minScore) : 0;
+    const userId = req.query.userId || undefined;
+    const markId = req.query.markId || undefined;
+    
+    // Build where clause
+    const where = {
+      expiresAt: { gt: new Date() }, // Only return non-expired matches
+    };
+    
+    // Add optional filters
+    if (minScore > 0) {
+      where.score = { gte: minScore };
+    }
+    
+    if (userId) {
+      where.userId = userId;
+    }
+    
+    if (markId) {
+      where.markId = markId;
+    }
+    
+    // Get matches with related data
+    const matches = await prisma.rssMarkUserRelation.findMany({
+      where,
+      include: {
+        rssItem: true,
+        mark: true,
+        user: true
+      },
+      orderBy: {
+        score: 'desc'
+      }
+    });
+    
+    log(`Retrieved ${matches.length} active matches`);
+    res.json(matches);
+  } catch (e) {
+    log("GET /matches failed: " + e.stack);
+    res.status(500).json({ error: "Query failed" });
+  }
+});
+
+/**
+ * Mark a match as actioned (user has taken action on this match)
+ */
+app.post("/matches/:id/action", async (req, res) => {
+  try {
+    const id = req.params.id;
+    
+    // Update the match
+    const match = await prisma.rssMarkUserRelation.update({
+      where: { id },
+      data: { actioned: true },
+      include: {
+        rssItem: true,
+        mark: true,
+        user: true
+      }
+    });
+    
+    log(`Marked match ${id} as actioned`);
+    res.json(match);
+  } catch (e) {
+    log("POST /matches/:id/action failed: " + e.stack);
+    res.status(500).json({ error: "Update failed" });
+  }
+});
+
+/**
+ * Get match statistics
+ * Returns counts of total matches, actioned matches, and expired matches
+ */
+app.get("/matches/stats", async (req, res) => {
+  try {
+    const now = new Date();
+    
+    // Get total matches
+    const totalMatches = await prisma.rssMarkUserRelation.count();
+    
+    // Get active (non-expired) matches
+    const activeMatches = await prisma.rssMarkUserRelation.count({
+      where: {
+        expiresAt: { gt: now }
+      }
+    });
+    
+    // Get actioned matches
+    const actionedMatches = await prisma.rssMarkUserRelation.count({
+      where: {
+        actioned: true
+      }
+    });
+    
+    // Get expired matches
+    const expiredMatches = await prisma.rssMarkUserRelation.count({
+      where: {
+        expiresAt: { lte: now }
+      }
+    });
+    
+    res.json({
+      total: totalMatches,
+      active: activeMatches,
+      actioned: actionedMatches,
+      expired: expiredMatches
+    });
+  } catch (e) {
+    log("GET /matches/stats failed: " + e.stack);
+    res.status(500).json({ error: "Query failed" });
   }
 });
 

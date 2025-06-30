@@ -25,4 +25,66 @@ model Mark {
   createdAt     DateTime  @default(now())
   hasReplied    Boolean   @default(false)
   notes         String?
+  relations     RssMarkUserRelation[]
+}
+
+model User {
+  id            String   @id @default(cuid())
+  name          String   
+  email         String?  @unique
+  phone         String?
+  linkedin      String?  
+  title         String?
+  skills        String?  // JSON array of skills
+  experience    String?  // JSON array of experience
+  education     String?  // JSON array of education
+  resumePath    String?  // Path to stored resume file
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  relations     RssMarkUserRelation[]
+}
+
+model RssItem {
+  id             String   @id @default(cuid())
+  title          String
+  content        String?
+  link           String   @unique
+  pubDate        DateTime
+  feedName       String
+  category       String?
+  processed      Boolean  @default(false)
+  embedded       Boolean  @default(false)
+  relevanceScore Float?
+  createdAt      DateTime @default(now())
+  relations      RssMarkUserRelation[]
+}
+
+model RssFeed {
+  id          String   @id @default(cuid())
+  url         String   @unique
+  name        String
+  category    String?
+  keywords    String?  // Stored as JSON string
+  active      Boolean  @default(true)
+  lastFetched DateTime?
+  createdAt   DateTime @default(now())
+}
+
+model RssMarkUserRelation {
+  id          String   @id @default(cuid())
+  rssItem     RssItem  @relation(fields: [rssItemId], references: [id])
+  rssItemId   String
+  mark        Mark     @relation(fields: [markId], references: [id])
+  markId      String
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  score       Float    // Combined relevance score
+  markScore   Float    // Similarity between RSS item and mark
+  userScore   Float    // Similarity between RSS item and user
+  matchScore  Float    // Similarity between mark and user
+  actioned    Boolean  @default(false)  // Whether user has acted on this match
+  createdAt   DateTime @default(now())
+  expiresAt   DateTime // When this match should be considered expired
+  
+  @@unique([rssItemId, markId, userId])
 }
