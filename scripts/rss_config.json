@@ -1,0 +1,146 @@
+{
+  "server": {
+    "port": 3001,
+    "logFile": "../logs/rss_server.log",
+    "outputDir": "../output/rss",
+    "passDir": "../output/rss/pass",
+    "failDir": "../output/rss/fail"
+  },
+  "processing": {
+    "checkInterval": "*/55 * * * *",
+    "maxItemsPerFeed": 20,
+    "relevanceThreshold": 10,
+    "matchThreshold": 0.25,
+    "matchExpirationDays": 30
+  },
+  "embedding": {
+    "endpoint": "http://localhost:5000/embed",
+    "devMode": true
+  },
+  "keywords": {
+    "global": [
+
+      "AI", "model", "LLM", "training", "benchmarks", "ChatGPT", "Claude", "Perplexity", "Anthropic", "blockchain", 
+      "agents", "wearable", "reasoning", "automation", "iphone", "defense", "EV", "startup", "SaaS", "research", "satellite",
+      "blockchain", "TPU", "wearable", "inference", "edge computing",
+      "hiring", "expansion", "growth", "launch", "merger", "scaling",
+      "acquisition", "funding", "investment", "new project", "launch","turnaround",
+      "partnership", "challenge", "series-b", "series-c", "California",
+      "valuation", "IPO", "seed funding", "venture capital", "Los Angeles",
+      "Amazon", "AMZN", "TSLA", "Musk", "Palantir","Dimon", "Karp", "Bezos","Altman","Huang",
+      "Delta", "Cintas", "JP Morgan", "Bank of America", "Netflix", "Wells Fargo", "Tesla", "Intel"
+    ]
+  },
+  "feeds": [
+    
+    {
+      "url":"https://www.ft.com/rss/companies",
+      "name":"Financial Times",
+      "category":"finance",
+      "keywords": ["Delta", "Cintas", "JP Morgan", "Bank of America", "Netflix", "Wells Fargo", "Tesla", "Intel"]
+    },
+
+
+    {
+      "url": "https://feeds.feedburner.com/seeking-alpha/market-news",
+      "name": "Seeking Alpha",
+      "category": "finance",
+      "keywords": ["Delta", "Cintas", "JP Morgan", "Bank of America", "Netflix", "Wells Fargo", "Tesla", "Intel"]
+   },
+
+   {
+      "url": "https://techcrunch.com/feed/",
+      "name": "TechCrunch",
+      "category": "tech",
+      "keywords": ["AI", "Apple", "Rivian", "Lucid", "open source", "NVIDIA",
+      "Delta", "Cintas", "JP Morgan", "Dimon", "Bank of America", "Netflix", "Wells Fargo", "Tesla", "Musk", "Intel",
+      "Anthropic", "blockchain", "agents", "wearable", "reasoning", "automation", "iphone", "defense", "EV", "startup", "SaaS", "research", "satellite"]
+    },
+    {
+      "url": "https://feeds.feedburner.com/venturebeat/SZYF",
+      "name": "VentureBeat",
+      "category": "tech",
+      "keywords": ["AI", "Apple", "Anthropic", "semiconductors", "open source",
+      "Delta", "Cintas", "JP Morgan", "Dimon", "Bank of America", "Netflix", "Wells Fargo", "Tesla", "Musk", "Intel",
+      "NVIDIA", "startup", "SaaS", "reasoning", "fintech", "drone", "delivery", "self-driving", "China", "CPG", "robotics"]
+    },
+
+     {
+      "url": "https://feeds.feedburner.com/inc/headlines",
+      "name": "Inc.com",
+      "category": "startup",
+      "keywords": ["business analytics", "blockchain", "manufacturing", "fintech", "defense contractors", 
+      "Delta", "Cintas", "JP Morgan", "Dimon", "Bank of America", "Netflix", "Wells Fargo", "Tesla", "Musk", "Intel",
+      "supply chain", "automation", "MBA", "case study", "leadership"]
+    },
+    {
+      "url": "https://feeds.feedburner.com/entrepreneur/latest",
+      "name": "Entrepreneur",
+      "category": "business",
+      "keywords": ["hiring", "Healthcare", "SaaS", "AI", "wearable", "delivery", "disrupt", "Ilya", "Altman", "Karp",
+       "retail", "home building", "energy", "CNG"]
+    },
+    
+
+ 
+
+
+
+    {
+      "url": "https://www.wsj.com/xml/rss/3_7014.xml",
+      "name": "Wall Street Journal",
+      "category": "finance",
+      "keywords": ["IPO", "venture", "equity","AI", "volatility", "fintech", "shipping", "pipeline", "oil", "energy", "finance", 
+       "quarter", "call", "CEO", "forecast", "growth", "challenges", "stock", "market", "valuations",
+    "earnings", "revenue", "sales", "driver", "expectations", "analyst", "revision", "expectations",
+    "chips", "semiconductors", "supply chain", "factories", "manufacturing", "resources", "energy", "consumer", "spending", "sales",
+      "Delta", "Cintas", "JP Morgan", "Dimon", "Bank of America", "Netflix", "Wells Fargo", "Tesla", "Musk", "Intel",
+      "investment"]
+    },
+
+
+
+
+
+    {
+      "url": "https://feeds.feedburner.com/economist-business-finance",
+      "name": "Economist",
+      "category": "finance",
+      "keywords": ["IPO", "venture", "equity","AI", "volatility", "fintech", "shipping", "pipeline", "oil", "energy", "finance", 
+       "quarter", "call", "CEO", "forecast", "growth", "challenges", "stock", "market", "valuations",
+    "earnings", "revenue", "sales", "driver", "expectations", "analyst", "revision", "expectations",
+    "chips", "semiconductors", "supply chain", "factories", "manufacturing", "resources", "energy", "consumer", "spending", "sales",
+      "Delta", "Cintas", "JP Morgan", "Dimon", "Bank of America", "Netflix", "Wells Fargo", "Tesla", "Musk", "Intel",
+      "investment"]
+    },
+
+
+
+    {
+      "url": "https://feeds.bloomberg.com/markets/news.rss",
+      "name": "Bloomberg Markets",
+      "category": "finance",
+      "keywords": ["IPO", "venture", "equity","AI", "volatility", "fintech", "shipping", "pipeline", "oil", "energy", "finance", 
+       "quarter", "call", "CEO", "forecast", "growth", "challenges", "stock", "market", "valuations",
+    "earnings", "revenue", "sales", "driver", "expectations", "analyst", "revision", "expectations",
+    "chips", "semiconductors", "supply chain", "factories", "manufacturing", "resources", "energy", "consumer", "spending", "sales",
+      "Delta", "Cintas", "JP Morgan", "Dimon", "Bank of America", "Netflix", "Wells Fargo", "Tesla", "Musk", "Intel",
+      "investment"]
+    },
+
+
+    {
+      "url": "https://feeds.marketwatch.com/marketwatch/topstories/",
+      "name": "MarketWatch",
+      "category": "finance",
+      "keywords": ["generation", "401(k)", "jobs", "AI", "boomers", "housing", "salaries",
+      "quarter", "call", "CEO", "forecast", "growth", "challenges", "stock", "market", "valuations",
+    "earnings", "revenue", "sales", "driver", "expectations", "analyst", "revision", "expectations",
+    "Delta", "Cintas", "JP Morgan", "Dimon", "Bank of America", "Netflix", "Wells Fargo", "Tesla", "Musk", "Intel",
+    "chips", "semiconductors", "supply chain", "factories", "manufacturing", "resources", "energy", "consumer", "spending", "sales",
+      "industry", "budget", "lifestyle", "retirement", "healthcare", "millenials", "college", "earnings", "Europe", "China", "economy", "stocks", "trends", "Trump", "trade", "tariffs", "market", "budget", "Fed", "FOMC", "rates", "curve", "bonds", "treasury"]
+    }
+  ]
+}
+
+

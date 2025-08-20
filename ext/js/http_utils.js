@@ -1,73 +1,71 @@
 // http_utils.js
 // Handles local DB communication for querying existing marks and submitting new ones
 
-import { STATE, updateFormFromState } from "./sidebar.js";
+import { STATE } from './state.js';
 import { log, logError } from "./sidebar.js";
 
 
 const BASE_URL = "http://localhost:3000/marks";
 
-
-
-
-
-// Helper function to normalize a name for storage/searching
-export function normalizeName(name) {
-  if (!name) return '';
-  return name
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, ' ')  // Replace multiple spaces with single space
-    .replace(/\s/g, '#');  // Replace spaces with #
-}
-
-
-
-
-
-// Helper function to denormalize a name for display
-export function denormalizeName(normalizedName) {
-  if (!normalizedName) return '';
+// Function to read form values into STATE before saving
+function readFormIntoState() {
+  // Read the basic fields
+  STATE.name = document.getElementById('name').value || null;
+  STATE.email = document.getElementById('email').value || null;
   
-  // Replace # with spaces
-  const nameWithSpaces = normalizedName.replace(/#/g, ' ');
+  // Read notes field and parse key=value pairs
+  const notesValue = document.getElementById('notes').value || '';
+  STATE.notes = notesValue;
   
-  // Capitalize first letter of each word
-  return nameWithSpaces
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+  // Parse key=value pairs from notes to populate other STATE fields
+  if (notesValue) {
+    const pairs = notesValue.split(' ');
+    pairs.forEach(pair => {
+      if (pair.includes('=')) {
+        const [key, value] = pair.split('=');
+        if (key && value && STATE.hasOwnProperty(key)) {
+          // Convert string values to appropriate types
+          if (key === 'outreachCount') {
+            STATE[key] = parseInt(value) || 0;
+          } else if (key === 'hasReplied') {
+            STATE[key] = value === 'true';
+          } else {
+            STATE[key] = value;
+          }
+        }
+      }
+    });
+  }
 }
-
-
-
 
 // Save or update data in the backend
 export function saveData() {
+  // Read current form values into STATE before sending
+  readFormIntoState();
+  
   if (!STATE.name || STATE.name.trim() === '') {
     logError('Error: Name field is required to save data.');
     return; 
   }
 
+  // Create clean data object with only valid fields
   const data = {
-    // Normalize name for storage using our standardized format
-    name: normalizeName(STATE.name),
-    org: STATE.org,
-    title: STATE.title,
-    www: STATE.www,
-    location: STATE.lists.location[0],
-    phone: STATE.lists.phone[0],
-    email: STATE.lists.email[0],
+    name: STATE.name,
+    email: STATE.email,
+    phone: STATE.phone,
     linkedin: STATE.linkedin,
     on_x: STATE.on_x,
-    notes: STATE.notes,
-    hasReplied: STATE.hasReplied,
+    title: STATE.title,
+    org: STATE.org,
+    location: STATE.location,
+    www: STATE.www,
     outreachCount: STATE.outreachCount,
-    lastContact: STATE.lastContact
-  };  // Server handles both create and update through POST
+    lastContact: STATE.lastContact,
+    hasReplied: STATE.hasReplied,
+    notes: STATE.notes
+  };
   
-  
-  // log('POSTing data to backend:', JSON.stringify(data, null, 2));
+  log('POSTing data to backend:', JSON.stringify(data, null, 2));
   
  
   fetch(BASE_URL, {
@@ -96,7 +94,7 @@ export function saveData() {
 
 // Find button functionality
 // 1. recover form data
-// 2. look for unique fields --- normalized name, linkedin, on_x
+// 2. look for unique fields --- name, linkedin, on_x
 // 3. SEARCH DB (curl http://localhost/marks?name=scott#gross)
 // 4. Return matching mark (if any) and fill-in form fields
 export async function findData(searchParams) {
@@ -110,8 +108,8 @@ export async function findData(searchParams) {
   
   // Handle each possible search parameter
   if (searchParams.name) {
-    params.append('name', normalizeName(searchParams.name));
-    log('Normalized name being searched:', normalizeName(searchParams.name));
+    params.append('name', searchParams.name);
+    log('Name being searched:', searchParams.name);
   }
   
   if (searchParams.linkedin) {
@@ -145,13 +143,10 @@ export async function findData(searchParams) {
       // log('Record found:', data[0]);
       const mark = data[0];
 
-      // Copy the contents of the mark object from the DB into the STATE object
-      copyFromRecord(mark);
-
-      // Update the form fields
-      updateFormFromState();
-      
+      // RETURN DB RECORD
       return mark;
+
+
     } else {
       log('No matching records found.');
       return null;
@@ -162,60 +157,6 @@ export async function findData(searchParams) {
   }
 }
 
-
-// Copy record data into STATE
-function copyFromRecord(record) {
-  STATE.id = record.id;
-  STATE.name = denormalizeName(record.name);
-  STATE.org = record.org || null;
-  STATE.title = record.title || null;
-  STATE.www = record.www || null;
-  STATE.outreachCount = record.outreachCount || 0;
-  STATE.lastContact = record.lastContact || null;
-  STATE.notes = record.notes || null;
-  STATE.linkedin = record.linkedin || null;
-  STATE.on_x = record.on_x || null;
-  STATE.hasReplied = record.hasReplied || false;
-  
-  // Handle array fields
-  if (record.location && record.location.length > 0) {
-    STATE.lists.location.push( record.location);
-  }
-  
-  // look for '0' phone numbers
-  if (record.phone && record.phone.length > 0 && record.phone != '0') {
-    STATE.lists.phone.push( record.phone );
-  }
-  
-  if (record.email && record.email.length > 0) {
-    STATE.lists.email.push( record.email );
-  }
-}
-
-
-// NUMBER 2
-// Populate form fields from a database record  
-export function populateFromRecord(record) {
-  copyFromRecord(record);
-  updateOutreachCount();
-  updateFormFromState();
-}
-
-
-
-
-
-
-// Add function to update outreach count display
-function updateOutreachCount() {
-  const outreachBtn = document.getElementById('outreachBtn');
-  if (outreachBtn) {
-    const countSpan = outreachBtn.querySelector('.outreach-count');
-    if (countSpan) {
-      countSpan.textContent = STATE.outreachCount || '0';
-    }
-  }
-}
 
 
 

@@ -32,11 +32,44 @@ const path = require("path");
 const { PrismaClient } = require("@prisma/client");
 
 const app = express();
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  // Add logging for debugging
+  log: ['query', 'error'],
+  // Add error formatting
+  errorFormat: 'pretty',
+});
 
-// FIXME 
-// this should come from config
-const port = 3000;
+// Helper function to execute Prisma operations with timeout
+async function withTimeout(operation, timeoutMs = 10000) {
+  return Promise.race([
+    operation,
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error(`Operation timed out after ${timeoutMs}ms`)), timeoutMs)
+    )
+  ]);
+}
+
+// Helper function to retry database operations
+async function withRetry(operation, maxRetries = 3, delay = 1000) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      log(`Database operation failed (attempt ${attempt}/${maxRetries}): ${error.message}`);
+      
+      if (attempt === maxRetries) {
+        throw error;
+      }
+      
+      // Wait before retrying
+      await new Promise(resolve => setTimeout(resolve, delay * attempt));
+    }
+  }
+}
+
+
+// Get port from environment variable or default to 3000
+const port = process.env.PORT || 3000;
 
 const logFile = path.resolve(__dirname, "server.log");
 
@@ -52,10 +85,26 @@ function log(message) {
 
 app.use(express.json());
 
+
+// Add CORS middleware here
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
 app.use((req, res, next) => {
   log(`${req.method} ${req.url}`);
   next();
 });
+
 
 
 /**
@@ -95,6 +144,9 @@ function generateCustomId(name) {
 app.post("/marks", async (req, res) => {
   const data = req.body;
   
+  // Log incoming data for debugging
+  // log(`POST /marks received data: ${JSON.stringify(data, null, 2)}`);
+  
   // Require name field
   if (!data.name || data.name.trim() === '') {
     return res.status(400).json({ error: "Name is required" });
@@ -121,38 +173,114 @@ app.post("/marks", async (req, res) => {
     if (!data.phone) data.phone = null;
   }
   
-  try {
-    // Check if record exists by normalized name
-    const existing = await prisma.mark.findFirst({ 
-      where: { name: normalizedName } 
-    });
+  // Clean and validate linkedin field
+  if (data.linkedin && typeof data.linkedin === 'string') {
+    // Remove newlines, clean up the URL
+    data.linkedin = data.linkedin
+      .replace(/\n/g, '')
+      .replace(/\r/g, '')
+      .replace(/^https?:\/\/(www\.)?/, '')
+      .trim();
     
-    let result;
-    if (existing) {
-      // Update existing record
-      result = await prisma.mark.update({ 
-        where: { id: existing.id }, 
-        data 
-      });
-      log(`Updated record with ID: ${existing.id}`);
-    } else {
-      // Generate custom ID for new record
-      const customId = generateCustomId(normalizedName);
-      
-      // Create new record with custom ID
-      result = await prisma.mark.create({ 
-        data: {
-          ...data,
-          id: customId
-        }
-      });
-      log(`Created new record with ID: ${customId}`);
+    // If empty after cleaning, set to null
+    if (!data.linkedin) data.linkedin = null;
+  }
+  
+  // Clean notes field
+  if (data.notes && typeof data.notes === 'string') {
+    data.notes = data.notes
+      .replace(/\r\n/g, ' ')
+      .replace(/\n/g, ' ')
+      .replace(/\r/g, ' ')
+      .trim();
+    
+    if (!data.notes) data.notes = null;
+  }
+  
+  // Define valid Prisma schema fields for Mark model (excluding id and createdAt which have defaults)
+  const validFields = ['id', 'name', 'phone', 'email', 'linkedin', 'on_x', 'title', 'org', 'location', 'www', 'createdAt', 'outreachCount', 'lastContact', 'hasReplied', 'notes'];
+  const filteredData = {};
+  
+  // Only include fields that exist in the schema
+  for (const field of validFields) {
+    if (data.hasOwnProperty(field) && data[field] !== undefined) {
+      filteredData[field] = data[field];
     }
-      
-    res.json(result);
+  }
+  
+  // Log what fields were filtered out
+  const unknownFields = Object.keys(data).filter(key => !validFields.includes(key) && key !== 'name');
+  if (unknownFields.length > 0) {
+    log(`Filtered out unknown fields: ${unknownFields.join(', ')}`);
+  }
+  
+  log(`Filtered data for Prisma: ${JSON.stringify(filteredData, null, 2)}`);
+  
+  try {
+    const result = await withRetry(async () => {
+      return await withTimeout(async () => {
+        // Check if record exists by normalized name
+        const existing = await prisma.mark.findFirst({ 
+          where: { name: normalizedName } 
+        });
+        
+        let result;
+        if (existing) {
+          // Update existing record
+          result = await prisma.mark.update({ 
+            where: { id: existing.id }, 
+            data: filteredData 
+          });
+          log(`Updated record with ID: ${existing.id}`);
+        } else {
+          // Generate custom ID for new record
+          const customId = generateCustomId(normalizedName);
+          
+          // Create new record with custom ID
+          result = await prisma.mark.create({ 
+            data: {
+              ...filteredData,
+              id: customId
+            }
+          });
+          log(`Created new record with ID: ${customId}`);
+        }
+        
+        return result;
+      }, 15000); // 15 second timeout
+    }, 3); // 3 retry attempts
+    
+    // Ensure we have a valid result before sending
+    if (!result) {
+      throw new Error('No result returned from database operation');
+    }
+    
+    // Send successful response
+    res.status(200).json(result);
+    
   } catch (e) {
     log("POST /marks failed: " + e.stack);
-    res.status(500).json({ error: "Internal error" });
+    
+    // Ensure we always send a complete JSON response
+    if (!res.headersSent) {
+      // Provide more specific error messages
+      if (e.message.includes('timed out') || e.message.includes('Timed out')) {
+        res.status(504).json({ 
+          error: "Database operation timed out", 
+          message: "Please try again in a moment" 
+        });
+      } else if (e.message.includes('Connection')) {
+        res.status(503).json({ 
+          error: "Database connection error", 
+          message: "Service temporarily unavailable" 
+        });
+      } else {
+        res.status(500).json({ 
+          error: "Internal error",
+          message: e.message || "Unknown error occurred"
+        });
+      }
+    }
   }
 });
 
@@ -173,11 +301,23 @@ app.get("/marks", async (req, res) => {
   }
 
   try {
-    const results = await prisma.mark.findMany({ where });
-    res.json(results);
+    const results = await withTimeout(prisma.mark.findMany({ where }), 10000);
+    
+    if (!results) {
+      return res.status(200).json([]);
+    }
+    
+    res.status(200).json(results);
+    
   } catch (e) {
     log("GET /marks failed: " + e.stack);
-    res.status(500).json({ error: "Query failed" });
+    
+    if (!res.headersSent) {
+      res.status(500).json({ 
+        error: "Query failed",
+        message: e.message || "Database query error"
+      });
+    }
   }
 });
 
@@ -189,20 +329,27 @@ app.delete("/marks/:idOrName", async (req, res) => {
   const idOrName = req.params.idOrName;
   
   try {
+
     let record;
+    // Check what type of identifier we received:
+    // 1. Custom ID format: "first6letters#8digits" (e.g., "janedo#12345678")
+    // 2. Name: any other string (will be normalized for lookup by name)
     
-    // Check if the parameter is a number (ID) or string (name)
-    const id = parseInt(idOrName, 10);
+    const customIdPattern = /^[a-z0-9]{6}#\d{8}$/;
     
-    if (!isNaN(id)) {
-      // If it's a valid number, look up by ID
-      log(`Looking for record with numeric ID: ${id}`);
+    if (customIdPattern.test(idOrName)) {
+      // It's a custom ID format - look up directly by ID
+      log(`Looking for record with custom ID: ${idOrName}`);
       record = await prisma.mark.findUnique({
-        where: { id }
+        where: { id: idOrName }
       });
     } else {
-      // If it's not a number, treat it as a name
-      // Normalize the name as we do in other endpoints
+      // It's a name - normalize it as we do in other endpoints
+      // Name normalization logic (matches POST endpoint):
+      // 1. URL decode the input
+      // 2. Convert to lowercase and trim  
+      // 3. Replace multiple spaces with single spaces
+      // 4. Replace spaces with # (e.g., "Jane Doe" → "jane#doe")
       const normalizedName = decodeURIComponent(idOrName)
         .toLowerCase()
         .trim()
@@ -384,7 +531,10 @@ app.get("/matches/stats", async (req, res) => {
 
 (async () => {
   try {
-    await prisma.$connect();
+    // Test database connection with timeout
+    await withTimeout(prisma.$connect(), 10000);
+    log("Database connected successfully");
+    
     const server = app.listen(port, () => {
       log(`! Local API running on http://localhost:${port}`);
     });
@@ -393,6 +543,16 @@ app.get("/matches/stats", async (req, res) => {
       log("* Server listen failed: " + err.stack);
       process.exit(1);
     });
+
+    // Graceful shutdown
+    process.on('SIGINT', async () => {
+      log('Received SIGINT, shutting down gracefully...');
+      server.close(() => {
+        prisma.$disconnect();
+        process.exit(0);
+      });
+    });
+
   } catch (err) {
     log("* Failed to start server: " + err.stack);
     process.exit(1);

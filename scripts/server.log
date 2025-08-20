@@ -1,368 +1,736 @@
-[2025-06-29T00:06:24.759Z] ! Local API running on http://localhost:3000
-[2025-06-29T00:09:08.676Z] OPTIONS /marks?linkedin=linkedin.com%2Fin%2Fdavid-feldman-6180906%2F
-[2025-06-29T00:09:08.685Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavid-feldman-6180906%2F
-[2025-06-29T00:09:08.727Z] GET /marks failed: PrismaClientKnownRequestError: 
-Invalid `prisma.mark.findMany()` invocation in
-C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:39
+[2025-08-15T02:18:39.123Z] ! Local API running on http://localhost:3000
+[2025-08-15T04:29:43.022Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T04:29:43.179Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T04:29:43.188Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T04:29:43.194Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T04:29:43.199Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T04:29:43.206Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T04:29:43.212Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T04:29:43.219Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T04:30:46.566Z] POST /marks
+[2025-08-15T04:30:46.590Z] Created new record with ID: davidr#92004443
+[2025-08-15T04:30:51.729Z] POST /marks
+[2025-08-15T04:30:51.748Z] Updated record with ID: davidr#92004443
+[2025-08-15T04:30:53.701Z] POST /marks
+[2025-08-15T04:30:53.718Z] Updated record with ID: davidr#92004443
+[2025-08-15T04:39:39.301Z] ! Local API running on http://localhost:3000
+[2025-08-15T04:43:27.313Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T04:43:27.358Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T04:43:27.364Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T04:43:27.368Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T04:43:27.377Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T04:43:27.393Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T04:43:27.403Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T04:43:27.412Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:12:53.268Z] GET /marks?linkedin=linkedin.com%2Fin%2Funblocked%2F
+[2025-08-15T05:12:53.309Z] GET /marks?linkedin=linkedin.com%2Fin%2Funblocked%2F
+[2025-08-15T05:12:53.328Z] GET /marks?linkedin=linkedin.com%2Fin%2Funblocked%2F
+[2025-08-15T05:12:53.334Z] GET /marks?linkedin=linkedin.com%2Fin%2Funblocked%2F
+[2025-08-15T05:12:53.346Z] GET /marks?linkedin=linkedin.com%2Fin%2Funblocked%2F
+[2025-08-15T05:12:53.360Z] GET /marks?linkedin=linkedin.com%2Fin%2Funblocked%2F
+[2025-08-15T05:12:53.370Z] GET /marks?linkedin=linkedin.com%2Fin%2Funblocked%2F
+[2025-08-15T05:12:53.380Z] GET /marks?linkedin=linkedin.com%2Fin%2Funblocked%2F
+[2025-08-15T05:37:30.555Z] GET /marks?linkedin=linkedin.com%2Fin%2Funblocked%2F
+[2025-08-15T05:37:30.565Z] GET /marks?linkedin=linkedin.com%2Fin%2Funblocked%2F
+[2025-08-15T05:42:50.416Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:42:50.427Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:42:50.434Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:42:50.441Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:42:50.447Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:42:50.455Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:42:50.461Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:42:50.469Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:46:45.923Z] OPTIONS /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:46:46.049Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:46:46.054Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:46:46.059Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:46:46.063Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:46:46.067Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:46:46.071Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:46:46.075Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:46:46.079Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:48:57.628Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:48:57.636Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:48:57.640Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:49:39.316Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:49:39.324Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:49:39.330Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:49:39.336Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:49:39.342Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:49:39.348Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:49:39.354Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:50:07.248Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:50:07.252Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:50:07.256Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:50:07.263Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:50:07.267Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:50:07.272Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:50:07.276Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:50:07.281Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:51:16.562Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:51:16.696Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:51:16.704Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:51:16.710Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:51:16.718Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:51:16.729Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:51:16.736Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:51:16.740Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:51:16.746Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:51:16.751Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:51:16.756Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:51:16.763Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T05:55:35.322Z] ! Local API running on http://localhost:3000
+[2025-08-15T06:02:09.879Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:09.930Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:09.947Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:09.963Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:09.975Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:09.987Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:09.995Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:10.006Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:10.673Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:10.685Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:10.689Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:10.691Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:10.694Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:10.698Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:10.701Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:10.705Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:37.610Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:37.616Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:37.643Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:37.671Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:37.682Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:37.689Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:37.695Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:37.700Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:02:37.706Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:09:23.561Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:09:23.660Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:09:23.666Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:09:23.671Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:09:23.679Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:09:23.683Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:09:23.690Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:09:23.702Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:09:23.707Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:09:23.714Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:09:23.719Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:09:23.725Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:10:07.746Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:10:07.772Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:10:07.784Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:10:07.790Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:10:07.795Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:10:07.800Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:10:07.808Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:10:07.819Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavidrowley%2F
+[2025-08-15T06:15:14.687Z] GET /marks?linkedin=linkedin.com%2Fin%2Flinasbeliunas%2F
+[2025-08-15T06:15:14.691Z] GET /marks?linkedin=linkedin.com%2Fin%2Flinasbeliunas%2F
+[2025-08-15T06:15:14.778Z] GET /marks?linkedin=linkedin.com%2Fin%2Flinasbeliunas%2F
+[2025-08-15T06:15:14.787Z] GET /marks?linkedin=linkedin.com%2Fin%2Flinasbeliunas%2F
+[2025-08-15T06:15:14.793Z] GET /marks?linkedin=linkedin.com%2Fin%2Flinasbeliunas%2F
+[2025-08-15T06:15:14.801Z] GET /marks?linkedin=linkedin.com%2Fin%2Flinasbeliunas%2F
+[2025-08-15T06:15:14.806Z] GET /marks?linkedin=linkedin.com%2Fin%2Flinasbeliunas%2F
+[2025-08-15T06:15:14.811Z] GET /marks?linkedin=linkedin.com%2Fin%2Flinasbeliunas%2F
+[2025-08-15T06:15:14.817Z] GET /marks?linkedin=linkedin.com%2Fin%2Flinasbeliunas%2F
+[2025-08-15T06:15:14.823Z] GET /marks?linkedin=linkedin.com%2Fin%2Flinasbeliunas%2F
+[2025-08-15T06:15:14.828Z] GET /marks?linkedin=linkedin.com%2Fin%2Flinasbeliunas%2F
+[2025-08-15T06:15:14.833Z] GET /marks?linkedin=linkedin.com%2Fin%2Flinasbeliunas%2F
+[2025-08-15T06:15:14.837Z] GET /marks?linkedin=linkedin.com%2Fin%2Flinasbeliunas%2F
+[2025-08-15T06:15:14.841Z] GET /marks?linkedin=linkedin.com%2Fin%2Flinasbeliunas%2F
+[2025-08-15T06:27:49.229Z] GET /marks?linkedin=linkedin.com%2Fin%2Flinasbeliunas%2F
+[2025-08-15T06:30:00.355Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-15T06:31:44.483Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-15T20:30:32.411Z] ! Local API running on http://localhost:3000
+[2025-08-15T20:30:35.348Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-15T20:32:05.512Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-15T20:32:09.261Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-15T20:33:43.621Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-15T20:34:55.563Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-15T20:53:19.013Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-15T20:58:33.758Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-15T20:59:28.577Z] POST /marks
+[2025-08-15T20:59:28.596Z] POST /marks failed: Error: 
+Invalid `prisma.mark.create()` invocation in
+C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:158:34
 
-  173 }
-  174 
-  175 try {
-→ 176   const results = await prisma.mark.findMany(
-The table `main.Mark` does not exist in the current database.
-    at Rn.handleRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:7325)
+  155 const customId = generateCustomId(normalizedName);
+  156 
+  157 // Create new record with custom ID
+→ 158 result = await prisma.mark.create({
+        data: {
+          id: 'patric#95195247',
+          name: 'patrick#hong',
+          title: null,
+          org: null,
+          www: null,
+          location: null,
+          email: null,
+          phone: null,
+          linkedin: 'linkedin.com/in/patrickpjhong/',
+          on_x: null,
+          outreachCount: 0,
+          createdAt: null,
+                     ~~~~
+          lastContact: null,
+          notes: null,
+          hasReplied: false,
+          activeField: null,
+          ~~~~~~~~~~~
+          lastSelection: null
+          ~~~~~~~~~~~~~
+        }
+      })
+
+Argument createdAt for data.createdAt must not be null. Please use undefined instead.
+Unknown arg `activeField` in data.activeField for type MarkCreateInput. Available args:
+
+type MarkCreateInput {
+  id?: String
+  name: String
+  phone?: String | Null
+  email?: String | Null
+  linkedin?: String | Null
+  on_x?: String | Null
+  title?: String | Null
+  org?: String | Null
+  location?: String | Null
+  www?: String | Null
+  outreachCount?: Int
+  lastContact?: DateTime | Null
+  createdAt?: DateTime
+  hasReplied?: Boolean
+  notes?: String | Null
+  relations?: RssMarkUserRelationCreateNestedManyWithoutMarkInput
+}
+Unknown arg `lastSelection` in data.lastSelection for type MarkCreateInput. Available args:
+
+type MarkCreateInput {
+  id?: String
+  name: String
+  phone?: String | Null
+  email?: String | Null
+  linkedin?: String | Null
+  on_x?: String | Null
+  title?: String | Null
+  org?: String | Null
+  location?: String | Null
+  www?: String | Null
+  outreachCount?: Int
+  lastContact?: DateTime | Null
+  createdAt?: DateTime
+  hasReplied?: Boolean
+  notes?: String | Null
+  relations?: RssMarkUserRelationCreateNestedManyWithoutMarkInput
+}
+
+
+    at Ui.validate (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:148:73)
+    at gn.createMessage (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:164:1298)
+    at C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:177:11600
+    at Object.runInChildSpan (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:1394)
+    at t._executeRequest (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:177:11577)
+    at async C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:158:16
+[2025-08-15T21:04:39.830Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-15T22:47:39.419Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-15T22:47:51.646Z] ! Local API running on http://localhost:3000
+[2025-08-15T22:51:22.461Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-15T22:51:39.824Z] POST /marks
+[2025-08-15T22:51:39.826Z] POST /marks received data: {
+  "id": null,
+  "name": "patrick#hong",
+  "title": null,
+  "org": null,
+  "www": null,
+  "location": null,
+  "email": null,
+  "phone": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "outreachCount": 0,
+  "createdAt": null,
+  "lastContact": null,
+  "notes": null,
+  "hasReplied": false,
+  "activeField": null,
+  "lastSelection": null
+}
+[2025-08-15T22:51:39.827Z] Filtered out unknown fields: id, createdAt, activeField, lastSelection
+[2025-08-15T22:51:39.828Z] Filtered data for Prisma: {
+  "name": "patrick#hong",
+  "phone": null,
+  "email": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "title": null,
+  "org": null,
+  "location": null,
+  "www": null,
+  "outreachCount": 0,
+  "lastContact": null,
+  "hasReplied": false,
+  "notes": null
+}
+[2025-08-15T22:51:39.867Z] Created new record with ID: patric#86088101
+[2025-08-15T23:00:39.815Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-15T23:01:11.684Z] POST /marks
+[2025-08-15T23:01:11.686Z] POST /marks received data: {
+  "id": "patric#86088101",
+  "name": "patrick#hong",
+  "title": null,
+  "org": null,
+  "www": null,
+  "location": null,
+  "email": null,
+  "phone": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "outreachCount": 0,
+  "createdAt": null,
+  "lastContact": null,
+  "notes": null,
+  "hasReplied": false,
+  "activeField": null,
+  "lastSelection": null
+}
+[2025-08-15T23:01:11.687Z] Filtered out unknown fields: id, createdAt, activeField, lastSelection
+[2025-08-15T23:01:11.688Z] Filtered data for Prisma: {
+  "name": "patrick#hong",
+  "phone": null,
+  "email": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "title": null,
+  "org": null,
+  "location": null,
+  "www": null,
+  "outreachCount": 0,
+  "lastContact": null,
+  "hasReplied": false,
+  "notes": null
+}
+[2025-08-15T23:01:11.707Z] Updated record with ID: patric#86088101
+[2025-08-15T23:04:09.370Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-15T23:05:15.881Z] POST /marks
+[2025-08-15T23:05:15.882Z] POST /marks received data: {
+  "id": "patric#86088101",
+  "name": "patrick#hong",
+  "title": null,
+  "org": null,
+  "www": null,
+  "location": null,
+  "email": null,
+  "phone": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "outreachCount": 0,
+  "createdAt": null,
+  "lastContact": null,
+  "notes": null,
+  "hasReplied": false,
+  "activeField": null,
+  "lastSelection": null
+}
+[2025-08-15T23:05:15.883Z] Filtered out unknown fields: id, createdAt, activeField, lastSelection
+[2025-08-15T23:05:15.885Z] Filtered data for Prisma: {
+  "name": "patrick#hong",
+  "phone": null,
+  "email": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "title": null,
+  "org": null,
+  "location": null,
+  "www": null,
+  "outreachCount": 0,
+  "lastContact": null,
+  "hasReplied": false,
+  "notes": null
+}
+[2025-08-15T23:05:15.902Z] Updated record with ID: patric#86088101
+[2025-08-15T23:08:59.868Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-15T23:10:06.367Z] POST /marks
+[2025-08-15T23:10:06.368Z] POST /marks received data: {
+  "id": "patric#86088101",
+  "name": "patrick#hong",
+  "title": null,
+  "org": null,
+  "www": null,
+  "location": null,
+  "email": null,
+  "phone": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "outreachCount": 0,
+  "createdAt": null,
+  "lastContact": null,
+  "notes": null,
+  "hasReplied": false,
+  "activeField": null,
+  "lastSelection": null
+}
+[2025-08-15T23:10:06.369Z] Filtered out unknown fields: id, createdAt, activeField, lastSelection
+[2025-08-15T23:10:06.370Z] Filtered data for Prisma: {
+  "name": "patrick#hong",
+  "phone": null,
+  "email": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "title": null,
+  "org": null,
+  "location": null,
+  "www": null,
+  "outreachCount": 0,
+  "lastContact": null,
+  "hasReplied": false,
+  "notes": null
+}
+[2025-08-15T23:10:06.386Z] Updated record with ID: patric#86088101
+[2025-08-15T23:11:28.987Z] POST /marks
+[2025-08-15T23:11:28.988Z] POST /marks received data: {
+  "id": "patric#86088101",
+  "name": "patrick#hong",
+  "title": null,
+  "org": null,
+  "www": null,
+  "location": null,
+  "email": null,
+  "phone": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "outreachCount": 0,
+  "createdAt": null,
+  "lastContact": null,
+  "notes": null,
+  "hasReplied": false,
+  "activeField": null,
+  "lastSelection": null
+}
+[2025-08-15T23:11:28.989Z] Filtered out unknown fields: id, createdAt, activeField, lastSelection
+[2025-08-15T23:11:28.990Z] Filtered data for Prisma: {
+  "name": "patrick#hong",
+  "phone": null,
+  "email": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "title": null,
+  "org": null,
+  "location": null,
+  "www": null,
+  "outreachCount": 0,
+  "lastContact": null,
+  "hasReplied": false,
+  "notes": null
+}
+[2025-08-15T23:11:29.007Z] Updated record with ID: patric#86088101
+[2025-08-15T23:16:37.277Z] POST /marks
+[2025-08-15T23:16:37.278Z] POST /marks received data: {
+  "id": "patric#86088101",
+  "name": "patrick#hong",
+  "title": null,
+  "org": null,
+  "www": null,
+  "location": null,
+  "email": null,
+  "phone": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "outreachCount": 0,
+  "createdAt": null,
+  "lastContact": null,
+  "notes": null,
+  "hasReplied": false,
+  "activeField": null,
+  "lastSelection": null
+}
+[2025-08-15T23:16:37.279Z] Filtered out unknown fields: id, createdAt, activeField, lastSelection
+[2025-08-15T23:16:37.280Z] Filtered data for Prisma: {
+  "name": "patrick#hong",
+  "phone": null,
+  "email": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "title": null,
+  "org": null,
+  "location": null,
+  "www": null,
+  "outreachCount": 0,
+  "lastContact": null,
+  "hasReplied": false,
+  "notes": null
+}
+[2025-08-15T23:16:37.298Z] Updated record with ID: patric#86088101
+[2025-08-16T03:10:26.465Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-16T03:10:54.626Z] POST /marks
+[2025-08-16T03:10:54.627Z] POST /marks received data: {
+  "id": "patric#86088101",
+  "name": "patrick#hong",
+  "title": null,
+  "org": null,
+  "www": null,
+  "location": null,
+  "email": null,
+  "phone": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "outreachCount": 0,
+  "createdAt": null,
+  "lastContact": null,
+  "notes": null,
+  "hasReplied": false,
+  "activeField": null,
+  "lastSelection": null
+}
+[2025-08-16T03:10:54.629Z] Filtered out unknown fields: id, createdAt, activeField, lastSelection
+[2025-08-16T03:10:54.629Z] Filtered data for Prisma: {
+  "name": "patrick#hong",
+  "phone": null,
+  "email": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "title": null,
+  "org": null,
+  "location": null,
+  "www": null,
+  "outreachCount": 0,
+  "lastContact": null,
+  "hasReplied": false,
+  "notes": null
+}
+[2025-08-16T03:10:54.647Z] Updated record with ID: patric#86088101
+[2025-08-16T05:06:38.942Z] ! Local API running on http://localhost:3000
+[2025-08-16T05:06:51.712Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-16T05:14:43.105Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-16T05:15:01.594Z] POST /marks
+[2025-08-16T05:15:01.596Z] POST /marks received data: {
+  "id": "patric#86088101",
+  "name": "Patrick Hong",
+  "title": null,
+  "org": null,
+  "www": null,
+  "email": "patrick@prenostik.com",
+  "phone": null,
+  "location": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "outreachCount": 0,
+  "createdAt": null,
+  "lastContact": null,
+  "notes": "linkedin=linkedin.com/in/patrickpjhong/",
+  "hasReplied": false
+}
+[2025-08-16T05:15:01.597Z] Filtered out unknown fields: id, createdAt
+[2025-08-16T05:15:01.598Z] Filtered data for Prisma: {
+  "name": "patrick#hong",
+  "phone": null,
+  "email": "patrick@prenostik.com",
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "title": null,
+  "org": null,
+  "location": null,
+  "www": null,
+  "outreachCount": 0,
+  "lastContact": null,
+  "hasReplied": false,
+  "notes": "linkedin=linkedin.com/in/patrickpjhong/"
+}
+[2025-08-16T05:15:01.602Z] POST /marks
+[2025-08-16T05:15:01.603Z] POST /marks received data: {
+  "id": "patric#86088101",
+  "name": "Patrick Hong",
+  "title": null,
+  "org": null,
+  "www": null,
+  "email": "patrick@prenostik.com",
+  "phone": null,
+  "location": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "outreachCount": 0,
+  "createdAt": null,
+  "lastContact": null,
+  "notes": "linkedin=linkedin.com/in/patrickpjhong/",
+  "hasReplied": false
+}
+[2025-08-16T05:15:01.605Z] Filtered out unknown fields: id, createdAt
+[2025-08-16T05:15:01.607Z] Filtered data for Prisma: {
+  "name": "patrick#hong",
+  "phone": null,
+  "email": "patrick@prenostik.com",
+  "linkedin": "linkedin.com/in/patrickpjhong/",
+  "on_x": null,
+  "title": null,
+  "org": null,
+  "location": null,
+  "www": null,
+  "outreachCount": 0,
+  "lastContact": null,
+  "hasReplied": false,
+  "notes": "linkedin=linkedin.com/in/patrickpjhong/"
+}
+[2025-08-16T05:15:01.641Z] POST /marks failed: PrismaClientUnknownRequestError: 
+Invalid `prisma.mark.update()` invocation in
+C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:170:34
+
+  167 let result;
+  168 if (existing) {
+  169   // Update existing record
+→ 170   result = await prisma.mark.update(
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: ConnectionError(Timed out during query execution.), transient: false })
+    at Rn.handleRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:7499)
     at Rn.handleAndLogRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6754)
     at Rn.request (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6344)
-    at async C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:21
-[2025-06-29T00:09:08.730Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavid-feldman-6180906%2F
-[2025-06-29T00:09:08.736Z] GET /marks failed: PrismaClientKnownRequestError: 
-Invalid `prisma.mark.findMany()` invocation in
-C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:39
-
-  173 }
-  174 
-  175 try {
-→ 176   const results = await prisma.mark.findMany(
-The table `main.Mark` does not exist in the current database.
-    at Rn.handleRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:7325)
-    at Rn.handleAndLogRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6754)
-    at Rn.request (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6344)
-    at async C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:21
-[2025-06-29T00:09:08.741Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavid-feldman-6180906%2F
-[2025-06-29T00:09:08.747Z] GET /marks failed: PrismaClientKnownRequestError: 
-Invalid `prisma.mark.findMany()` invocation in
-C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:39
-
-  173 }
-  174 
-  175 try {
-→ 176   const results = await prisma.mark.findMany(
-The table `main.Mark` does not exist in the current database.
-    at Rn.handleRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:7325)
-    at Rn.handleAndLogRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6754)
-    at Rn.request (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6344)
-    at async C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:21
-[2025-06-29T00:09:08.752Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavid-feldman-6180906%2F
-[2025-06-29T00:09:08.758Z] GET /marks failed: PrismaClientKnownRequestError: 
-Invalid `prisma.mark.findMany()` invocation in
-C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:39
-
-  173 }
-  174 
-  175 try {
-→ 176   const results = await prisma.mark.findMany(
-The table `main.Mark` does not exist in the current database.
-    at Rn.handleRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:7325)
-    at Rn.handleAndLogRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6754)
-    at Rn.request (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6344)
-    at async C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:21
-[2025-06-29T00:09:08.763Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavid-feldman-6180906%2F
-[2025-06-29T00:09:08.768Z] GET /marks failed: PrismaClientKnownRequestError: 
-Invalid `prisma.mark.findMany()` invocation in
-C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:39
-
-  173 }
-  174 
-  175 try {
-→ 176   const results = await prisma.mark.findMany(
-The table `main.Mark` does not exist in the current database.
-    at Rn.handleRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:7325)
-    at Rn.handleAndLogRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6754)
-    at Rn.request (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6344)
-    at async C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:21
-[2025-06-29T00:09:08.772Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavid-feldman-6180906%2F
-[2025-06-29T00:09:08.778Z] GET /marks failed: PrismaClientKnownRequestError: 
-Invalid `prisma.mark.findMany()` invocation in
-C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:39
-
-  173 }
-  174 
-  175 try {
-→ 176   const results = await prisma.mark.findMany(
-The table `main.Mark` does not exist in the current database.
-    at Rn.handleRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:7325)
-    at Rn.handleAndLogRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6754)
-    at Rn.request (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6344)
-    at async C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:21
-[2025-06-29T00:09:08.782Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavid-feldman-6180906%2F
-[2025-06-29T00:09:08.784Z] GET /marks failed: PrismaClientKnownRequestError: 
-Invalid `prisma.mark.findMany()` invocation in
-C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:39
-
-  173 }
-  174 
-  175 try {
-→ 176   const results = await prisma.mark.findMany(
-The table `main.Mark` does not exist in the current database.
-    at Rn.handleRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:7325)
-    at Rn.handleAndLogRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6754)
-    at Rn.request (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6344)
-    at async C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:21
-[2025-06-29T00:09:08.787Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavid-feldman-6180906%2F
-[2025-06-29T00:09:08.792Z] GET /marks failed: PrismaClientKnownRequestError: 
-Invalid `prisma.mark.findMany()` invocation in
-C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:39
-
-  173 }
-  174 
-  175 try {
-→ 176   const results = await prisma.mark.findMany(
-The table `main.Mark` does not exist in the current database.
-    at Rn.handleRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:7325)
-    at Rn.handleAndLogRequestError (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6754)
-    at Rn.request (C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\node_modules\@prisma\client\runtime\library.js:174:6344)
-    at async C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:176:21
-[2025-06-29T00:16:59.247Z] ! Local API running on http://localhost:3000
-[2025-06-29T00:17:03.754Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavid-feldman-6180906%2F
-[2025-06-29T00:17:05.449Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavid-feldman-6180906%2F
-[2025-06-29T00:17:05.454Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdavid-feldman-6180906%2F
-[2025-06-29T00:17:15.896Z] POST /marks
-[2025-06-29T00:17:15.911Z] Created new record with ID: davidf#77648889
-[2025-06-29T00:17:43.389Z] POST /marks
-[2025-06-29T00:17:43.409Z] Updated record with ID: davidf#77648889
-[2025-06-29T00:21:10.507Z] GET /marks?linkedin=linkedin.com%2Fin%2Fboris-vaisband-26b9463%2F
-[2025-06-29T00:21:10.514Z] GET /marks?linkedin=linkedin.com%2Fin%2Fboris-vaisband-26b9463%2F
-[2025-06-29T00:21:10.528Z] GET /marks?linkedin=linkedin.com%2Fin%2Fboris-vaisband-26b9463%2F
-[2025-06-29T00:21:10.532Z] GET /marks?linkedin=linkedin.com%2Fin%2Fboris-vaisband-26b9463%2F
-[2025-06-29T00:21:10.535Z] GET /marks?linkedin=linkedin.com%2Fin%2Fboris-vaisband-26b9463%2F
-[2025-06-29T00:21:10.539Z] GET /marks?linkedin=linkedin.com%2Fin%2Fboris-vaisband-26b9463%2F
-[2025-06-29T00:21:10.542Z] GET /marks?linkedin=linkedin.com%2Fin%2Fboris-vaisband-26b9463%2F
-[2025-06-29T00:21:10.546Z] GET /marks?linkedin=linkedin.com%2Fin%2Fboris-vaisband-26b9463%2F
-[2025-06-29T00:23:52.481Z] POST /marks
-[2025-06-29T00:23:52.497Z] Created new record with ID: borisv#94729528
-[2025-06-29T00:23:53.912Z] POST /marks
-[2025-06-29T00:23:53.929Z] Updated record with ID: borisv#94729528
-[2025-06-29T00:25:57.240Z] GET /marks?linkedin=linkedin.com%2Fin%2Fboris-vaisband-26b9463%2F
-[2025-06-29T00:27:50.371Z] GET /marks?linkedin=linkedin.com%2Fin%2Flee-orh%2F
-[2025-06-29T00:27:50.376Z] GET /marks?linkedin=linkedin.com%2Fin%2Flee-orh%2F
-[2025-06-29T00:27:50.390Z] GET /marks?linkedin=linkedin.com%2Fin%2Flee-orh%2F
-[2025-06-29T00:27:50.395Z] GET /marks?linkedin=linkedin.com%2Fin%2Flee-orh%2F
-[2025-06-29T00:27:50.398Z] GET /marks?linkedin=linkedin.com%2Fin%2Flee-orh%2F
-[2025-06-29T00:27:50.402Z] GET /marks?linkedin=linkedin.com%2Fin%2Flee-orh%2F
-[2025-06-29T00:27:50.405Z] GET /marks?linkedin=linkedin.com%2Fin%2Flee-orh%2F
-[2025-06-29T00:27:50.409Z] GET /marks?linkedin=linkedin.com%2Fin%2Flee-orh%2F
-[2025-06-29T00:28:34.541Z] POST /marks
-[2025-06-29T00:28:34.555Z] Created new record with ID: leeorh#88116150
-[2025-06-29T00:28:39.702Z] POST /marks
-[2025-06-29T00:28:39.716Z] Updated record with ID: leeorh#88116150
-[2025-06-29T00:29:58.409Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:29:58.412Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:29:58.427Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:29:58.430Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:29:58.434Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:29:58.436Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:29:58.439Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:29:58.442Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:31:35.189Z] POST /marks
-[2025-06-29T00:31:35.201Z] Created new record with ID: vadime#68959487
-[2025-06-29T00:31:55.977Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:31:55.991Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:31:55.995Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:31:55.999Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:31:56.001Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:31:56.008Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:31:56.029Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:31:56.033Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:31:56.037Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:31:56.040Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:31:56.042Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:31:56.045Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:31:56.049Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:32:01.607Z] GET /marks?linkedin=linkedin.com%2Fin%2Fvadim-eretsky%2F
-[2025-06-29T00:33:57.798Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdarenlauda%2F
-[2025-06-29T00:33:57.818Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdarenlauda%2F
-[2025-06-29T00:33:57.822Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdarenlauda%2F
-[2025-06-29T00:33:57.825Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdarenlauda%2F
-[2025-06-29T00:33:57.827Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdarenlauda%2F
-[2025-06-29T00:33:57.831Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdarenlauda%2F
-[2025-06-29T00:33:57.835Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdarenlauda%2F
-[2025-06-29T00:33:57.838Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdarenlauda%2F
-[2025-06-29T00:35:11.254Z] POST /marks
-[2025-06-29T00:35:11.271Z] Created new record with ID: darenl#52864178
-[2025-06-29T00:36:09.128Z] POST /marks
-[2025-06-29T00:36:09.143Z] Updated record with ID: darenl#52864178
-[2025-06-29T00:36:48.908Z] GET /marks?linkedin=linkedin.com%2Fin%2Forna-hanlon-1b07612%2F
-[2025-06-29T00:36:48.918Z] GET /marks?linkedin=linkedin.com%2Fin%2Forna-hanlon-1b07612%2F
-[2025-06-29T00:36:48.935Z] GET /marks?linkedin=linkedin.com%2Fin%2Forna-hanlon-1b07612%2F
-[2025-06-29T00:36:48.942Z] GET /marks?linkedin=linkedin.com%2Fin%2Forna-hanlon-1b07612%2F
-[2025-06-29T00:36:48.946Z] GET /marks?linkedin=linkedin.com%2Fin%2Forna-hanlon-1b07612%2F
-[2025-06-29T00:36:48.949Z] GET /marks?linkedin=linkedin.com%2Fin%2Forna-hanlon-1b07612%2F
-[2025-06-29T00:36:48.953Z] GET /marks?linkedin=linkedin.com%2Fin%2Forna-hanlon-1b07612%2F
-[2025-06-29T00:36:48.956Z] GET /marks?linkedin=linkedin.com%2Fin%2Forna-hanlon-1b07612%2F
-[2025-06-29T00:37:59.026Z] POST /marks
-[2025-06-29T00:37:59.040Z] Created new record with ID: ornaha#62194749
-[2025-06-29T00:38:30.357Z] GET /marks?linkedin=linkedin.com%2Fin%2Fromanplut%2F
-[2025-06-29T00:38:30.361Z] GET /marks?linkedin=linkedin.com%2Fin%2Fromanplut%2F
-[2025-06-29T00:38:30.368Z] GET /marks?linkedin=linkedin.com%2Fin%2Fromanplut%2F
-[2025-06-29T00:38:30.383Z] GET /marks?linkedin=linkedin.com%2Fin%2Fromanplut%2F
-[2025-06-29T00:38:30.388Z] GET /marks?linkedin=linkedin.com%2Fin%2Fromanplut%2F
-[2025-06-29T00:38:30.391Z] GET /marks?linkedin=linkedin.com%2Fin%2Fromanplut%2F
-[2025-06-29T00:38:30.393Z] GET /marks?linkedin=linkedin.com%2Fin%2Fromanplut%2F
-[2025-06-29T00:38:30.396Z] GET /marks?linkedin=linkedin.com%2Fin%2Fromanplut%2F
-[2025-06-29T00:39:46.960Z] POST /marks
-[2025-06-29T00:39:46.976Z] Created new record with ID: romanp#99098885
-[2025-06-29T00:40:16.934Z] GET /marks?linkedin=linkedin.com%2Fin%2Fguy-livne%2F
-[2025-06-29T00:40:16.938Z] GET /marks?linkedin=linkedin.com%2Fin%2Fguy-livne%2F
-[2025-06-29T00:40:16.957Z] GET /marks?linkedin=linkedin.com%2Fin%2Fguy-livne%2F
-[2025-06-29T00:40:16.960Z] GET /marks?linkedin=linkedin.com%2Fin%2Fguy-livne%2F
-[2025-06-29T00:40:16.963Z] GET /marks?linkedin=linkedin.com%2Fin%2Fguy-livne%2F
-[2025-06-29T00:40:16.966Z] GET /marks?linkedin=linkedin.com%2Fin%2Fguy-livne%2F
-[2025-06-29T00:40:16.969Z] GET /marks?linkedin=linkedin.com%2Fin%2Fguy-livne%2F
-[2025-06-29T00:40:16.971Z] GET /marks?linkedin=linkedin.com%2Fin%2Fguy-livne%2F
-[2025-06-29T00:41:47.805Z] POST /marks
-[2025-06-29T00:41:47.819Z] Created new record with ID: guyliv#59966709
-[2025-06-29T00:45:31.798Z] GET /marks?linkedin=linkedin.com%2Fin%2Fgenapanich%2F
-[2025-06-29T00:45:31.802Z] GET /marks?linkedin=linkedin.com%2Fin%2Fgenapanich%2F
-[2025-06-29T00:45:31.819Z] GET /marks?linkedin=linkedin.com%2Fin%2Fgenapanich%2F
-[2025-06-29T00:45:31.823Z] GET /marks?linkedin=linkedin.com%2Fin%2Fgenapanich%2F
-[2025-06-29T00:45:31.827Z] GET /marks?linkedin=linkedin.com%2Fin%2Fgenapanich%2F
-[2025-06-29T00:45:31.829Z] GET /marks?linkedin=linkedin.com%2Fin%2Fgenapanich%2F
-[2025-06-29T00:45:31.833Z] GET /marks?linkedin=linkedin.com%2Fin%2Fgenapanich%2F
-[2025-06-29T00:45:31.835Z] GET /marks?linkedin=linkedin.com%2Fin%2Fgenapanich%2F
-[2025-06-29T00:46:07.128Z] POST /marks
-[2025-06-29T00:46:07.141Z] Created new record with ID: genapa#68486574
-[2025-06-29T00:47:01.915Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdrnachumpanich%2F
-[2025-06-29T00:47:01.925Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdrnachumpanich%2F
-[2025-06-29T00:47:01.936Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdrnachumpanich%2F
-[2025-06-29T00:47:01.939Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdrnachumpanich%2F
-[2025-06-29T00:47:01.943Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdrnachumpanich%2F
-[2025-06-29T00:47:01.947Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdrnachumpanich%2F
-[2025-06-29T00:47:01.951Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdrnachumpanich%2F
-[2025-06-29T00:47:01.960Z] GET /marks?linkedin=linkedin.com%2Fin%2Fdrnachumpanich%2F
-[2025-06-29T00:47:07.947Z] POST /marks
-[2025-06-29T00:47:07.959Z] Created new record with ID: drnach#62533517
-[2025-06-29T00:47:49.234Z] POST /marks
-[2025-06-29T00:47:49.247Z] Updated record with ID: drnach#62533517
-[2025-06-29T00:48:44.910Z] GET /marks?linkedin=linkedin.com%2Fin%2Fshimmy-ruben%2F
-[2025-06-29T00:48:44.915Z] GET /marks?linkedin=linkedin.com%2Fin%2Fshimmy-ruben%2F
-[2025-06-29T00:48:44.942Z] GET /marks?linkedin=linkedin.com%2Fin%2Fshimmy-ruben%2F
-[2025-06-29T00:48:44.945Z] GET /marks?linkedin=linkedin.com%2Fin%2Fshimmy-ruben%2F
-[2025-06-29T00:48:44.948Z] GET /marks?linkedin=linkedin.com%2Fin%2Fshimmy-ruben%2F
-[2025-06-29T00:48:44.951Z] GET /marks?linkedin=linkedin.com%2Fin%2Fshimmy-ruben%2F
-[2025-06-29T00:48:44.955Z] GET /marks?linkedin=linkedin.com%2Fin%2Fshimmy-ruben%2F
-[2025-06-29T00:48:44.958Z] GET /marks?linkedin=linkedin.com%2Fin%2Fshimmy-ruben%2F
-[2025-06-29T00:49:06.595Z] POST /marks
-[2025-06-29T00:49:06.606Z] Created new record with ID: shimmy#59937772
-[2025-06-29T00:49:25.073Z] POST /marks
-[2025-06-29T00:49:25.087Z] Updated record with ID: shimmy#59937772
-[2025-06-29T00:50:10.085Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmalkasesegev%2F
-[2025-06-29T00:50:10.089Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmalkasesegev%2F
-[2025-06-29T00:50:10.092Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmalkasesegev%2F
-[2025-06-29T00:50:10.095Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmalkasesegev%2F
-[2025-06-29T00:50:10.098Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmalkasesegev%2F
-[2025-06-29T00:50:10.100Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmalkasesegev%2F
-[2025-06-29T00:50:10.102Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmalkasesegev%2F
-[2025-06-29T00:50:10.106Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmalkasesegev%2F
-[2025-06-29T00:50:55.502Z] POST /marks
-[2025-06-29T00:50:55.517Z] Created new record with ID: malkas#50486071
-[2025-06-29T00:51:15.205Z] GET /marks?linkedin=linkedin.com%2Fin%2Fnissimyvesohayon%2F
-[2025-06-29T00:51:15.208Z] GET /marks?linkedin=linkedin.com%2Fin%2Fnissimyvesohayon%2F
-[2025-06-29T00:51:15.238Z] GET /marks?linkedin=linkedin.com%2Fin%2Fnissimyvesohayon%2F
-[2025-06-29T00:51:15.242Z] GET /marks?linkedin=linkedin.com%2Fin%2Fnissimyvesohayon%2F
-[2025-06-29T00:51:15.245Z] GET /marks?linkedin=linkedin.com%2Fin%2Fnissimyvesohayon%2F
-[2025-06-29T00:51:15.251Z] GET /marks?linkedin=linkedin.com%2Fin%2Fnissimyvesohayon%2F
-[2025-06-29T00:51:15.255Z] GET /marks?linkedin=linkedin.com%2Fin%2Fnissimyvesohayon%2F
-[2025-06-29T00:51:15.257Z] GET /marks?linkedin=linkedin.com%2Fin%2Fnissimyvesohayon%2F
-[2025-06-29T00:51:15.260Z] GET /marks?linkedin=linkedin.com%2Fin%2Fnissimyvesohayon%2F
-[2025-06-29T00:51:15.267Z] GET /marks?linkedin=linkedin.com%2Fin%2Fnissimyvesohayon%2F
-[2025-06-29T00:51:15.270Z] GET /marks?linkedin=linkedin.com%2Fin%2Fnissimyvesohayon%2F
-[2025-06-29T00:51:15.273Z] GET /marks?linkedin=linkedin.com%2Fin%2Fnissimyvesohayon%2F
-[2025-06-29T00:51:15.276Z] GET /marks?linkedin=linkedin.com%2Fin%2Fnissimyvesohayon%2F
-[2025-06-29T00:52:25.600Z] POST /marks
-[2025-06-29T00:52:25.609Z] Created new record with ID: nissim#78354264
-[2025-06-29T00:53:12.155Z] GET /marks?linkedin=linkedin.com%2Fin%2Falexrakovshchik%2F
-[2025-06-29T00:53:12.160Z] GET /marks?linkedin=linkedin.com%2Fin%2Falexrakovshchik%2F
-[2025-06-29T00:53:12.180Z] GET /marks?linkedin=linkedin.com%2Fin%2Falexrakovshchik%2F
-[2025-06-29T00:53:12.183Z] GET /marks?linkedin=linkedin.com%2Fin%2Falexrakovshchik%2F
-[2025-06-29T00:53:12.186Z] GET /marks?linkedin=linkedin.com%2Fin%2Falexrakovshchik%2F
-[2025-06-29T00:53:12.190Z] GET /marks?linkedin=linkedin.com%2Fin%2Falexrakovshchik%2F
-[2025-06-29T00:53:12.193Z] GET /marks?linkedin=linkedin.com%2Fin%2Falexrakovshchik%2F
-[2025-06-29T00:53:12.197Z] GET /marks?linkedin=linkedin.com%2Fin%2Falexrakovshchik%2F
-[2025-06-29T00:53:45.094Z] POST /marks
-[2025-06-29T00:53:45.109Z] Created new record with ID: alexra#89799659
-[2025-06-29T00:54:25.705Z] GET /marks?linkedin=linkedin.com%2Fin%2Feyalmarmar%2F
-[2025-06-29T00:54:25.714Z] GET /marks?linkedin=linkedin.com%2Fin%2Feyalmarmar%2F
-[2025-06-29T00:54:25.717Z] GET /marks?linkedin=linkedin.com%2Fin%2Feyalmarmar%2F
-[2025-06-29T00:54:25.723Z] GET /marks?linkedin=linkedin.com%2Fin%2Feyalmarmar%2F
-[2025-06-29T00:54:25.726Z] GET /marks?linkedin=linkedin.com%2Fin%2Feyalmarmar%2F
-[2025-06-29T00:54:25.730Z] GET /marks?linkedin=linkedin.com%2Fin%2Feyalmarmar%2F
-[2025-06-29T00:54:25.734Z] GET /marks?linkedin=linkedin.com%2Fin%2Feyalmarmar%2F
-[2025-06-29T00:54:25.737Z] GET /marks?linkedin=linkedin.com%2Fin%2Feyalmarmar%2F
-[2025-06-29T00:54:25.746Z] GET /marks?linkedin=linkedin.com%2Fin%2Feyalmarmar%2F
-[2025-06-29T00:54:25.750Z] GET /marks?linkedin=linkedin.com%2Fin%2Feyalmarmar%2F
-[2025-06-29T00:54:25.753Z] GET /marks?linkedin=linkedin.com%2Fin%2Feyalmarmar%2F
-[2025-06-29T00:54:25.757Z] GET /marks?linkedin=linkedin.com%2Fin%2Feyalmarmar%2F
-[2025-06-29T00:55:12.066Z] POST /marks
-[2025-06-29T00:55:12.079Z] Created new record with ID: eyalma#94913392
-[2025-06-29T00:55:42.601Z] GET /marks?linkedin=linkedin.com%2Fin%2Fitaysharfi%2F
-[2025-06-29T00:55:42.612Z] GET /marks?linkedin=linkedin.com%2Fin%2Fitaysharfi%2F
-[2025-06-29T00:55:42.622Z] GET /marks?linkedin=linkedin.com%2Fin%2Fitaysharfi%2F
-[2025-06-29T00:55:42.626Z] GET /marks?linkedin=linkedin.com%2Fin%2Fitaysharfi%2F
-[2025-06-29T00:55:42.631Z] GET /marks?linkedin=linkedin.com%2Fin%2Fitaysharfi%2F
-[2025-06-29T00:55:42.640Z] GET /marks?linkedin=linkedin.com%2Fin%2Fitaysharfi%2F
-[2025-06-29T00:55:42.643Z] GET /marks?linkedin=linkedin.com%2Fin%2Fitaysharfi%2F
-[2025-06-29T00:55:42.646Z] GET /marks?linkedin=linkedin.com%2Fin%2Fitaysharfi%2F
-[2025-06-29T00:56:49.876Z] POST /marks
-[2025-06-29T00:56:49.895Z] Created new record with ID: itaysh#33041723
-[2025-06-29T01:00:58.037Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaor-shlomo-1088b4144%2F
-[2025-06-29T01:00:58.042Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaor-shlomo-1088b4144%2F
-[2025-06-29T01:00:58.061Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaor-shlomo-1088b4144%2F
-[2025-06-29T01:00:58.064Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaor-shlomo-1088b4144%2F
-[2025-06-29T01:00:58.070Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaor-shlomo-1088b4144%2F
-[2025-06-29T01:00:58.073Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaor-shlomo-1088b4144%2F
-[2025-06-29T01:00:58.075Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaor-shlomo-1088b4144%2F
-[2025-06-29T01:00:58.077Z] GET /marks?linkedin=linkedin.com%2Fin%2Fmaor-shlomo-1088b4144%2F
-[2025-06-29T01:01:40.585Z] POST /marks
-[2025-06-29T01:01:40.605Z] Created new record with ID: maorsh#94594804
-[2025-06-29T01:02:01.449Z] POST /marks
-[2025-06-29T01:02:01.468Z] Updated record with ID: maorsh#94594804
-[2025-06-29T01:02:59.006Z] POST /marks
-[2025-06-29T01:02:59.023Z] Updated record with ID: itaysh#33041723
-[2025-06-29T01:03:48.190Z] GET /marks?linkedin=linkedin.com%2Fin%2Fsachinlodhi%2F
-[2025-06-29T01:03:48.195Z] GET /marks?linkedin=linkedin.com%2Fin%2Fsachinlodhi%2F
-[2025-06-29T01:03:48.198Z] GET /marks?linkedin=linkedin.com%2Fin%2Fsachinlodhi%2F
-[2025-06-29T01:03:48.200Z] GET /marks?linkedin=linkedin.com%2Fin%2Fsachinlodhi%2F
-[2025-06-29T01:03:48.203Z] GET /marks?linkedin=linkedin.com%2Fin%2Fsachinlodhi%2F
-[2025-06-29T01:03:48.207Z] GET /marks?linkedin=linkedin.com%2Fin%2Fsachinlodhi%2F
-[2025-06-29T01:03:48.210Z] GET /marks?linkedin=linkedin.com%2Fin%2Fsachinlodhi%2F
-[2025-06-29T01:03:48.212Z] GET /marks?linkedin=linkedin.com%2Fin%2Fsachinlodhi%2F
-[2025-06-29T01:04:40.159Z] POST /marks
-[2025-06-29T01:04:40.173Z] Created new record with ID: sachin#52035781
-[2025-06-29T01:07:15.512Z] GET /marks?linkedin=linkedin.com%2Fin%2Fchandra-shekar-6601b1219%2F
-[2025-06-29T01:07:15.519Z] GET /marks?linkedin=linkedin.com%2Fin%2Fchandra-shekar-6601b1219%2F
-[2025-06-29T01:07:15.532Z] GET /marks?linkedin=linkedin.com%2Fin%2Fchandra-shekar-6601b1219%2F
-[2025-06-29T01:07:15.538Z] GET /marks?linkedin=linkedin.com%2Fin%2Fchandra-shekar-6601b1219%2F
-[2025-06-29T01:07:15.540Z] GET /marks?linkedin=linkedin.com%2Fin%2Fchandra-shekar-6601b1219%2F
-[2025-06-29T01:07:15.544Z] GET /marks?linkedin=linkedin.com%2Fin%2Fchandra-shekar-6601b1219%2F
-[2025-06-29T01:07:15.547Z] GET /marks?linkedin=linkedin.com%2Fin%2Fchandra-shekar-6601b1219%2F
-[2025-06-29T01:07:15.550Z] GET /marks?linkedin=linkedin.com%2Fin%2Fchandra-shekar-6601b1219%2F
-[2025-06-29T01:08:04.054Z] POST /marks
-[2025-06-29T01:08:04.070Z] Created new record with ID: chandr#96701123
-[2025-06-29T01:08:59.376Z] GET /marks?linkedin=linkedin.com%2Fin%2Farieshen%2F
-[2025-06-29T01:08:59.379Z] GET /marks?linkedin=linkedin.com%2Fin%2Farieshen%2F
-[2025-06-29T01:08:59.388Z] GET /marks?linkedin=linkedin.com%2Fin%2Farieshen%2F
-[2025-06-29T01:09:56.920Z] POST /marks
-[2025-06-29T01:09:56.935Z] Created new record with ID: ariesh#21484024
-[2025-06-29T01:11:33.895Z] POST /marks
-[2025-06-29T01:11:33.914Z] Updated record with ID: ariesh#21484024
-[2025-06-29T01:12:45.984Z] POST /marks
-[2025-06-29T01:12:46.002Z] Updated record with ID: itaysh#33041723
-[2025-06-29T01:16:08.051Z] GET /marks?linkedin=linkedin.com%2Fin%2Fhanan-neriya%2F
-[2025-06-29T01:16:08.054Z] GET /marks?linkedin=linkedin.com%2Fin%2Fhanan-neriya%2F
-[2025-06-29T01:16:08.058Z] GET /marks?linkedin=linkedin.com%2Fin%2Fhanan-neriya%2F
-[2025-06-29T01:16:08.063Z] GET /marks?linkedin=linkedin.com%2Fin%2Fhanan-neriya%2F
-[2025-06-29T01:16:08.065Z] GET /marks?linkedin=linkedin.com%2Fin%2Fhanan-neriya%2F
-[2025-06-29T01:16:08.068Z] GET /marks?linkedin=linkedin.com%2Fin%2Fhanan-neriya%2F
-[2025-06-29T01:16:08.071Z] GET /marks?linkedin=linkedin.com%2Fin%2Fhanan-neriya%2F
-[2025-06-29T01:16:08.075Z] GET /marks?linkedin=linkedin.com%2Fin%2Fhanan-neriya%2F
-[2025-06-29T01:19:31.834Z] POST /marks
-[2025-06-29T01:19:31.849Z] Created new record with ID: hanann#20935964
-[2025-06-29T01:19:40.837Z] POST /marks
-[2025-06-29T01:19:40.854Z] Updated record with ID: hanann#20935964
-[2025-06-29T01:19:41.896Z] POST /marks
-[2025-06-29T01:19:41.909Z] Updated record with ID: hanann#20935964
-[2025-06-29T01:21:34.177Z] GET /marks?linkedin=linkedin.com%2Fin%2Fyahavromano%2F
-[2025-06-29T01:21:37.694Z] POST /marks
-[2025-06-29T01:21:37.712Z] Created new record with ID: yahavr#61374051
-[2025-06-29T01:22:16.428Z] POST /marks
-[2025-06-29T01:22:16.446Z] Updated record with ID: yahavr#61374051
+    at async C:\Users\Scott\Desktop\WKG\PRECRIME\LOCAL\scripts\server.js:170:16
+[2025-08-16T05:15:01.646Z] Updated record with ID: patric#86088101
+[2025-08-16T05:34:17.592Z] Database connected successfully
+[2025-08-16T05:34:17.596Z] ! Local API running on http://localhost:3000
+[2025-08-16T05:39:00.674Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-16T05:39:13.654Z] POST /marks
+[2025-08-16T05:39:13.656Z] POST /marks received data: {
+  "id": "patric#86088101",
+  "name": "Patrick Hong",
+  "title": null,
+  "org": null,
+  "www": null,
+  "email": "patrick@prenostik.com",
+  "phone": null,
+  "location": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/\nnotes",
+  "on_x": null,
+  "outreachCount": 0,
+  "createdAt": "2025-08-16T05:39:13.619Z",
+  "lastContact": null,
+  "notes": "linkedin=linkedin.com/in/patrickpjhong/\nnotes=AI EdTech Entrepreneur - Building Tools to Help Students Learn How To Learn | University Professor | AI in Education Speaker | Journalist | Advisor | Car Enthusiast",
+  "hasReplied": false
+}
+[2025-08-16T05:39:13.657Z] Filtered data for Prisma: {
+  "id": "patric#86088101",
+  "name": "patrick#hong",
+  "phone": null,
+  "email": "patrick@prenostik.com",
+  "linkedin": "linkedin.com/in/patrickpjhong/\nnotes",
+  "on_x": null,
+  "title": null,
+  "org": null,
+  "location": null,
+  "www": null,
+  "createdAt": "2025-08-16T05:39:13.619Z",
+  "outreachCount": 0,
+  "lastContact": null,
+  "hasReplied": false,
+  "notes": "linkedin=linkedin.com/in/patrickpjhong/\nnotes=AI EdTech Entrepreneur - Building Tools to Help Students Learn How To Learn | University Professor | AI in Education Speaker | Journalist | Advisor | Car Enthusiast"
+}
+[2025-08-16T05:39:13.661Z] POST /marks
+[2025-08-16T05:39:13.663Z] POST /marks received data: {
+  "id": "patric#86088101",
+  "name": "Patrick Hong",
+  "title": null,
+  "org": null,
+  "www": null,
+  "email": "patrick@prenostik.com",
+  "phone": null,
+  "location": null,
+  "linkedin": "linkedin.com/in/patrickpjhong/\nnotes",
+  "on_x": null,
+  "outreachCount": 0,
+  "createdAt": "2025-08-16T05:39:13.619Z",
+  "lastContact": null,
+  "notes": "linkedin=linkedin.com/in/patrickpjhong/\nnotes=AI EdTech Entrepreneur - Building Tools to Help Students Learn How To Learn | University Professor | AI in Education Speaker | Journalist | Advisor | Car Enthusiast",
+  "hasReplied": false
+}
+[2025-08-16T05:39:13.665Z] Filtered data for Prisma: {
+  "id": "patric#86088101",
+  "name": "patrick#hong",
+  "phone": null,
+  "email": "patrick@prenostik.com",
+  "linkedin": "linkedin.com/in/patrickpjhong/\nnotes",
+  "on_x": null,
+  "title": null,
+  "org": null,
+  "location": null,
+  "www": null,
+  "createdAt": "2025-08-16T05:39:13.619Z",
+  "outreachCount": 0,
+  "lastContact": null,
+  "hasReplied": false,
+  "notes": "linkedin=linkedin.com/in/patrickpjhong/\nnotes=AI EdTech Entrepreneur - Building Tools to Help Students Learn How To Learn | University Professor | AI in Education Speaker | Journalist | Advisor | Car Enthusiast"
+}
+[2025-08-16T05:45:11.261Z] Received SIGINT, shutting down gracefully...
+[2025-08-16T05:49:07.613Z] Database connected successfully
+[2025-08-16T05:49:07.617Z] ! Local API running on http://localhost:3000
+[2025-08-16T05:49:18.176Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-16T06:03:42.182Z] GET /marks?linkedin=linkedin.com%2Fin%2Fpatrickpjhong%2F
+[2025-08-16T06:03:52.550Z] POST /marks
+[2025-08-16T06:03:52.551Z] POST /marks received data: {
+  "id": "patric#86088101",
+  "name": "Patrick Hong",
+  "title": null,
+  "org": null,
+  "www": null,
+  "email": "patrick@prenostik.com",
+  "phone": null,
+  "location": null,
+  "linkedin": "linkedin.com/in/patrickpjhong",
+  "on_x": null,
+  "outreachCount": 0,
+  "createdAt": "2025-08-16T06:03:52.520Z",
+  "lastContact": null,
+  "notes": "AI EdTech Entrepreneur - Building Tools to Help Students Learn How To Learn | University Professor | AI in Education Speaker | Journalist | Advisor | Car Enthusiast",
+  "hasReplied": false
+}
+[2025-08-16T06:03:52.553Z] Filtered data for Prisma: {
+  "id": "patric#86088101",
+  "name": "patrick#hong",
+  "phone": null,
+  "email": "patrick@prenostik.com",
+  "linkedin": "linkedin.com/in/patrickpjhong",
+  "on_x": null,
+  "title": null,
+  "org": null,
+  "location": null,
+  "www": null,
+  "createdAt": "2025-08-16T06:03:52.520Z",
+  "outreachCount": 0,
+  "lastContact": null,
+  "hasReplied": false,
+  "notes": "AI EdTech Entrepreneur - Building Tools to Help Students Learn How To Learn | University Professor | AI in Education Speaker | Journalist | Advisor | Car Enthusiast"
+}
+[2025-08-16T06:03:52.555Z] POST /marks
+[2025-08-16T06:03:52.556Z] POST /marks received data: {
+  "id": "patric#86088101",
+  "name": "Patrick Hong",
+  "title": null,
+  "org": null,
+  "www": null,
+  "email": "patrick@prenostik.com",
+  "phone": null,
+  "location": null,
+  "linkedin": "linkedin.com/in/patrickpjhong",
+  "on_x": null,
+  "outreachCount": 0,
+  "createdAt": "2025-08-16T06:03:52.520Z",
+  "lastContact": null,
+  "notes": "AI EdTech Entrepreneur - Building Tools to Help Students Learn How To Learn | University Professor | AI in Education Speaker | Journalist | Advisor | Car Enthusiast",
+  "hasReplied": false
+}
+[2025-08-16T06:03:52.558Z] Filtered data for Prisma: {
+  "id": "patric#86088101",
+  "name": "patrick#hong",
+  "phone": null,
+  "email": "patrick@prenostik.com",
+  "linkedin": "linkedin.com/in/patrickpjhong",
+  "on_x": null,
+  "title": null,
+  "org": null,
+  "location": null,
+  "www": null,
+  "createdAt": "2025-08-16T06:03:52.520Z",
+  "outreachCount": 0,
+  "lastContact": null,
+  "hasReplied": false,
+  "notes": "AI EdTech Entrepreneur - Building Tools to Help Students Learn How To Learn | University Professor | AI in Education Speaker | Journalist | Advisor | Car Enthusiast"
+}
+[2025-08-16T06:04:44.717Z] Received SIGINT, shutting down gracefully...
